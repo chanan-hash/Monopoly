@@ -70,3 +70,25 @@ void Streets::addHouse()
     houses++;
 }
 
+void Streets:: addHotel()
+{
+    if(hotel)
+    {
+        cout << "This street already has a hotel" << endl;
+        return;
+    }
+    hotel = true;
+}
+
+void Streets::printSlot() const
+{
+    cout << "Street name: " << getName() << endl;
+    cout << "Street color: " << color << endl;
+    cout << "Street price: " << price << endl;
+    cout << "Street rent: " << rent << endl;
+    cout << "Street house price: " << housePrice << endl;
+    cout << "Street hotel price: " << hotelPrice << endl;
+    cout << "Street owner: " << owner->getName() << endl;
+    cout << "Street houses: " << houses << endl;
+    cout << "Street hotel: " << hotel << endl;
+}
