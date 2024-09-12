@@ -2,7 +2,7 @@
  * This class represnts a simple player in the game
  * Each player has a name, money, card, and assets (streets, train stations, and utilities)
  */ 
-
+#pragma once
 #include<iostream>
 #include<string>
 #include<vector>
@@ -33,8 +33,5 @@ class Player
         vector<assets> getAssets(); // need to be implemented
         void printPlayer();
         friend ostream& operator<<(ostream& os, const Player& player);
-
-        
-
 };
 
