@@ -6,6 +6,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include "supriseCard.hpp"
 
 using namespace std;
 
@@ -27,8 +28,8 @@ class Player
         void removeAsset(assets asset); // need to be implemented
 
         // getters
-        string getName();
-        int getMoney();
+        string& getName() const;
+        int& getMoney() const;
         vector<supriseCard> getCard(); // need to be implemented
         vector<assets> getAssets(); // need to be implemented
         void printPlayer();

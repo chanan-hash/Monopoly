@@ -14,9 +14,11 @@
 
 #ifndef SLOT_HPP
 #define SLOT_HPP
+
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory> // for shared_ptr may be used in the future
 #include "../Player.hpp"
 
 using namespace std;
@@ -28,20 +30,25 @@ private:
     string type; // type of the slot as mentioned above
     // int position;
     vector<Player> players; // who are the players on this slot, will help to move the player to the next slot
+    // vector<std::shared_ptr<Player>> players; // who are the players on this slot, will help to move the player to the next slot
 
 public:
     Slot(string name, string type);
     virtual ~Slot() = default;
 
     // For movment of the player
-    void addPlayer(Player player);
-    void removePlayer(Player player);
+    void addPlayer(Player &player);
+    void removePlayer(Player &player);
+
+    // using shared_ptr instead of reference to avoid memory leak
+    // void addPlayer(shared_ptr<Player> player);
+    // void removePlayer(shared_ptr<Player> player);
 
     // Getters
-    string getName() const;
-    string getType() const;
-    vector<Player> getPlayers() const;
-    void printSlot() const; // To know the details of the slot
+    const string &getName() const;
+    const string &getType() const;
+    const vector<Player> &getPlayers() const;
+    virtual void printSlot() const; // To know the details of the slot, each slot will have different details
     friend ostream &operator<<(ostream &os, const Slot &slot);
 
     // Pure virtual function
