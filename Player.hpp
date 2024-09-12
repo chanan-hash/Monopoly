@@ -17,7 +17,8 @@ private:
     int money;
     vector<supriseCard> card; // need to be implemented
     vector<assets> assets;    // need to be implemented
-
+    int trains; // more convenient to calculate the rent if needed
+    int utilities; // more convenient to calculate the rent if needed
 public:
     Player(string name);
     void addMoney(int amount); // we can add a negative amount to remove money
