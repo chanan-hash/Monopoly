@@ -17,6 +17,12 @@ class Station : public Slot
 
     public:
         Station(string &name, string &type, int price, int rent);
+        // Getters
+        int getPrice() const;
+        int getRent() const;
+        const Player getOwner() const;
+
+        // Setters
         void setOwner(Player &player); // set the owner of the station
         void payRent(Player &player); // pay the rent to the owner of the station
         virtual void printSlot() const override;

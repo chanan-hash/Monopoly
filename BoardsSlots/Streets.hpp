@@ -48,7 +48,7 @@ private:
 
 public:
     Streets(string &name, string &type ,string &color, int price, int rent, int housePrice, int hotelPrice);
-
+    
     // Getters
     const string &getColor() const;
     int getPrice() const;
