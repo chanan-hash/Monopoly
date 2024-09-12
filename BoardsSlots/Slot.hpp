@@ -33,7 +33,7 @@ private:
     // vector<std::shared_ptr<Player>> players; // who are the players on this slot, will help to move the player to the next slot
 
 public:
-    Slot(string name, string type);
+    Slot(string &name, string &type);
     virtual ~Slot() = default;
 
     // For movment of the player

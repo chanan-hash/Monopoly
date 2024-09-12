@@ -1,7 +1,7 @@
 #include "Slot.hpp"
 using namespace std;
 
-Slot::Slot(string name, string type) : name(name), type(type) {} // initialize the name and type of the slot
+Slot::Slot(string &name, string &type) : name(name), type(type) {} // initialize the name and type of the slot
 
 void Slot::addPlayer(Player &player) // add the player to the slot
 {
