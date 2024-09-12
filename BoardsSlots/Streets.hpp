@@ -42,7 +42,7 @@ private:
     int rent;
     int housePrice;
     int hotelPrice;
-    Player owner;
+    Player *owner = nullptr;
     int houses;
     bool hotel;
 
@@ -55,12 +55,12 @@ public:
     int getRent() const;
     int getHousePrice() const;
     int getHotelPrice() const;
-    const Player &getOwner() const;
+    const Player getOwner() const;
     int getHouses() const;
     bool getHotel() const;
 
     // Setters
-    void setOwner(Player &owner);
+    void setOwner(Player owner);
     void addHouse();
     void removeHouse();
     void addHotel();
