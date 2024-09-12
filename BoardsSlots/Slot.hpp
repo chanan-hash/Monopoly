@@ -52,7 +52,7 @@ public:
     friend ostream &operator<<(ostream &os, const Slot &slot);
 
     // Pure virtual function
-    virtual void abstract() = 0; // function for virtual class
+    virtual void slotAction() = 0; // function for virtual class
 };
 
 #endif // SLOT_HPP
