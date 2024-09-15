@@ -81,6 +81,13 @@ void Streets::addHotel()
     hotel = true;
 }
 
+
+bool Streets::operator==(const Streets &other) const
+{
+    return this->getName() == other.getName();
+}
+
+
 void Streets::printSlot() const
 {
     cout << "Street name: " << getName() << endl;

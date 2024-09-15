@@ -58,6 +58,7 @@ public:
     const Player getOwner() const;
     int getHouses() const;
     bool getHotel() const;
+    bool operator==(const Streets &other) const;
 
     // Setters
     void setOwner(Player owner);

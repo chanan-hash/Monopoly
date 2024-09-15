@@ -1,63 +1,107 @@
+#include "Streets.hpp"
 #include "Player.hpp"
 using namespace std;
 
-Player::Player(string name) : name(name), money(0) {}
+// Player::Player(string name) : name(name), money(1500) {} // Default money is 1500
+Player::Player(string name) : name(name), money(1500), trains(0), utilities(0) {}
 
-// void Player::addMoney(int amount) {
-//     money += amount;
-// }
+void Player::addMoney(int amount) {
+    money += amount;
+}
 
-// void Player::removeMoney(int amount) {
-//     money -= amount;
-// }
+void Player::removeMoney(int amount) {
+    money -= amount;
+    if (money < 0) {
+        cout << "Warning: " << name << " has negative money balance!" << endl;
+    }
+}
 
+// need to handle the abstration of the card
 // void Player::addCard(supriseCard card) {
-//     // Implementation needed
+//     this->card.push_back(card);
 // }
 
 // void Player::removeCard(supriseCard card) {
-//     // Implementation needed
+//     auto it = std::find(this->card.begin(), this->card.end(), card);
+//     if (it != this->card.end()) {
+//         this->card.erase(it);
+//     }
 // }
 
-// void Player::addAsset(assets asset) {
-//     // Implementation needed
+void Player::addAsset(Streets& asset) {
+    assets.push_back(asset);
+}
+
+// void Player::removeAsset(Streets& asset) {
+//     auto it = find(assets.begin(), assets.end(), asset);
+//     if (it != assets.end()) {
+//         assets.erase(it);
+//     }
 // }
 
-// void Player::removeAsset(assets asset) {
-//     // Implementation needed
+
+void Player::addTrain(Station& train) {
+    assets.push_back(train);
+    trains++;
+}
+
+// void Player::removeTrain(Station& train) {
+//     auto it = find(assets.begin(), assets.end(), train);
+//     if (it != assets.end()) {
+//         assets.erase(it);
+//         trains--;
+//     }
 // }
 
-// const string& Player::getName() const {
-//     return name;
+void Player::addUtility(Utility& utility) {
+    assets.push_back(utility);
+    utilities++;
+}
+
+// void Player::removeUtility(Utility& utility) {
+//     auto it = std::find(assets.begin(), assets.end(), utility);
+//     if (it != assets.end()) {
+//         assets.erase(it);
+//         utilities--;
+//     }
 // }
 
-// int Player::getMoney() const {
-//     return money;
-// }
+string& Player::getName() const {
+    return const_cast<string&>(name);
+}
 
-// vector<supriseCard> Player::getCard() {
-//     // Implementation needed
-//     return card;
-// }
+int Player::getMoney() const {
+    // return const_cast<int&>(money);
+    return money;
+}
 
-// vector<assets> Player::getAssets() {
-//     // Implementation needed
-//     return assets;
-// }
+vector<supriseCard> Player::getCard() {
+    return card;
+}
 
-// void Player::printPlayer() {
-//     // Implementation needed
-// }
+vector<Slot> Player::getAssets() {
+    return assets;
+}
 
-// ostream& operator<<(ostream& os, const Player& player) {
-//     os << "Player Name: " << player.name << ", Money: " << player.money;
-//     return os;
-// }
+void Player::printPlayer() {
+    std::cout << "Player: " << name << std::endl;
+    std::cout << "Money: $" << money << std::endl;
+    std::cout << "Number of trains: " << trains << std::endl;
+    std::cout << "Number of utilities: " << utilities << std::endl;
+    std::cout << "Assets:" << std::endl;
+    for (const auto& asset : assets) {
+        std::cout << "  - " << asset.getName() << std::endl;
+    }
+    // std::cout << "Cards:" << std::endl;
+    // for (const auto& c : card) {
+    //     std::cout << "  - " << c.getDescription() << std::endl;
+    // }
+}
 
 bool Player::operator==(const Player& other) const {
     return name == other.name;
 }
 
 bool Player::operator!=(const Player& other) const {
-    return name != other.name;
+    return !(*this == other);
 }
