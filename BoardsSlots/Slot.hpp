@@ -34,6 +34,7 @@ private:
 
 public:
     Slot(string &name, string &type);
+    Slot(string& name);
     virtual ~Slot() = default;
 
     // For movment of the player
