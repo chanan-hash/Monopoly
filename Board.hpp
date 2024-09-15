@@ -29,9 +29,10 @@ private:
 public:
     Board(); // Constructor
     // Board() : slots(40) {}
-    ~Board() = default;                  // Destructor
-    vector<Slot *> getBoard(); // Method to get the Board
-    void printBoard();         // Method to print the board
+    ~Board() = default; // Destructor
+    vector<std::unique_ptr<Slot>> &getBoard();
+    const vector<std::unique_ptr<Slot>> &getBoard() const;
+    void printBoard(); // Method to print the board
 };
 
 // friend operator << printing with gui
