@@ -22,6 +22,9 @@ public:
     string getDescription() const; // A getter for the description
     // virtual void action() = 0; // This is a pure virtual function, it will be implemented by the child classes
                                // For each card the action will be different
+
+    void printCard(); // A function to print the card
+
 };
 
 using namespace std;

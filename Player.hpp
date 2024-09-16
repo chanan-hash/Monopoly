@@ -28,6 +28,8 @@ private:
 
     int position; // The position of the player on the board
 
+    bool isInJail; // A flag to indicate if the player is in jail or not
+
 public:
     Player(string name);
     void addMoney(int amount); // we can add a negative amount to remove money
@@ -49,6 +51,7 @@ public:
     int getTrains() const;
     int getUtilities() const;
     int getPosition() const;
+    bool getIsInJail() const;
     void printPlayer();
     bool operator==(const Player &other) const;
     bool operator!=(const Player &other) const;
@@ -56,6 +59,7 @@ public:
 
     // setters
     void setPosition(int position);
+    void setIsInJail(bool isInJail);
 };
 
 #endif // PLAYER_HPP
