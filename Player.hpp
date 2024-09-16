@@ -2,7 +2,9 @@
  * This class represnts a simple player in the game
  * Each player has a name, money, card, and assets (streets, train stations, and utilities)
  */
-#pragma once
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -23,6 +25,9 @@ private:
     vector<Slot> assets;      // It will hold all the assets of the player, streets, stations, and utilities
     int trains;               // more convenient to calculate the rent if needed
     int utilities;            // more convenient to calculate the rent if needed
+
+    int position; // The position of the player on the board
+
 public:
     Player(string name);
     void addMoney(int amount); // we can add a negative amount to remove money
@@ -41,8 +46,16 @@ public:
     int getMoney() const;
     vector<supriseCard> getCard();
     vector<Slot> getAssets();
+    int getTrains() const;
+    int getUtilities() const;
+    int getPosition() const;
     void printPlayer();
     bool operator==(const Player &other) const;
     bool operator!=(const Player &other) const;
     friend ostream &operator<<(ostream &os, const Player &player);
+
+    // setters
+    void setPosition(int position);
 };
+
+#endif // PLAYER_HPP

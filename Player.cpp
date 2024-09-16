@@ -83,6 +83,23 @@ vector<Slot> Player::getAssets() {
     return assets;
 }
 
+int Player::getTrains() const {
+    return trains;
+}
+
+int Player::getUtilities() const {
+    return utilities;
+}
+
+int Player::getPosition() const {
+    return position;
+}
+
+void Player::setPosition(int position) {
+    this->position = position;
+}
+
+
 void Player::printPlayer() {
     std::cout << "Player: " << name << std::endl;
     std::cout << "Money: $" << money << std::endl;

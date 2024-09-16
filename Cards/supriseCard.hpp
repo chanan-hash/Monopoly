@@ -12,13 +12,15 @@ class supriseCard
 {
 private:
     string name;
+    string description;
 
 public:
     supriseCard(); // An empty constructor
-    supriseCard(string name);
+    supriseCard(string name, string description); // A constructor with parameters
     virtual ~supriseCard() = default; // A virtual destructor
     string getName() const; // A getter for the name
-    virtual void action() = 0; // This is a pure virtual function, it will be implemented by the child classes
+    string getDescription() const; // A getter for the description
+    // virtual void action() = 0; // This is a pure virtual function, it will be implemented by the child classes
                                // For each card the action will be different
 };
 

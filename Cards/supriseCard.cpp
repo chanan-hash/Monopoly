@@ -4,7 +4,7 @@ using namespace std;
 
 supriseCard::supriseCard(){}
 
-supriseCard::supriseCard(string name): name (name){} // initialize list
+supriseCard::supriseCard(string name, string description) : name (name), description(description) {} // initialize list
 
 supriseCard::~supriseCard() = default;
 
