@@ -28,7 +28,7 @@ private:
     bool hotel;
 
 public:
-    Streets(string &name, string &type ,string &color, int price, int rent, int housePrice, int hotelPrice);
+    Streets(const string &name,const  string &type ,const string &color, int price, int rent, int housePrice, int hotelPrice);
     Streets(const Streets &other) = default;
     
     // Getters

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Utility::Utility(string &name, string &type, int price, int rent) : Slot(name, type), price(price), rent(rent), owner(nullptr) {}
+Utility::Utility(const string &name,const  string &type, int price) : Slot(name, type), price(price), rent(rent), owner(nullptr) {}
 
 int Utility::getPrice() const
 {

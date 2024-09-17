@@ -3,7 +3,9 @@
 
 using namespace std;
 
-Go::Go(string &name, string &type) : Slot(name, type) {} // initialize the name and type of the slot
+Go::Go(const string &name) : Slot(name) {} // initialize the name of the slot
+
+Go::Go(const string &name,const  string &type) : Slot(name, type) {} // initialize the name and type of the slot
 
 void Go::add200(Player &player) // add 200$ to the player
 {

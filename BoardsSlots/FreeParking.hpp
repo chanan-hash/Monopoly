@@ -14,7 +14,8 @@ class FreeParking : public Slot
 private:
     int money; // the money that the player will pay for the taxes
 public:
-    FreeParking(string &name, string &type);
+    FreeParking(const string &name);
+    FreeParking(const string &name, const string &type);
     void addMoney(int moneyToAdd); // add the money to FreeParking
     void addMoney(Player &player); // add the money to the player
     virtual void printSlot() const override;

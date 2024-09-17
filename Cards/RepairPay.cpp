@@ -1,4 +1,5 @@
 #include "RepairPay.hpp"
+#include "../BoardsSlots/Streets.hpp" // Ensure Streets class is fully declared
 
 RepairPay::RepairPay() : supriseCard("RepairPay", "Make general repairs on all your property: For each house pay $25, For each hotel $100")
 {
@@ -11,7 +12,7 @@ void RepairPay::action(Player &player)
     for (auto &property : player.getAssets())
     {
         // Use dynamic_cast to check if the property is of type Streets
-        Streets *street = dynamic_cast<Streets *>(&property);
+        Streets *street = dynamic_cast<Streets *>(property);
         if (street != nullptr)
         {
             houseCount += street->getHouses();

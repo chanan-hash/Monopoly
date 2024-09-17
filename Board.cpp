@@ -12,7 +12,6 @@
 #include "BoardsSlots/Go.cpp"
 #include "Player.hpp"
 
-
 using namespace std;
 Board::Board()
 {
@@ -29,7 +28,7 @@ Board::Board()
     slots.push_back(make_unique<Slot>("Income Tax"));
 
     // Reading Railroad
-    slots.push_back(make_unique<Station>("Reading Railroad","Station", 200));
+    slots.push_back(make_unique<Station>("Reading Railroad", "Station", 200, 25));
 
     // Light Blue properties
     slots.push_back(make_unique<Streets>("Oriental Avenue", "Property", "Light Blue", 100, 6, 50, 50));
@@ -41,12 +40,12 @@ Board::Board()
 
     // Pink properties
     slots.push_back(make_unique<Streets>("St. Charles Place", "Property", "Pink", 140, 10, 100, 100));
-    slots.push_back(make_unique<Utility>("Electric Company","Utility", 150));
+    slots.push_back(make_unique<Utility>("Electric Company", "Utility", 150));
     slots.push_back(make_unique<Streets>("States Avenue", "Property", "Pink", 140, 10, 100, 100));
     slots.push_back(make_unique<Streets>("Virginia Avenue", "Property", "Pink", 160, 12, 100, 100));
 
     // Pennsylvania Railroad
-    slots.push_back(make_unique<Station>("Pennsylvania Railroad","Station", 200));
+    slots.push_back(make_unique<Station>("Pennsylvania Railroad", "Station", 200, 25));
 
     // Orange properties
     slots.push_back(make_unique<Streets>("St. James Place", "Property", "Orange", 180, 14, 100, 100));
@@ -62,12 +61,12 @@ Board::Board()
     slots.push_back(make_unique<Streets>("Illinois Avenue", "Property", "Red", 240, 20, 150, 150));
 
     // B. & O. Railroad
-    slots.push_back(make_unique<Station>("B. & O. Railroad","Station", 200));
+    slots.push_back(make_unique<Station>("B. & O. Railroad", "Station", 200, 25));
 
     // Yellow properties
     slots.push_back(make_unique<Streets>("Atlantic Avenue", "Property", "Yellow", 260, 22, 150, 150));
     slots.push_back(make_unique<Streets>("Ventnor Avenue", "Property", "Yellow", 260, 22, 150, 150));
-    slots.push_back(make_unique<Utility>("Water Works","Utility", 150));
+    slots.push_back(make_unique<Utility>("Water Works", "Utility", 150));
     slots.push_back(make_unique<Streets>("Marvin Gardens", "Property", "Yellow", 280, 24, 150, 150));
 
     // Go To Jail
@@ -79,7 +78,7 @@ Board::Board()
     slots.push_back(make_unique<Streets>("Pennsylvania Avenue", "Property", "Green", 320, 28, 200, 200));
 
     // Short Line Railroad
-    slots.push_back(make_unique<Station>("Short Line","Station", 200));
+    slots.push_back(make_unique<Station>("Short Line", "Station", 200, 25));
 
     // Chance
     slots.push_back(make_unique<Slot>("Chance"));
@@ -89,7 +88,6 @@ Board::Board()
     slots.push_back(make_unique<Slot>("Luxury Tax"));
     slots.push_back(make_unique<Streets>("Boardwalk", "Property", "Dark Blue", 400, 50, 200, 200));
 }
-
 
 vector<unique_ptr<Slot>> &Board::getBoard()
 {

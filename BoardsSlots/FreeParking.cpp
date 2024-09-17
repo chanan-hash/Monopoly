@@ -3,7 +3,8 @@
 
 using namespace std;
 
-FreeParking::FreeParking(string &name, string &type) : Slot(name, type) {} // initialize the name and type of the slot
+FreeParking::FreeParking(const string &name) : Slot(name) {}                           // initialize the name of the slot
+FreeParking::FreeParking(const string &name, const string &type) : Slot(name, type) {} // initialize the name and type of the slot
 
 void FreeParking::addMoney(int moneyToAdd) // add the money to FreeParking
 {

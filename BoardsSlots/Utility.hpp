@@ -17,7 +17,7 @@ private:
     Player *owner;
 
 public:
-    Utility(string &name, string &type, int price, int rent);
+    Utility(const string &name,const  string &type, int price);
 
     // Getters
     int getPrice() const;

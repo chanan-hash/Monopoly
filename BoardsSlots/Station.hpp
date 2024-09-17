@@ -18,7 +18,9 @@ private:
     Player *owner; // the owner of the station
 
 public:
-    Station(string &name, string &type, int price, int rent);
+    Station(const string &name, const string &type, int price, int rent);
+    Station (const Station &station) = default;
+    
     // Getters
     int getPrice() const;
     int getRent() const;

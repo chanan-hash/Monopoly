@@ -8,14 +8,16 @@
 #define GO_HPP
 #include "Slot.hpp"
 #include "../Player.hpp"
+using namespace std;
 
 class Go : public Slot
 {
-    public:
-        Go(string &name, string &type);
-        void add200(Player &player);
-        void add400(Player &player);
-        void printSlot() const override;
+public:
+    Go(const string &name);
+    Go(const string &name,const  string &type);
+    void add200(Player &player);
+    void add400(Player &player);
+    void printSlot() const override;
 };
 
 #endif // GO_HPP

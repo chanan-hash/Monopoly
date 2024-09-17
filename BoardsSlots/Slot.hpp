@@ -36,8 +36,8 @@ private:
     // vector<std::shared_ptr<Player>> players; // who are the players on this slot, will help to move the player to the next slot
 
 public:
-    Slot(string &name, string &type);
-    Slot(string& name);
+    Slot(const string &name,const  string &type);
+    Slot(const string& name);
     Slot(const Slot& other) = default; // Copy constructor
     virtual ~Slot() = default;
 
@@ -57,7 +57,7 @@ public:
     friend ostream &operator<<(ostream &os, const Slot &slot);
 
     // Pure virtual function
-    virtual void slotAction() = 0; // function for virtual class
+    // virtual void slotAction() = 0; // function for virtual class
 };
 
 #endif // SLOT_HPP

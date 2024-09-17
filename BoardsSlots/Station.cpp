@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Station::Station(string &name, string &type, int price, int rent) : Slot(name, type), price(price), rent(rent), owner(nullptr) {} // initialize the name, type, price, rent and owner of the station
+Station::Station(const string &name, const string &type, int price, int rent) : Slot(name, type), price(price), rent(rent), owner(nullptr) {} // initialize the name, type, price, rent and owner of the station
 
 void Station::setOwner(Player &player) // set the owner of the station
 {
