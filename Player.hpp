@@ -9,19 +9,20 @@
 #include <string>
 #include <vector>
 #include "Cards/supriseCard.hpp"
-#include "BoardsSlots/Slot.hpp"
-#include "BoardsSlots/Streets.hpp"
-#include "BoardsSlots/Station.hpp"
-#include "BoardsSlots/Utility.hpp"
 
 using namespace std;
+
+class Slot;
+class Streets;
+class Station;
+class Utility;
 
 class Player
 {
 private:
     string name;
     int money;
-    vector<supriseCard> card; // need to be implemented
+    vector<supriseCard> card; // if there are card to save
     vector<Slot> assets;      // It will hold all the assets of the player, streets, stations, and utilities
     int trains;               // more convenient to calculate the rent if needed
     int utilities;            // more convenient to calculate the rent if needed

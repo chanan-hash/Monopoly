@@ -7,26 +7,27 @@
 
 #include "Slot.hpp"
 #include "../Player.hpp"
+#include <string>
 using namespace std;
 
 class Station : public Slot
 {
-    private:
-        int price; // the price of the station
-        int rent; // the rent of the station
-        Player *owner; // the owner of the station
+private:
+    int price;     // the price of the station
+    int rent;      // the rent of the station
+    Player *owner; // the owner of the station
 
-    public:
-        Station(string &name, string &type, int price, int rent);
-        // Getters
-        int getPrice() const;
-        int getRent() const;
-        const Player getOwner() const;
+public:
+    Station(string &name, string &type, int price, int rent);
+    // Getters
+    int getPrice() const;
+    int getRent() const;
+    Player &getOwner() const;
 
-        // Setters
-        void setOwner(Player &player); // set the owner of the station
-        // void payRent(Player &player); // pay the rent to the owner of the station
-        virtual void printSlot() const override;
+    // Setters
+    void setOwner(Player &player); // set the owner of the station
+    // void payRent(Player &player); // pay the rent to the owner of the station
+    virtual void printSlot() const override;
 };
 
 #endif // STATION_HPP

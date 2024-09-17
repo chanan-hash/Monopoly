@@ -1,17 +1,24 @@
-#include "BoardsSlots/Streets.hpp"
 #include "Player.hpp"
+#include "BoardsSlots/Slot.hpp"
+#include "BoardsSlots/Streets.hpp"
+#include "BoardsSlots/Station.hpp"
+#include "BoardsSlots/Utility.hpp"
+
 using namespace std;
 
 // Player::Player(string name) : name(name), money(1500) {} // Default money is 1500
 Player::Player(string name) : name(name), money(1500), trains(0), utilities(0) {}
 
-void Player::addMoney(int amount) {
+void Player::addMoney(int amount)
+{
     money += amount;
 }
 
-void Player::removeMoney(int amount) {
+void Player::removeMoney(int amount)
+{
     money -= amount;
-    if (money < 0) {
+    if (money < 0)
+    {
         cout << "Warning: " << name << " has negative money balance!" << endl;
     }
 }
@@ -28,7 +35,8 @@ void Player::removeMoney(int amount) {
 //     }
 // }
 
-void Player::addAsset(Streets& asset) {
+void Player::addAsset(Streets &asset)
+{
     assets.push_back(asset);
 }
 
@@ -39,8 +47,8 @@ void Player::addAsset(Streets& asset) {
 //     }
 // }
 
-
-void Player::addTrain(Station& train) {
+void Player::addTrain(Station &train)
+{
     assets.push_back(train);
     trains++;
 }
@@ -53,7 +61,8 @@ void Player::addTrain(Station& train) {
 //     }
 // }
 
-void Player::addUtility(Utility& utility) {
+void Player::addUtility(Utility &utility)
+{
     assets.push_back(utility);
     utilities++;
 }
@@ -66,47 +75,56 @@ void Player::addUtility(Utility& utility) {
 //     }
 // }
 
-string& Player::getName() const {
-    return const_cast<string&>(name);
+string &Player::getName() const
+{
+    return const_cast<string &>(name);
 }
 
-int Player::getMoney() const {
+int Player::getMoney() const
+{
     // return const_cast<int&>(money);
     return money;
 }
 
-vector<supriseCard> Player::getCard() {
+vector<supriseCard> Player::getCard()
+{
     return card;
 }
 
-vector<Slot> Player::getAssets() {
+vector<Slot> Player::getAssets()
+{
     return assets;
 }
 
-int Player::getTrains() const {
+int Player::getTrains() const
+{
     return trains;
 }
 
-int Player::getUtilities() const {
+int Player::getUtilities() const
+{
     return utilities;
 }
 
-int Player::getPosition() const {
+int Player::getPosition() const
+{
     return position;
 }
 
-void Player::setPosition(int position) {
+void Player::setPosition(int position)
+{
     this->position = position;
 }
 
-
-void Player::printPlayer() {
+void Player::printPlayer()
+{
     std::cout << "Player: " << name << std::endl;
     std::cout << "Money: $" << money << std::endl;
     std::cout << "Number of trains: " << trains << std::endl;
     std::cout << "Number of utilities: " << utilities << std::endl;
     std::cout << "Assets:" << std::endl;
-    for (const auto& asset : assets) {
+    for (const auto &asset : assets)
+    {
         std::cout << "  - " << asset.getName() << std::endl;
     }
     // std::cout << "Cards:" << std::endl;
@@ -115,10 +133,12 @@ void Player::printPlayer() {
     // }
 }
 
-bool Player::operator==(const Player& other) const {
+bool Player::operator==(const Player &other) const
+{
     return name == other.name;
 }
 
-bool Player::operator!=(const Player& other) const {
+bool Player::operator!=(const Player &other) const
+{
     return !(*this == other);
 }

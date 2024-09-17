@@ -10,15 +10,16 @@
 #include <string>
 #include <vector>
 #include <memory> // For unique_ptr
-#include "Slot.hpp"
-#include "Streets.hpp"
-#include "Station.hpp"
-#include "Utility.hpp"
-#include "FreeParking.hpp"
-#include "Go.cpp"
-#include "Player.hpp"
 
 using namespace std;
+
+class Slot;
+class Streets;
+class Station;
+class Utility;
+class FreeParking;
+class Go;
+class Player;
 
 class Board
 {

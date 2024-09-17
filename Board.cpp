@@ -4,6 +4,14 @@
  */
 
 #include "Board.hpp"
+#include "BoardsSlots/Slot.hpp"
+#include "BoardsSlots/Streets.hpp"
+#include "BoardsSlots/Station.hpp"
+#include "BoardsSlots/Utility.hpp"
+#include "BoardsSlots/FreeParking.hpp"
+#include "BoardsSlots/Go.cpp"
+#include "Player.hpp"
+
 
 using namespace std;
 Board::Board()

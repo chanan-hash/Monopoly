@@ -19,9 +19,10 @@
 #include <string>
 #include <vector>
 #include <memory> // for shared_ptr may be used in the future
-#include "../Player.hpp"
 
 using namespace std;
+
+class Player;
 
 class Slot
 {

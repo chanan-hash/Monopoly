@@ -13,21 +13,11 @@ void Station::setOwner(Player &player) // set the owner of the station
     }
     else
     {
-        owner = &player;           // set the owner of the station
+        owner = &player; // set the owner of the station
         // player.addAsset(station);  // add the station to the player's assets
         // player.removeMoney(price); // remove the price of the station from the player
     }
 }
-
-// void Station::payRent(Player &player) // pay the rent to the owner of the station
-// {
-//     if (owner != nullptr && owner->getName() != player.getName()) // if the owner is not null and the owner is not the player
-//     {
-//         int rentToPay = rent * owner->getStations(); // calculate the rent to pay
-//         player.removeMoney(rentToPay);               // remove the money from the player
-//         owner->addMoney(rentToPay);                  // add the money to the owner
-//     }
-// }
 
 void Station::printSlot() const // print the details of the slot
 {
@@ -55,8 +45,7 @@ int Station::getRent() const // get the rent of the station
     return rent;
 }
 
-const Player Station::getOwner() const // get the owner of the station
+Player &Station::getOwner() const // get the owner of the station
 {
     return *owner;
 }
-
