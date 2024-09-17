@@ -44,3 +44,19 @@ void Station::printSlot() const // print the details of the slot
         cout << "Station owner: None" << endl;
     }
 }
+
+int Station::getPrice() const // get the price of the station
+{
+    return price;
+}
+
+int Station::getRent() const // get the rent of the station
+{
+    return rent;
+}
+
+const Player Station::getOwner() const // get the owner of the station
+{
+    return *owner;
+}
+

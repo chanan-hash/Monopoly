@@ -7,6 +7,7 @@
 
 #include "Slot.hpp"
 #include "../Player.hpp"
+using namespace std;
 
 class Station : public Slot
 {
@@ -24,9 +25,8 @@ class Station : public Slot
 
         // Setters
         void setOwner(Player &player); // set the owner of the station
-        void payRent(Player &player); // pay the rent to the owner of the station
+        // void payRent(Player &player); // pay the rent to the owner of the station
         virtual void printSlot() const override;
 };
-
 
 #endif // STATION_HPP

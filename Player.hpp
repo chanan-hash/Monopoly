@@ -8,11 +8,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "supriseCard.hpp"
-#include "Slot.hpp"
-#include "Streets.hpp"
-#include "Station.hpp"
-#include "Utility.hpp"
+#include "Cards/supriseCard.hpp"
+#include "BoardsSlots/Slot.hpp"
+#include "BoardsSlots/Streets.hpp"
+#include "BoardsSlots/Station.hpp"
+#include "BoardsSlots/Utility.hpp"
 
 using namespace std;
 
