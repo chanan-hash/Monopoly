@@ -9,7 +9,7 @@
 
 #include "../Player.hpp"
 #include "supriseCard.hpp"
-#include "Board.hpp"
+#include "../Board.hpp"
 
 class BankPays : public supriseCard
 {

@@ -6,7 +6,7 @@ supriseCard::supriseCard() {}
 
 supriseCard::supriseCard(string name, string description) : name(name), description(description) {} // initialize list
 
-supriseCard::~supriseCard() = default;
+// supriseCard::~supriseCard() = default;
 
 string supriseCard::getName() const
 {

@@ -8,8 +8,8 @@
 
 #include "../Player.hpp"
 #include "supriseCard.hpp"
-#include "Board.hpp"
-#include "Streets.hpp"
+#include "../Board.hpp"
+#include "../BoardsSlots/Streets.hpp"
 
 class RepairPay : public supriseCard
 {

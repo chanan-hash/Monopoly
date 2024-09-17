@@ -1,6 +1,7 @@
 #include "GoToJail.hpp"
+#include "../BoardsSlots/Slot.hpp" // Include the header file for the Slot class
 
-GoToJail::GoToJail() : supriseCard("GoToJail", "Go directly to Jail – do not pass Go, do not collect $200") {}
+GoToJail::GoToJail() : supriseCard("GoToJail", "Go directly to Jail, do not pass Go, do not collect $200") {}
 
 void GoToJail::action(Player &player, Board &board)
 {

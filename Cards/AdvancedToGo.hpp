@@ -9,7 +9,8 @@
 #include<vector>
 #include "../Player.hpp"
 #include "supriseCard.hpp"
-#include "Board.hpp"
+#include "../Board.hpp"
+#include "../BoardsSlots/Slot.hpp"
 
 using namespace std;
 

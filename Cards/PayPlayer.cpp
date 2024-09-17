@@ -1,4 +1,4 @@
-#include "PayPlyaer.hpp"
+#include "PayPlayer.hpp"
 
 PayPlayer::PayPlayer() : supriseCard("Pay Player", "You have been elected Chairman of the Board – Pay each player $50") {}
 
