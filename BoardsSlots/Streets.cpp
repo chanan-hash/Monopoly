@@ -4,6 +4,7 @@
 using namespace std;
 
 Streets::Streets(string &name, string &type, string &color, int price, int rent, int housePrice, int hotelPrice) : Slot(name, type), color(color), price(price), rent(rent), housePrice(housePrice), hotelPrice(hotelPrice), houses(0), hotel(false) {}
+// Streets::Streets(const Streets &other) : Slot(other), color(other.color), price(other.price), rent(other.rent), housePrice(other.housePrice), hotelPrice(other.hotelPrice), houses(other.houses), hotel(other.hotel) {}
 
 const string &Streets::getColor() const
 {
@@ -81,12 +82,10 @@ void Streets::addHotel()
     hotel = true;
 }
 
-
 bool Streets::operator==(const Streets &other) const
 {
     return this->getName() == other.getName();
 }
-
 
 void Streets::printSlot() const
 {

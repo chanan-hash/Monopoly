@@ -19,6 +19,8 @@
 #include <string>
 #include <vector>
 #include <memory> // for shared_ptr may be used in the future
+#include "../Player.hpp"
+
 
 using namespace std;
 
@@ -36,6 +38,7 @@ private:
 public:
     Slot(string &name, string &type);
     Slot(string& name);
+    Slot(const Slot& other) = default; // Copy constructor
     virtual ~Slot() = default;
 
     // For movment of the player

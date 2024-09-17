@@ -37,7 +37,7 @@ void Player::removeMoney(int amount)
 
 void Player::addAsset(Streets &asset)
 {
-    assets.push_back(asset);
+    assets.push_back(&asset);
 }
 
 // void Player::removeAsset(Streets& asset) {
@@ -49,7 +49,7 @@ void Player::addAsset(Streets &asset)
 
 void Player::addTrain(Station &train)
 {
-    assets.push_back(train);
+    assets.push_back(&train);
     trains++;
 }
 
@@ -63,7 +63,7 @@ void Player::addTrain(Station &train)
 
 void Player::addUtility(Utility &utility)
 {
-    assets.push_back(utility);
+    assets.push_back(&utility);
     utilities++;
 }
 
@@ -86,12 +86,7 @@ int Player::getMoney() const
     return money;
 }
 
-vector<supriseCard> Player::getCard()
-{
-    return card;
-}
-
-vector<Slot> Player::getAssets()
+vector<Slot *> Player::getAssets()
 {
     return assets;
 }
@@ -116,21 +111,37 @@ void Player::setPosition(int position)
     this->position = position;
 }
 
+void Player::setIsInJail(bool isInJail)
+{
+    this->isInJail = isInJail;
+}
+
+bool Player::getIsInJail() const
+{
+    return isInJail;
+}
+
+void Player::setFreeJailCard(bool FreeJailCard)
+{
+    this->FreeJailCard = FreeJailCard;
+}
+
+bool Player::getFreeJailCard() const
+{
+    return FreeJailCard;
+}
+
 void Player::printPlayer()
 {
-    std::cout << "Player: " << name << std::endl;
-    std::cout << "Money: $" << money << std::endl;
-    std::cout << "Number of trains: " << trains << std::endl;
-    std::cout << "Number of utilities: " << utilities << std::endl;
-    std::cout << "Assets:" << std::endl;
+    cout << "Player: " << name << std::endl;
+    cout << "Money: $" << money << std::endl;
+    cout << "Number of trains: " << trains << std::endl;
+    cout << "Number of utilities: " << utilities << std::endl;
+    cout << "Assets:" << std::endl;
     for (const auto &asset : assets)
     {
-        std::cout << "  - " << asset.getName() << std::endl;
+        cout << "  - " << asset->getName() << std::endl;
     }
-    // std::cout << "Cards:" << std::endl;
-    // for (const auto& c : card) {
-    //     std::cout << "  - " << c.getDescription() << std::endl;
-    // }
 }
 
 bool Player::operator==(const Player &other) const

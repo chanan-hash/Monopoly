@@ -4,7 +4,9 @@
 using namespace std;
 
 Slot::Slot(string &name, string &type) : name(name), type(type) {} // initialize the name and type of the slot
-Slot::Slot(string &name) : name(name) {} // initialize the name of the slot
+Slot::Slot(string &name) : name(name) {}                           // initialize the name of the slot
+// Slot::Slot(const Slot &other) : name(other.name), type(other.type) {}
+
 void Slot::addPlayer(Player &player) // add the player to the slot
 {
     players.push_back(player);

@@ -8,32 +8,13 @@
 #define STREETS_HPP
 #include <iostream>
 #include <string>
-#include <vector>
 #include "Slot.hpp"
 #include "../Player.hpp"
 
+using namespace std;
+
 class Streets : public Slot
 {
-    // private:
-    //     string name;
-    //     string color;
-    //     int price;
-    //     int rent;
-    //     int housePrice;
-    //     int hotelPrice;
-    //     Player owner;
-    //     int houses;
-    //     bool hotel;
-
-    // public:
-    //     Streets(string name, string color, int price, int rent, int housePrice, int hotelPrice);
-    //     void setOwner(Player &owner);
-    //     void addHouse();
-    //     void removeHouse();
-    //     void addHotel();
-    //     void removeHotel();
-    //     void printStreet();
-    //     friend ostream& operator<<(ostream& os, const Streets& street);
 
 private:
     // The name it will get from the Slot class
@@ -48,6 +29,7 @@ private:
 
 public:
     Streets(string &name, string &type ,string &color, int price, int rent, int housePrice, int hotelPrice);
+    Streets(const Streets &other) = default;
     
     // Getters
     const string &getColor() const;

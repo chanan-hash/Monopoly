@@ -22,14 +22,14 @@ class Player
 private:
     string name;
     int money;
-    vector<supriseCard> card; // if there are card to save
-    vector<Slot> assets;      // It will hold all the assets of the player, streets, stations, and utilities
+    vector<Slot*> assets;      // It will hold all the assets of the player, streets, stations, and utilities
     int trains;               // more convenient to calculate the rent if needed
     int utilities;            // more convenient to calculate the rent if needed
 
     int position; // The position of the player on the board
 
     bool isInJail; // A flag to indicate if the player is in jail or not
+    bool FreeJailCard; // A flag to indicate if the player has a free jail card or not
 
 public:
     Player(string name);
@@ -47,12 +47,12 @@ public:
     // getters
     string &getName() const;
     int getMoney() const;
-    vector<supriseCard> getCard();
-    vector<Slot> getAssets();
+    vector<Slot*> getAssets();
     int getTrains() const;
     int getUtilities() const;
     int getPosition() const;
     bool getIsInJail() const;
+    bool getFreeJailCard() const;
     void printPlayer();
     bool operator==(const Player &other) const;
     bool operator!=(const Player &other) const;
@@ -61,6 +61,7 @@ public:
     // setters
     void setPosition(int position);
     void setIsInJail(bool isInJail);
+    void setFreeJailCard(bool FreeJailCard);
 };
 
 #endif // PLAYER_HPP
