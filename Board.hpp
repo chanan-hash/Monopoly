@@ -6,6 +6,8 @@
  * The board will have a method to move a player from one square to the next, it will be cyclic, so if the player is on the last square and moves one more square, it will go to the first square
  * It will also have a method to print the board.
  */
+
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>

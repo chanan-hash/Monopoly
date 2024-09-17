@@ -22,6 +22,4 @@ public:
     void action(Player &player, Board &board);
 };
 
-
-
-#endif
+#endif // ADVANCEDTOGO_HPP

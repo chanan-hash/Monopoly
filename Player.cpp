@@ -75,9 +75,9 @@ void Player::addUtility(Utility &utility)
 //     }
 // }
 
-string &Player::getName() const
+const string &Player::getName() const
 {
-    return const_cast<string &>(name);
+    return name;
 }
 
 int Player::getMoney() const

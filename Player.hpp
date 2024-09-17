@@ -45,7 +45,7 @@ public:
     void removeUtility(Utility& utility);
 
     // getters
-    string &getName() const;
+    const string &getName() const;
     int getMoney() const;
     vector<Slot*> getAssets();
     int getTrains() const;
