@@ -54,7 +54,7 @@ public:
     const string &getType() const;
     const vector<Player> &getPlayers() const;
     virtual void printSlot() const; // To know the details of the slot, each slot will have different details
-    friend ostream &operator<<(ostream &os, const Slot &slot);
+    // friend ostream &operator<<(ostream &os, const Slot &slot);
 
     // Pure virtual function
     // virtual void slotAction() = 0; // function for virtual class

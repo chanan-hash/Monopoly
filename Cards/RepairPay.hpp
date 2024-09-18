@@ -6,10 +6,13 @@
 #ifndef REPAIRPAY_HPP
 #define REPAIRPAY_HPP
 
-#include "../Player.hpp"
 #include "supriseCard.hpp"
-#include "../Board.hpp"
-#include "../BoardsSlots/Streets.hpp"
+
+class Player;
+class Streets;
+class Board;
+class Slot;
+
 
 class RepairPay : public supriseCard
 {

@@ -8,7 +8,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Cards/supriseCard.hpp"
 
 using namespace std;
 
@@ -22,7 +21,7 @@ class Player
 private:
     string name;
     int money;
-    vector<Slot*> assets;      // It will hold all the assets of the player, streets, stations, and utilities
+    vector<Streets*> assets;      // It will hold all the assets of the player, streets, stations, and utilities
     int trains;               // more convenient to calculate the rent if needed
     int utilities;            // more convenient to calculate the rent if needed
 
@@ -35,8 +34,8 @@ public:
     Player(string name);
     void addMoney(int amount); // we can add a negative amount to remove money
     void removeMoney(int amount);
-    void addCard(supriseCard card);    // need to be implemented
-    void removeCard(supriseCard card); // need to be implemented
+    // void addCard(supriseCard card);    // need to be implemented
+    // void removeCard(supriseCard card); // need to be implemented
     void addAsset(Streets& asset);      // Adding the asset to the player
     void removeAsset(Streets& asset);
     void addTrain(Station& train); // Adding the train to the player, and increment the number of trains for payment calculation
@@ -47,7 +46,7 @@ public:
     // getters
     const string &getName() const;
     int getMoney() const;
-    vector<Slot*> getAssets();
+    vector<Streets*> getAssets();
     int getTrains() const;
     int getUtilities() const;
     int getPosition() const;

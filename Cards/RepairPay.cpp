@@ -1,5 +1,8 @@
 #include "RepairPay.hpp"
-#include "../BoardsSlots/Streets.hpp" // Ensure Streets class is fully declared
+#include "../BoardsSlots/Slot.hpp"
+#include "../Player.hpp"
+#include "../Board.hpp"
+#include "../BoardsSlots/Streets.hpp"
 
 RepairPay::RepairPay() : supriseCard("RepairPay", "Make general repairs on all your property: For each house pay $25, For each hotel $100")
 {

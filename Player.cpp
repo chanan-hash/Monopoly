@@ -49,7 +49,7 @@ void Player::addAsset(Streets &asset)
 
 void Player::addTrain(Station &train)
 {
-    assets.push_back(&train);
+    // assets.push_back(&train);
     trains++;
 }
 
@@ -63,7 +63,7 @@ void Player::addTrain(Station &train)
 
 void Player::addUtility(Utility &utility)
 {
-    assets.push_back(&utility);
+    // assets.push_back(&utility);
     utilities++;
 }
 
@@ -86,7 +86,7 @@ int Player::getMoney() const
     return money;
 }
 
-vector<Slot *> Player::getAssets()
+vector<Streets *> Player::getAssets()
 {
     return assets;
 }

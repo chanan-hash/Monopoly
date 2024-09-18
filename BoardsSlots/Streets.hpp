@@ -47,11 +47,11 @@ public:
     // Setters
     void setOwner(Player owner);
     void addHouse();
-    void removeHouse();
+    // void removeHouse();
     void addHotel();
-    void removeHotel();
+    // void removeHotel();
     virtual void printSlot() const override;
-    friend ostream &operator<<(ostream &os, const Streets &street);
+    // friend ostream &operator<<(ostream &os, const Streets &street);
 };
 
 #endif // STREETS_HPP

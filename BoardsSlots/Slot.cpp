@@ -3,8 +3,8 @@
 
 using namespace std;
 
-Slot::Slot(const string &name,const  string &type) : name(name), type(type) {} // initialize the name and type of the slot
-Slot::Slot(const string &name) : name(name) {}                           // initialize the name of the slot
+Slot::Slot(const string &name, const string &type) : name(name), type(type) {} // initialize the name and type of the slot
+Slot::Slot(const string &name) : name(name) {}                                 // initialize the name of the slot
 // Slot::Slot(const Slot &other) : name(other.name), type(other.type) {}
 
 void Slot::addPlayer(Player &player) // add the player to the slot
@@ -39,26 +39,13 @@ const vector<Player> &Slot::getPlayers() const // get the players on the slot
     return players;
 }
 
-// if we're using shared_ptr instead of reference to avoid memory leak
-// void Slot::addPlayer(shared_ptr<Player> player) // add the player to the slot
-// {
-//     players.push_back(player);
-// }
-
-// // trying to remove by iterator made problems
-// void Slot::removePlayer(shared_ptr<Player> player) // remove the player from the slot
-// {
-//     for(size_t i = 0; i < players.size(); i++)
-//     {
-//         if(players[i] == player)
-//         {
-//             players.erase(players.begin() + i); // remove the player from the slot
-//             break;
-//         }
-//     }
-// }
-
-// const vector<shared_ptr<Player>> Slot::getPlayers() const // get the players on the slot
-// {
-//     return players;
-// }
+void Slot::printSlot() const // print the slot details
+{
+    cout << "Slot name: " << name << endl;
+    cout << "Slot type: " << type << endl;
+    cout << "Players on the slot: " << endl;
+    for (size_t i = 0; i < players.size(); i++)
+    {
+        cout << players[i].getName() << endl;
+    }
+}
