@@ -45,7 +45,7 @@ bool Streets::getHotel() const
     return hotel;
 }
 
-void Streets::setOwner(Player owner) // because we're using reference in the Slot class
+void Streets::setOwner(Player &owner) // because we're using reference in the Slot class
 {
     if (this->owner != nullptr)
     {

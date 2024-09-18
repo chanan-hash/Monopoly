@@ -39,9 +39,9 @@ TEST_CASE("Cards Testing"){
     board.getBoard()[0]->addPlayer(player3);
 
     // Checking that the players are on the first slot
-    for (const auto &player : players)
+    for (size_t i = 0 ; i < players.size(); i++)
     {
-        CHECK(board.getBoard()[0]->getPlayers()[0].getName() == player.getName());
+        CHECK(board.getBoard()[0]->getPlayers()[i].getName() == players[i].getName());
     }
 
     SUBCASE("Advance to Go (Collect $200)"){

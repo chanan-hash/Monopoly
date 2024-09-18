@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -Werror
+CXXFLAGS = -std=c++17 -Wall -g
 
 # Source directories
 CARDS = ../Cards/supriseCard.o ../Cards/Loan.o ../Cards/GoToJail.o ../Cards/BankPays.o ../Cards/PayPlayer.o ../Cards/AdvancedToGo.o ../Cards/RepairPay.o ../Cards/TrainTrip.o ../Cards/AdvancedToBoardWalk.o ../Cards/PayTax.o ../Cards/GoBack.o

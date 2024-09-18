@@ -45,7 +45,7 @@ public:
     bool operator==(const Streets &other) const;
 
     // Setters
-    void setOwner(Player owner);
+    void setOwner(Player &owner);
     void addHouse();
     // void removeHouse();
     void addHotel();
