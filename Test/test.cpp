@@ -7,6 +7,7 @@
 #include "../Cards/AdvancedToBoardWalk.hpp"
 #include "../Cards/BankPays.hpp"
 #include "../Cards/GoBack.hpp"
+#include "../BoardsSlots/Streets.hpp"
 
 using namespace std;
 TEST_CASE("Cards Testing")
@@ -131,7 +132,7 @@ TEST_CASE("Cards Testing")
 
         goBack.action(player3, board);
         cout << "player3 position: " << player3.getPosition() << endl;
-        
+
         // Checking that the player is not on the first slot
         CHECK(player3.getPosition() != 0);
 
@@ -140,5 +141,26 @@ TEST_CASE("Cards Testing")
 
         // // Checking that the player is on the 39th slot
         CHECK(board.getBoard()[39]->getPlayers()[0].getName() == player3.getName());
+
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[22]->addPlayer(player2);
+
+        // setting the position of the player
+        player2.setPosition(22);
+        cout << "player2 position: " << player2.getPosition() << endl;
+        goBack.action(player2, board);
+        cout << "player2 position: " << player2.getPosition() << endl;
+
+        // Checking that the player is not on the 22th slot
+        CHECK(player2.getPosition() != 22);
+        CHECK(player2.getPosition() == 19);
+
+        // Checking that the player is on the 19th slot
+        CHECK(board.getBoard()[19]->getPlayers()[0].getName() == player2.getName());
+        CHECK(board.getBoard()[player2.getPosition()]->getName() == "New York Avenue");
+
+        auto slot19 = board.getBoard()[player2.getPosition()];
+        Streets *street = dynamic_cast<Streets *>(slot19);
+        CHECK(street->getRent() == 16);
     }
 }
