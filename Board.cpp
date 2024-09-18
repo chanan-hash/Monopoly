@@ -9,7 +9,7 @@
 #include "BoardsSlots/Station.hpp"
 #include "BoardsSlots/Utility.hpp"
 #include "BoardsSlots/FreeParking.hpp"
-#include "BoardsSlots/Go.cpp"
+#include "BoardsSlots/Go.hpp"
 #include "Player.hpp"
 
 using namespace std;

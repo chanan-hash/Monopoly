@@ -9,7 +9,9 @@
 #include <iostream>
 #include <string>
 #include "Slot.hpp"
-#include "../Player.hpp"
+// #include "../Player.hpp"
+
+class Player;
 
 using namespace std;
 
