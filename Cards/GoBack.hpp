@@ -1,6 +1,8 @@
 /**
  * GoBack card
  * This card will move the player 3 steps back
+ * We need to check if the player is on the third slot on the community chest he will go to the 39th slot
+ * so for that we'll use modulu board size
  */
 #ifndef GOBACK_HPP
 #define GOBACK_HPP

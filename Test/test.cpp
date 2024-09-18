@@ -5,6 +5,8 @@
 #include "../Cards/supriseCard.hpp"
 #include "../Cards/AdvancedToGo.hpp"
 #include "../Cards/AdvancedToBoardWalk.hpp"
+#include "../Cards/BankPays.hpp"
+#include "../Cards/GoBack.hpp"
 
 using namespace std;
 TEST_CASE("Cards Testing")
@@ -93,5 +95,50 @@ TEST_CASE("Cards Testing")
         // cheking that this slot player is not empty
         CHECK_FALSE(board.getBoard()[39]->getPlayers().empty());
         CHECK(board.getBoard()[39]->getPlayers()[0].getName() == player2.getName());
+    }
+
+    SUBCASE("Bank pays")
+    {
+        // Creating the card
+        BankPays bankPays;
+
+        // setting the money of the player to 0
+        player3.removeMoney(1500);
+
+        // Checking that the player has $0
+        CHECK(player3.getMoney() == 0);
+
+        // player3 is the only player on the board
+        bankPays.action(player3);
+
+        // Checking that the player has $1500
+        CHECK(player3.getMoney() == 50);
+    }
+
+    SUBCASE("3 Steps back")
+    {
+        // Creating the card
+        GoBack goBack;
+        cout << "player3 position: " << player3.getPosition() << endl;
+        // moving player3 to third slot
+        board.getBoard()[player3.getPosition()]->removePlayer(player3);
+        board.getBoard()[2]->addPlayer(player3);
+
+        // setting the position of the player
+        player3.setPosition(2);
+
+        cout << "player3 position: " << player3.getPosition() << endl;
+
+        goBack.action(player3, board);
+        cout << "player3 position: " << player3.getPosition() << endl;
+        
+        // Checking that the player is not on the first slot
+        CHECK(player3.getPosition() != 0);
+
+        // // Checking that the player is on the 39th slot
+        CHECK(player3.getPosition() == 39);
+
+        // // Checking that the player is on the 39th slot
+        CHECK(board.getBoard()[39]->getPlayers()[0].getName() == player3.getName());
     }
 }
