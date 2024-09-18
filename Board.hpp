@@ -28,15 +28,17 @@ class Go;
 class Board
 {
 private:
-    // vector<Slot *> slots; // A vector of slots, it will be initialized with 40 slots, like the monopoly board
-    vector<unique_ptr<Slot>> slots; // A vector of slots, it will be initialized with 40 slots, like the monopoly board
+    vector<Slot *> slots; // A vector of slots, it will be initialized with 40 slots, like the monopoly board
+    // vector<unique_ptr<Slot>> slots; // A vector of slots, it will be initialized with 40 slots, like the monopoly board
 
 public:
     Board(); // Constructor
     // Board() : slots(40) {}
-    ~Board() = default; // Destructor
-    vector<std::unique_ptr<Slot>> &getBoard();
-    const vector<std::unique_ptr<Slot>> &getBoard() const;
+    ~Board(); // Destructor
+    // vector<std::unique_ptr<Slot>> &getBoard();
+    // const vector<std::unique_ptr<Slot>> &getBoard() const;
+    vector<Slot *> &getBoard();
+    const vector<Slot *> &getBoard() const;
     void printBoard(); // Method to print the board
 };
 

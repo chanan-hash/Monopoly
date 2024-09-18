@@ -2,11 +2,12 @@
 #include "doctest.h"
 #include "../Board.hpp"
 #include "../Player.hpp"
-#include"../Cards/supriseCard.hpp"
-#include"../Cards/AdvancedToGo.hpp"
+#include "../Cards/supriseCard.hpp"
+#include "../Cards/AdvancedToGo.hpp"
 
 using namespace std;
-TEST_CASE("Cards Testing"){
+TEST_CASE("Cards Testing")
+{
     // Creating the board
     Board board; // The default constructor will create the board with the default slots
 
@@ -14,24 +15,25 @@ TEST_CASE("Cards Testing"){
     Player player1("Player 1");
     Player player2("Player 2");
     Player player3("Player 3");
-    
+
     // vector of player
-    vector<Player> players;
-    players.push_back(player1);
-    players.push_back(player2);
-    players.push_back(player3);
+    vector<Player *> players; // because we need to pass the player by reference
+    players.push_back(&player1);
+    players.push_back(&player2);
+    players.push_back(&player3);
 
-    // Putting the players on the board
-    for (auto &player : players)
-    {
-        player.setPosition(0);
-    }
+    //Setting the players position to 0
+    player1.setPosition(0);
+    player2.setPosition(0);
+    player3.setPosition(0);
 
-    // Checking that the players are on the first slot
-    for (const auto &player : players)
+
+    // Checking that the position of the players is 0
+    for (size_t i = 0; i < players.size(); i++)
     {
-        CHECK(player.getPosition() == 0);
+        CHECK(players[i]->getPosition() == 0);
     }
+    
 
     // Adding the players to the first slot
     board.getBoard()[0]->addPlayer(player1);
@@ -39,14 +41,15 @@ TEST_CASE("Cards Testing"){
     board.getBoard()[0]->addPlayer(player3);
 
     // Checking that the players are on the first slot
-    for (size_t i = 0 ; i < players.size(); i++)
+    for (size_t i = 0; i < players.size(); i++)
     {
-        CHECK(board.getBoard()[0]->getPlayers()[i].getName() == players[i].getName());
+        CHECK(board.getBoard()[0]->getPlayers()[i].getName() == players[i]->getName());
     }
 
-    SUBCASE("Advance to Go (Collect $200)"){
+    SUBCASE("Advance to Go (Collect $200)")
+    {
         // Creating the card
-        AdvancedToGo advancedToGo;
+            AdvancedToGo advancedToGo;
 
         // putting plyer1 another slot
         board.getBoard()[player1.getPosition()]->removePlayer(player1);
@@ -67,5 +70,4 @@ TEST_CASE("Cards Testing"){
         // Checking that the player is on the first slot
         CHECK(board.getBoard()[0]->getPlayers()[2].getName() == player1.getName());
     }
-
 }

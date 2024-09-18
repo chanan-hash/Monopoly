@@ -6,7 +6,8 @@ void PayTax::action(Player &player, Board &board)
 {
     player.removeMoney(15);
     // board.getBoard()[17]->addMoney(15);
-    Slot *slot = board.getBoard()[17].get();
+    Slot *slot = board.getBoard()[17];
+    // Slot *slot = board.getBoard()[17].get();
 
     // Use dynamic_cast to cast the Slot pointer to a FreeParking pointer
     FreeParking *freeParking = dynamic_cast<FreeParking *>(slot);
