@@ -116,6 +116,7 @@ Board::Board()
 
     // Brown properties
     slots.push_back(new Streets("Mediterranean Avenue", "Property", "Brown", 60, 2, 50, 50));
+    slots.push_back(new Slot("Community Chest"));
     slots.push_back(new Streets("Baltic Avenue", "Property", "Brown", 60, 4, 50, 50));
 
     // Income Tax
@@ -126,6 +127,7 @@ Board::Board()
 
     // Light Blue properties
     slots.push_back(new Streets("Oriental Avenue", "Property", "Light Blue", 100, 6, 50, 50));
+    slots.push_back(new Slot("Chance"));
     slots.push_back(new Streets("Vermont Avenue", "Property", "Light Blue", 100, 6, 50, 50));
     slots.push_back(new Streets("Connecticut Avenue", "Property", "Light Blue", 120, 8, 50, 50));
 
@@ -143,6 +145,7 @@ Board::Board()
 
     // Orange properties
     slots.push_back(new Streets("St. James Place", "Property", "Orange", 180, 14, 100, 100));
+    slots.push_back(new Slot("Community Chest"));
     slots.push_back(new Streets("Tennessee Avenue", "Property", "Orange", 180, 14, 100, 100));
     slots.push_back(new Streets("New York Avenue", "Property", "Orange", 200, 16, 100, 100));
 
@@ -151,6 +154,7 @@ Board::Board()
 
     // Red properties
     slots.push_back(new Streets("Kentucky Avenue", "Property", "Red", 220, 18, 150, 150));
+    slots.push_back(new Slot("Chance"));
     slots.push_back(new Streets("Indiana Avenue", "Property", "Red", 220, 18, 150, 150));
     slots.push_back(new Streets("Illinois Avenue", "Property", "Red", 240, 20, 150, 150));
 
@@ -169,6 +173,7 @@ Board::Board()
     // Green properties
     slots.push_back(new Streets("Pacific Avenue", "Property", "Green", 300, 26, 200, 200));
     slots.push_back(new Streets("North Carolina Avenue", "Property", "Green", 300, 26, 200, 200));
+    slots.push_back(new Slot("Community Chest"));
     slots.push_back(new Streets("Pennsylvania Avenue", "Property", "Green", 320, 28, 200, 200));
 
     // Short Line Railroad

@@ -68,13 +68,21 @@ TEST_CASE("Cards Testing")
 
         // Checking that the player is on the first slot
         CHECK(board.getBoard()[0]->getPlayers()[2].getName() == player1.getName());
+
+        // cout << "player1 position: " << player1.getPosition() << endl;
+        // cout << "player1 money: " << player1.getMoney() << endl;
+        // cout << "player1 name: " << player1.getName() << endl;
+
+        // cout << "player2 position: " << player2.getPosition() << endl;
+        // cout << "player2 name: " << player2.getName() << endl;
+        // cout << "player2 money: " << player2.getMoney() << endl;
     }
 
     SUBCASE("Checking AdvancedToBoardWalk")
     {
         // Creating the card
         AdvancedToBoardWalk advancedToBoardWalk;
-        
+
         // moving player2 to the last slot
         advancedToBoardWalk.action(player2, board);
         cout << "player2 position: " << player2.getPosition() << endl;
