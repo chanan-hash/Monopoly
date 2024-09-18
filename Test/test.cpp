@@ -11,6 +11,8 @@
 #include "../Cards/GoToJail.hpp"
 #include "../Cards/PayPlayer.hpp"
 #include "../Cards/PayTax.hpp"
+#include "../Cards/RepairPay.hpp"
+#include "../Cards/TrainTrip.hpp"
 
 #include "../BoardsSlots/Streets.hpp"
 #include "../BoardsSlots/FreeParking.hpp"
@@ -231,5 +233,97 @@ TEST_CASE("Cards Testing")
         FreeParking *freeParking = dynamic_cast<FreeParking *>(slot);
 
         CHECK(freeParking->getMoney() == 15);
+    }
+
+    SUBCASE("Train Trip")
+    {
+        // Creating the card
+        TrainTrip trainTrip;
+
+        // moving player1 to the 2th slot
+        // means he's not passing the Go slot
+
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[2]->addPlayer(player1);
+
+        // setting the position of the player
+        player1.setPosition(2);
+
+        trainTrip.action(player1, board);
+
+        // Checking that the player is on the 5th slot
+        CHECK(player1.getPosition() == 5);
+
+        // Checking that the player is on the 5th slot
+        CHECK(board.getBoard()[5]->getPlayers()[0].getName() == player1.getName());
+
+        // Checking that the player has 1500$
+        CHECK(player1.getMoney() == 1500);
+
+        // moving player2 to the 7th slot
+        // means he's passing the Go slot
+
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[7]->addPlayer(player2);
+
+        // setting the position of the player
+        player2.setPosition(7);
+
+        trainTrip.action(player2, board);
+
+        // Checking that the player is on the 5th slot
+        CHECK(player2.getPosition() == 5);
+
+        // Checking that the player is on the 5th slot
+        CHECK(board.getBoard()[5]->getPlayers()[1].getName() == player2.getName());
+
+        // Checking that the player has 1700$
+        CHECK(player2.getMoney() == 1700);
+    }
+
+    SUBCASE("Repair Pay")
+    {
+        // Creating the card
+        RepairPay repairPay;
+
+        // If the player has 0 assets he should not pay anything
+
+        CHECK(player3.getMoney() == 1500);
+
+        repairPay.action(player3);
+
+        CHECK(player3.getMoney() == 1500);
+        
+        // Now let's add some assets to the player
+        // here it before we have the buying functionality it will be in the game logic
+        // so we will add the assets manually
+
+        // Lets assume that the player has 2 streets with 2 houses each and 1 street with a hotel
+        // The 2 brown streets
+        player3.addAsset(*dynamic_cast<Streets *>(board.getBoard()[1]));
+        player3.addAsset(*dynamic_cast<Streets *>(board.getBoard()[3]));
+
+        // Adding to them 2 houses each
+        dynamic_cast<Streets *>(board.getBoard()[1])->addHouse();
+        dynamic_cast<Streets *>(board.getBoard()[1])->addHouse();
+        dynamic_cast<Streets *>(board.getBoard()[3])->addHouse();
+        dynamic_cast<Streets *>(board.getBoard()[3])->addHouse();
+
+        player3.addAsset(*dynamic_cast<Streets *>(board.getBoard()[6]));
+
+        // Adding to it a hotel
+        dynamic_cast<Streets *>(board.getBoard()[6])->addHotel();
+
+        // Now the player has 2 streets with 2 houses each and 1 street with a hotel
+        // The total repair cost should be 25 * 4 + 100 = 200
+        repairPay.action(player3);
+
+        // Checking that the player has 1300$
+        CHECK(player3.getMoney() == 1300);
+
+        // Checking the Street's owner
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[1])->getOwner().getName() == player3.getName());
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[3])->getOwner().getName() == player3.getName());
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[6])->getOwner().getName() == player3.getName());
     }
 }

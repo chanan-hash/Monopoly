@@ -37,6 +37,8 @@ void Player::removeMoney(int amount)
 
 void Player::addAsset(Streets &asset)
 {
+    // setting the owner of the asset to the player
+    asset.setOwner(*this);
     assets.push_back(&asset);
 }
 
@@ -49,7 +51,7 @@ void Player::addAsset(Streets &asset)
 
 void Player::addTrain(Station &train)
 {
-    // assets.push_back(&train);
+    train.setOwner(*this);
     trains++;
 }
 
@@ -63,7 +65,7 @@ void Player::addTrain(Station &train)
 
 void Player::addUtility(Utility &utility)
 {
-    // assets.push_back(&utility);
+    utility.setOwner(*this);
     utilities++;
 }
 
