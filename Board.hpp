@@ -7,7 +7,9 @@
  * It will also have a method to print the board.
  */
 
-#pragma once
+#ifndef BOARD_HPP
+#define BOARD_HPP
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -21,7 +23,7 @@ class Station;
 class Utility;
 class FreeParking;
 class Go;
-class Player;
+// class Player;
 
 class Board
 {
@@ -38,4 +40,5 @@ public:
     void printBoard(); // Method to print the board
 };
 
-// friend operator << printing with gui
+#endif // BOARD_HPP
+       // friend operator << printing with gui

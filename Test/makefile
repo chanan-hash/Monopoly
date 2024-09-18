@@ -11,7 +11,7 @@ BOARD = ../Board.o
 
 all: test
 
-test: test.o $(CARDS) $(SLOTS)
+test: test.o $(CARDS) $(SLOTS) $(PLAYR) $(BOARD)
 #	make -C ../Cards
 #	make -C ../BoardsSlots
 	$(CXX) $(CXXFLAGS) $^ -o $@
@@ -20,6 +20,7 @@ test.o: test.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f test test.o *.o
+	rm -f test test.o *.o ../*.o
 	make -C ../Cards clean
 	make -C ../BoardsSlots clean
+	

@@ -1,3 +1,4 @@
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "../Board.hpp"
 #include "../Player.hpp"
@@ -65,6 +66,6 @@ TEST_CASE("Cards Testing"){
 
         // Checking that the player is on the first slot
         CHECK(board.getBoard()[0]->getPlayers()[2].getName() == player1.getName());
-        
     }
+
 }
