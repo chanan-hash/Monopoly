@@ -9,7 +9,11 @@
 #include "../Cards/GoBack.hpp"
 #include "../Cards/Loan.hpp"
 #include "../Cards/GoToJail.hpp"
+#include "../Cards/PayPlayer.hpp"
+#include "../Cards/PayTax.hpp"
+
 #include "../BoardsSlots/Streets.hpp"
+#include "../BoardsSlots/FreeParking.hpp"
 
 using namespace std;
 TEST_CASE("Cards Testing")
@@ -196,5 +200,36 @@ TEST_CASE("Cards Testing")
         CHECK(board.getBoard()[10]->getPlayers()[0].getName() == player1.getName());
 
         CHECK(player1.getIsInJail() == true);
+    }
+
+    SUBCASE("Pay Player")
+    {
+        // Creating the card
+        PayPlayer payPlayer;
+        CHECK(player1.getMoney() == 1500);
+        CHECK(player2.getMoney() == 1500);
+        CHECK(player3.getMoney() == 1500);
+
+        payPlayer.action(player1, players);
+        CHECK(player1.getMoney() == 1400);
+        CHECK(player2.getMoney() == 1550);
+        CHECK(player3.getMoney() == 1550);
+    }
+
+    SUBCASE("Pay Tax")
+    {
+        // Creating the card
+        PayTax payTax;
+
+        CHECK(player2.getMoney() == 1500);
+
+        payTax.action(player2, board);
+
+        CHECK(player2.getMoney() == 1485);
+
+        Slot *slot = board.getBoard()[20];
+        FreeParking *freeParking = dynamic_cast<FreeParking *>(slot);
+
+        CHECK(freeParking->getMoney() == 15);
     }
 }

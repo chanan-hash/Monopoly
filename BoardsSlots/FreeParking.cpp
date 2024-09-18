@@ -20,6 +20,11 @@ void FreeParking::addMoney(Player &player) // add the money to the player
     }
 }
 
+int FreeParking::getMoney() const // get the money
+{
+    return money;
+}
+
 void FreeParking::printSlot() const // print the details of the slot
 {
     cout << "FreeParking name: " << getName() << endl;

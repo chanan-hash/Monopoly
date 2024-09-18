@@ -12,7 +12,7 @@ class PayPlayer : public supriseCard
 {
 public:
     PayPlayer();
-    void action(Player &player, vector<Player> &players);
+    void action(Player &player, vector<Player*> &players); // getting the player that pays and the vector of players
 };
 
 #endif // PAYPLAYER_HPP
