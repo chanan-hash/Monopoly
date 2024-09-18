@@ -7,6 +7,8 @@
 #include "../Cards/AdvancedToBoardWalk.hpp"
 #include "../Cards/BankPays.hpp"
 #include "../Cards/GoBack.hpp"
+#include "../Cards/Loan.hpp"
+#include "../Cards/GoToJail.hpp"
 #include "../BoardsSlots/Streets.hpp"
 
 using namespace std;
@@ -162,5 +164,37 @@ TEST_CASE("Cards Testing")
         auto slot19 = board.getBoard()[player2.getPosition()];
         Streets *street = dynamic_cast<Streets *>(slot19);
         CHECK(street->getRent() == 16);
+    }
+
+    SUBCASE("Loan")
+    {
+        // Creating the card
+        Loan loan;
+        CHECK(player1.getMoney() == 1500);
+
+        // player1 is the only player on the board
+        loan.action(player1);
+
+        // Checking that the player has $1500
+        CHECK(player1.getMoney() == 1650);
+    }
+
+    SUBCASE("GO TO JAIL")
+    {
+        // Creating the card
+        GoToJail goToJail;
+
+        // Checking that the player is not in jail
+        CHECK_FALSE(player1.getIsInJail());
+        // moving player1 to the jail slot
+        goToJail.action(player1, board);
+
+        // Checking that the player is on the jail slot
+        CHECK(player1.getPosition() == 10);
+
+        // Checking that the player is on the jail slot
+        CHECK(board.getBoard()[10]->getPlayers()[0].getName() == player1.getName());
+
+        CHECK(player1.getIsInJail() == true);
     }
 }
