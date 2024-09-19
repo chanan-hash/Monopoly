@@ -39,7 +39,8 @@ public:
     int getRent() const;
     int getHousePrice() const;
     int getHotelPrice() const;
-    const Player getOwner() const;
+    Player& getOwner() const;
+    Player* getOwnerPtr() const;
     int getHouses() const;
     bool getHotel() const;
     bool operator==(const Streets &other) const;

@@ -30,7 +30,7 @@ int Streets::getHotelPrice() const
     return hotelPrice;
 }
 
-const Player Streets::getOwner() const
+Player& Streets::getOwner() const
 {
     return *owner;
 }
@@ -43,6 +43,11 @@ int Streets::getHouses() const
 bool Streets::getHotel() const
 {
     return hotel;
+}
+
+Player* Streets::getOwnerPtr() const
+{
+    return owner;
 }
 
 void Streets::setOwner(Player &owner) // because we're using reference in the Slot class
@@ -78,6 +83,7 @@ void Streets::addHotel()
         cout << "This street already has a hotel" << endl;
         return;
     }
+    houses = 0; // removing the houses and adding a hotel
     hotel = true;
 }
 

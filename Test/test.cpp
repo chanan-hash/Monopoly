@@ -1,5 +1,8 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+
+#include "../Monopoly.hpp"
+
 #include "../Board.hpp"
 #include "../Player.hpp"
 #include "../Cards/supriseCard.hpp"
@@ -293,7 +296,7 @@ TEST_CASE("Cards Testing")
         repairPay.action(player3);
 
         CHECK(player3.getMoney() == 1500);
-        
+
         // Now let's add some assets to the player
         // here it before we have the buying functionality it will be in the game logic
         // so we will add the assets manually
@@ -325,5 +328,116 @@ TEST_CASE("Cards Testing")
         CHECK(dynamic_cast<Streets *>(board.getBoard()[1])->getOwner().getName() == player3.getName());
         CHECK(dynamic_cast<Streets *>(board.getBoard()[3])->getOwner().getName() == player3.getName());
         CHECK(dynamic_cast<Streets *>(board.getBoard()[6])->getOwner().getName() == player3.getName());
+    }
+}
+
+TEST_CASE("Testing game logic")
+{
+    Board board; // The default constructor will create the board with the default slots
+
+    // Creating 3 Player
+    Player player1("Player 1");
+    Player player2("Player 2");
+    Player player3("Player 3");
+
+    // vector of player
+    vector<Player *> players; // because we need to pass the player by reference
+    players.push_back(&player1);
+    players.push_back(&player2);
+    players.push_back(&player3);
+
+    // Setting the players position to 0
+    player1.setPosition(0);
+    player2.setPosition(0);
+    player3.setPosition(0);
+
+    Monopoly monopoly;
+
+    SUBCASE("Checking diceRoll")
+    {
+        int dice = monopoly.diceRoll();
+        CHECK(dice >= 1);
+        CHECK(dice <= 6);
+    }
+
+    SUBCASE("Checking movePlayer")
+    {
+        monopoly.movePlayer(player1, board);
+        CHECK(player1.getPosition() >= 2); // because the player should move at least 2 steps
+
+        // Checking that the player is on the new slot
+        CHECK(board.getBoard()[player1.getPosition()]->getPlayers()[0].getName() == player1.getName());
+
+        // Checking that he is not on the first slot
+        for (size_t i = 0; i < board.getBoard()[0]->getPlayers().size(); i++)
+        {
+            CHECK(board.getBoard()[0]->getPlayers()[i].getName() != player1.getName());
+        }
+    }
+
+    SUBCASE("Checking pay function")
+    {
+        // for now let's assume that player2 bought a street and player1 landed on it
+        // so player1 should pay the rent to player2
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[6]->addPlayer(player1);
+
+        player2.addAsset(*dynamic_cast<Streets *>(board.getBoard()[6]));
+        CHECK(player2.getAssets().size() == 1);
+        // Cheking that player2 is the owner of the street
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[6])->getOwner().getName() == player2.getName());
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[6]) != nullptr);
+
+        // cout << dynamic_cast<Streets *>(board.getBoard()[6])-> getHouses() << endl;
+
+        monopoly.payStreetRent(player1, player2, *dynamic_cast<Streets *>(board.getBoard()[6]));
+
+        // Checking that player1 has 1494$
+        CHECK(player1.getMoney() == 1494);
+
+        // // Checking that player2 has 1506$
+        CHECK(player2.getMoney() == 1506);
+
+        // Now let's assume that player3 bought a street and player2 landed on it
+        // and the street has 2 houses
+
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[37]->addPlayer(player2);
+
+        player3.addAsset(*dynamic_cast<Streets *>(board.getBoard()[37]));
+        CHECK(player3.getAssets().size() == 1);
+
+        // Adding to it 2 houses
+        dynamic_cast<Streets *>(board.getBoard()[37])->addHouse();
+        dynamic_cast<Streets *>(board.getBoard()[37])->addHouse();
+
+        // Cheking that player3 is the owner of the street
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[37])->getOwner().getName() == player3.getName());
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[37]) != nullptr);
+
+        monopoly.payStreetRent(player2, player3, *dynamic_cast<Streets *>(board.getBoard()[37]));
+
+        // Checking that player2 has 1366$
+        CHECK(player2.getMoney() == 1366);
+
+        // Checking that player3 has 1640$
+        CHECK(player3.getMoney() == 1640);
+
+        // Adding a hotel to the street
+        dynamic_cast<Streets *>(board.getBoard()[37])->addHotel();
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[37])->getHotel() == true);
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[37])->getName() == "Park Place");
+
+        // moving player1 to the street
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[37]->addPlayer(player1);
+
+        monopoly.payStreetRent(player1, player3, *dynamic_cast<Streets *>(board.getBoard()[37]));
+
+        // Checking that player1 has 1144$
+        CHECK(player1.getMoney() == 1144);
+
+        // Checking that player3 has 1990$
+        CHECK(player3.getMoney() == 1990);
     }
 }

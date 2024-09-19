@@ -6,12 +6,13 @@ CARDS = ../Cards/supriseCard.o ../Cards/Loan.o ../Cards/GoToJail.o ../Cards/Bank
 SLOTS = ../BoardsSlots/FreeParking.o ../BoardsSlots/Go.o ../BoardsSlots/Streets.o ../BoardsSlots/Slot.o ../BoardsSlots/Utility.o ../BoardsSlots/Station.o
 PLAYR = ../Player.o
 BOARD = ../Board.o
+MONOP = ../Monopoly.o
 
 # Generate a list of object files
 
 all: test
 
-test: test.o $(CARDS) $(SLOTS) $(PLAYR) $(BOARD)
+test: test.o $(CARDS) $(SLOTS) $(PLAYR) $(BOARD) $(MONOP)
 #	make -C ../Cards
 #	make -C ../BoardsSlots
 	$(CXX) $(CXXFLAGS) $^ -o $@
