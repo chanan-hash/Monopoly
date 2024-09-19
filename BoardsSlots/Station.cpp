@@ -49,3 +49,8 @@ Player &Station::getOwner() const // get the owner of the station
 {
     return *owner;
 }
+
+Player *Station::getOwnerPtr() const // get the owner of the station
+{
+    return owner;
+}

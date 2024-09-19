@@ -51,7 +51,10 @@ public:
 
     void SlotCheck(Player &player, Board &board); // Method to check the slot
     void payStreetRent(Player &player1, Player &player2, Streets &street);
-    // void buyStreet(Player &player, Streets &street);
+    void buyStreet(Player &player, Streets &street);
+
+    void payStationRent(Player &player1, Player &player2, Station &station);
+    void buyStation(Player &player, Station &station);
 
     // Getters
     Board &getBoard();

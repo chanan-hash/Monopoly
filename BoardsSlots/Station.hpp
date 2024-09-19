@@ -25,6 +25,7 @@ public:
     int getPrice() const;
     int getRent() const;
     Player &getOwner() const;
+    Player *getOwnerPtr() const;
 
     // Setters
     void setOwner(Player &player); // set the owner of the station

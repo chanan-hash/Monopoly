@@ -440,4 +440,23 @@ TEST_CASE("Testing game logic")
         // Checking that player3 has 1990$
         CHECK(player3.getMoney() == 1990);
     }
+
+    SUBCASE("Checking passed GO")
+    {
+        // puting player1 on the last slot
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[39]->addPlayer(player1);
+        player1.setPosition(39);
+        
+        cout << "player1 position: " << player1.getPosition() << endl;
+        // Cheking that player1 has 1500$
+        CHECK(player1.getMoney() == 1500);
+
+        // player1 will move
+        monopoly.movePlayer(player1, board);
+        cout << "player1 position: " << player1.getPosition() << endl;
+
+        // Checking that player1 has 1700$
+        CHECK(player1.getMoney() == 1700);
+    }
 }
