@@ -139,7 +139,9 @@ void Monopoly::payStreetRent(Player &player1, Player &player2, Streets &street)
     // Checking if the street has houses
     if (street.getHouses() > 0)
     {
-        int renth = street.getRent() * pow(2, street.getHouses() - 1);
+        int renth = street.getRent() * pow(2, street.getHouses());
+        //         int renth = street.getRent() * pow(2, street.getHouses() -1);
+        
         player1.removeMoney(renth);
         player2.addMoney(renth);
     }

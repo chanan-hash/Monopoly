@@ -447,7 +447,7 @@ TEST_CASE("Testing game logic")
         board.getBoard()[player1.getPosition()]->removePlayer(player1);
         board.getBoard()[39]->addPlayer(player1);
         player1.setPosition(39);
-        
+
         cout << "player1 position: " << player1.getPosition() << endl;
         // Cheking that player1 has 1500$
         CHECK(player1.getMoney() == 1500);
@@ -459,4 +459,128 @@ TEST_CASE("Testing game logic")
         // Checking that player1 has 1700$
         CHECK(player1.getMoney() == 1700);
     }
+
+    SUBCASE("Checking buying a street")
+    {
+        // puting player1 on the street
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[1]->addPlayer(player1);
+        player1.setPosition(1);
+
+        // Checking that player1 has 1500$
+        CHECK(player1.getMoney() == 1500);
+
+        monopoly.buyStreet(player1, *dynamic_cast<Streets *>(board.getBoard()[1]));
+
+        // Checking that player1 has 1440$
+        CHECK(player1.getMoney() == 1440);
+
+        // Checking that player1 has the street
+        CHECK(player1.getAssets().size() == 1);
+        CHECK(player1.getAssets()[0]->getName() == "Mediterranean Avenue");
+
+        // Checking that the street has an owner
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[1])->getOwner().getName() == player1.getName());
+
+
+        // puting player2 on the street
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[3]->addPlayer(player2);
+        player2.setPosition(3);
+
+        // removing player2 money so he can't buy the street
+        player2.removeMoney(1500);
+
+        // Checking that player2 has 0$
+        CHECK(player2.getMoney() == 0);
+
+        monopoly.buyStreet(player2, *dynamic_cast<Streets *>(board.getBoard()[3]));
+
+        // Checcking that the street has no owner
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[3])->getOwnerPtr() == nullptr);
+
+        // Cheking that player2 has no assets
+        CHECK(player2.getAssets().size() == 0);
+    }
+
+    SUBCASE("Checking buying Station and payment"){
+        // puting player1 on the station
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[5]->addPlayer(player1);
+        player1.setPosition(5);
+
+        // Checking that player1 has 1500$
+        CHECK(player1.getMoney() == 1500);
+
+        monopoly.buyStation(player1, *dynamic_cast<Station *>(board.getBoard()[5]));
+
+        // Checking that player1 has 1300$
+        CHECK(player1.getMoney() == 1300);
+
+        // Checking that player1 has the station
+        CHECK(player1.getTrains() == 1);
+
+        // Checking that the station has an owner
+        CHECK(dynamic_cast<Station *>(board.getBoard()[5])->getOwner().getName() == player1.getName());
+
+
+        // puting player2 on the station
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[5]->addPlayer(player2);
+        player2.setPosition(5);
+
+        // Checking that player2 has 1500$
+        CHECK(player2.getMoney() == 1500);
+
+        monopoly.payStationRent(player2, player1, *dynamic_cast<Station *>(board.getBoard()[5]));
+
+        CHECK(player2.getMoney() == 1475);
+        CHECK(player1.getMoney() == 1325);
+
+        // Adding to player1 another station
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[15]->addPlayer(player1);
+        player1.setPosition(15);
+
+        monopoly.buyStation(player1, *dynamic_cast<Station *>(board.getBoard()[15]));
+
+        // Checking that player1 has 1125$
+        CHECK(player1.getMoney() == 1125);
+
+        // Checking that player1 has 2 stations
+        CHECK(player1.getTrains() == 2);
+
+        // Checking that the station has an owner
+        CHECK(dynamic_cast<Station *>(board.getBoard()[15])->getOwner().getName() == player1.getName());
+
+        // Now putting player3 on the station
+        board.getBoard()[player3.getPosition()]->removePlayer(player3);
+        board.getBoard()[5]->addPlayer(player3);
+        player3.setPosition(5);
+
+        // Checking that player3 has 1500$
+        CHECK(player3.getMoney() == 1500);
+
+        monopoly.payStationRent(player3, player1, *dynamic_cast<Station *>(board.getBoard()[5]));
+
+        CHECK(player3.getMoney() == 1450);
+
+        CHECK(player1.getMoney() == 1175);
+
+        // trying to buy the station while he has no money
+        player3.removeMoney(1400);
+
+        monopoly.buyStation(player3, *dynamic_cast<Station *>(board.getBoard()[35]));
+
+        // Checking that the station has no owner
+        CHECK(dynamic_cast<Station *>(board.getBoard()[35])->getOwnerPtr() == nullptr);
+
+        // Cheking that player3 has no stations
+        CHECK(player3.getTrains() == 0);
+
+        // Check that he has the same amount of money
+        CHECK(player3.getMoney() == 50);        
+    }
+
+
 }
