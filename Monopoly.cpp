@@ -1,5 +1,7 @@
 #include "Monopoly.hpp"
 #include <cmath>
+#include <sstream>
+#include <string>
 
 // Monopoly::Monopoly()
 // {
@@ -21,7 +23,7 @@ void Monopoly::movePlayer(Player &player, Board &board)
     if (!inJail)
     {
 
-        int oldPosition = player.getPosition(); // for checkups
+        int oldPosition = player.getPosition(); // for checking if the player passed the Go slot
 
         cout << "Player " << player.getName() << " rolled " << dice1 << " and " << dice2 << " for a total of " << dice << endl;
 
@@ -39,7 +41,7 @@ void Monopoly::movePlayer(Player &player, Board &board)
         }
 
         // Now all the checkup
-        SlotCheck(player, board,dice);
+        SlotCheck(player, board, dice);
     }
 
     // if the player is in jail but rolled a double
@@ -72,13 +74,15 @@ void Monopoly::movePlayer(Player &player, Board &board)
     }
 }
 
-void Monopoly::SlotCheck(Player &player, Board &board,int dice)
+void Monopoly::SlotCheck(Player &player, Board &board, int dice)
 {
     // Getting the slot from player position
     Slot *slot = board.getBoard()[player.getPosition()];
 
+    cout << "Player " << player.getName() << " landed on " << slot->getName() << endl;
+
     // If the slot is a street
-    if (slot->getName() == "Property")
+    if (slot->getType() == "Property")
     {
         Streets *street = dynamic_cast<Streets *>(slot);
         // Checking if the street is owned
@@ -99,7 +103,7 @@ void Monopoly::SlotCheck(Player &player, Board &board,int dice)
     }
 
     // If the slot is a station
-    else if (slot->getName() == "Station")
+    else if (slot->getType() == "Station")
     {
         Station *station = dynamic_cast<Station *>(slot);
         // Checking if the station is owned
@@ -134,7 +138,7 @@ void Monopoly::SlotCheck(Player &player, Board &board,int dice)
             cin >> answer;
             if (answer == 'y')
             {
-                // buyUtility(player, *utility);
+                buyUtility(player, *utility);
             }
         }
     }
@@ -150,10 +154,24 @@ void Monopoly::SlotCheck(Player &player, Board &board,int dice)
     }
 
     // need to add the other slots
-    // doing the tesxes slots
+    // doing the tasxes slots
+    else if (slot->getName() == "Income Tax")
+    {
+        player.removeMoney(200);
+        // Adding it to the free parking
+        FreeParking *freeParking = dynamic_cast<FreeParking *>(board.getBoard()[20]);
+        freeParking->addMoney(200);
+    }
+    else if (slot->getName() == "Luxury Tax")
+    {
+        player.removeMoney(100);
+        // Adding it to the free parking
+        FreeParking *freeParking = dynamic_cast<FreeParking *>(board.getBoard()[20]);
+        freeParking->addMoney(100);
+    }
     // jail slot
     // free parking slot
-    // card slots 
+    // card slots
 }
 
 // Handling the street rent
@@ -238,7 +256,8 @@ void Monopoly::payUtilityRent(Player &player1, Player &player2, Utility &utility
     player2.addMoney(rent);
 }
 
-void Monopoly::buyUtility(Player &player, Utility &utility){
+void Monopoly::buyUtility(Player &player, Utility &utility)
+{
     if (player.getMoney() < utility.getPrice())
     {
         cout << "You don't have enough money to buy this utility" << endl;

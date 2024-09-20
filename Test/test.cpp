@@ -1,5 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+#include <sstream>
+#include <string>
 
 #include "../Monopoly.hpp"
 
@@ -660,5 +662,73 @@ TEST_CASE("Testing game logic")
         // player3 should pay 50$ to player1
         CHECK(player3.getMoney() == 1450);
         CHECK(player1.getMoney() == 1270);
+    }
+
+    SUBCASE("Cheking Taxes payment")
+    {
+        // puting player2 on the Income Tax slot
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[4]->addPlayer(player2);
+        player2.setPosition(4);
+
+        // Checking that player2 has 1500$
+        CHECK(player2.getMoney() == 1500);
+
+        monopoly.SlotCheck(player2, board, 0);
+
+        // player2 should pay 200$ to the bank
+        CHECK(player2.getMoney() == 1300);
+
+        // Checking that the money is added to the free parking
+        Slot *slot = board.getBoard()[20];
+        FreeParking *freeParking = dynamic_cast<FreeParking *>(slot);
+
+        CHECK(freeParking->getMoney() == 200);
+
+        // puting player3 on the Luxury Tax slot
+
+        board.getBoard()[player3.getPosition()]->removePlayer(player3);
+        board.getBoard()[38]->addPlayer(player3);
+        player3.setPosition(38);
+
+        // Checking that player3 has 1500$
+        CHECK(player3.getMoney() == 1500);
+
+        monopoly.SlotCheck(player3, board, 0);
+
+        // player3 should pay 100$ to the bank
+        CHECK(player3.getMoney() == 1400);
+
+        // Checking that the money is added to the free parking
+        CHECK(freeParking->getMoney() == 300);
+    }
+
+    SUBCASE("Checking buy by SlotCheck function")
+    {
+        // putting player2 on the street Virginia Avenue
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[14]->addPlayer(player2);
+        player2.setPosition(14);
+
+        // Checking that player2 has 1500$
+        CHECK(player2.getMoney() == 1500);
+
+        // For the simulated input
+        std::istringstream simulatedInput("your simulated input here\n");
+        std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
+
+        monopoly.SlotCheck(player2, board, 0);
+
+        std::cin.rdbuf(originalCin);
+
+        // player2 should buy the street
+        CHECK(player2.getMoney() == 1340);
+
+        // Checking that player2 has the street
+        CHECK(player2.getAssets().size() == 1);
+        CHECK(player2.getAssets()[0]->getName() == "Virginia Avenue");
+
+        // Checking that the street has an owner
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[14])->getOwner().getName() == player2.getName());
     }
 }
