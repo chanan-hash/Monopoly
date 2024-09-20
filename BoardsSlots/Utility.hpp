@@ -22,7 +22,9 @@ public:
     // Getters
     int getPrice() const;
     int getRent() const;
-    const Player getOwner() const;
+    Player& getOwner() const;
+    Player *getOwnerPtr() const;
+
 
     // Setters
     void setOwner(Player &player);

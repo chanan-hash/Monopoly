@@ -39,7 +39,7 @@ void Monopoly::movePlayer(Player &player, Board &board)
         }
 
         // Now all the checkup
-        SlotCheck(player, board);
+        SlotCheck(player, board,dice);
     }
 
     // if the player is in jail but rolled a double
@@ -72,7 +72,7 @@ void Monopoly::movePlayer(Player &player, Board &board)
     }
 }
 
-void Monopoly::SlotCheck(Player &player, Board &board)
+void Monopoly::SlotCheck(Player &player, Board &board,int dice)
 {
     // Getting the slot from player position
     Slot *slot = board.getBoard()[player.getPosition()];
@@ -119,6 +119,26 @@ void Monopoly::SlotCheck(Player &player, Board &board)
         }
     }
 
+    else if (slot->getName() == "Utility")
+    {
+        Utility *utility = dynamic_cast<Utility *>(slot);
+        // Checking if the utility is owned
+        if (utility->getOwnerPtr() != nullptr)
+        {
+            payUtilityRent(player, utility->getOwner(), *utility, dice);
+        }
+        else
+        {
+            cout << "Do you want to buy this utility? (y/n)" << endl;
+            char answer;
+            cin >> answer;
+            if (answer == 'y')
+            {
+                // buyUtility(player, *utility);
+            }
+        }
+    }
+
     // Checking if it is a GO slot
     else if (slot->getName() == "Go")
     {
@@ -129,7 +149,11 @@ void Monopoly::SlotCheck(Player &player, Board &board)
         go->add400(player);
     }
 
-    /// need to add the other slots
+    // need to add the other slots
+    // doing the tesxes slots
+    // jail slot
+    // free parking slot
+    // card slots 
 }
 
 // Handling the street rent
@@ -141,7 +165,7 @@ void Monopoly::payStreetRent(Player &player1, Player &player2, Streets &street)
     {
         int renth = street.getRent() * pow(2, street.getHouses());
         //         int renth = street.getRent() * pow(2, street.getHouses() -1);
-        
+
         player1.removeMoney(renth);
         player2.addMoney(renth);
     }
@@ -171,7 +195,7 @@ void Monopoly::buyStreet(Player &player, Streets &street)
     player.addAsset(street);
 }
 
-// Handling the station rent 
+// Handling the station rent
 void Monopoly::payStationRent(Player &player1, Player &player2, Station &station)
 {
     // Checking how many stations the owner has
@@ -190,4 +214,36 @@ void Monopoly::buyStation(Player &player, Station &station)
     }
     player.removeMoney(station.getPrice());
     player.addTrain(station);
+}
+
+// Handling the utility rent
+// The rent payment is according to the number of utilities the owner and the dice result
+void Monopoly::payUtilityRent(Player &player1, Player &player2, Utility &utility, int dice)
+{
+    // Checking how many utilities the owner has
+    int utilities = player2.getUtilities();
+    int rent = 0;
+
+    if (utilities == 1)
+    {
+        rent = 4 * dice;
+    }
+
+    else if (utilities == 2)
+    {
+        rent = 10 * dice;
+    }
+
+    player1.removeMoney(rent);
+    player2.addMoney(rent);
+}
+
+void Monopoly::buyUtility(Player &player, Utility &utility){
+    if (player.getMoney() < utility.getPrice())
+    {
+        cout << "You don't have enough money to buy this utility" << endl;
+        return;
+    }
+    player.removeMoney(utility.getPrice());
+    player.addUtility(utility);
 }

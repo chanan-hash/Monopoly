@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Utility::Utility(const string &name,const  string &type, int price) : Slot(name, type), price(price), owner(nullptr) {}
+Utility::Utility(const string &name, const string &type, int price) : Slot(name, type), price(price), owner(nullptr) {}
 
 int Utility::getPrice() const
 {
@@ -15,9 +15,14 @@ int Utility::getRent() const
     return this->rent;
 }
 
-const Player Utility::getOwner() const
+Player& Utility::getOwner() const
 {
     return *owner;
+}
+
+Player *Utility::getOwnerPtr() const
+{
+    return owner;
 }
 
 void Utility::setOwner(Player &player)

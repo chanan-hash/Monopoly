@@ -49,12 +49,15 @@ public:
     int diceRoll() const;                          // Method to roll the dice
     void movePlayer(Player &player, Board &board); // Method to move the player
 
-    void SlotCheck(Player &player, Board &board); // Method to check the slot
+    void SlotCheck(Player &player, Board &board, int dice); // Method to check the slot
     void payStreetRent(Player &player1, Player &player2, Streets &street);
     void buyStreet(Player &player, Streets &street);
 
     void payStationRent(Player &player1, Player &player2, Station &station);
     void buyStation(Player &player, Station &station);
+
+    void payUtilityRent(Player &player1, Player &player2, Utility &utility, int dice);
+    void buyUtility(Player &player, Utility &utility);
 
     // Getters
     Board &getBoard();

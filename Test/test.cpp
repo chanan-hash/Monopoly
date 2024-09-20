@@ -482,7 +482,6 @@ TEST_CASE("Testing game logic")
         // Checking that the street has an owner
         CHECK(dynamic_cast<Streets *>(board.getBoard()[1])->getOwner().getName() == player1.getName());
 
-
         // puting player2 on the street
         board.getBoard()[player2.getPosition()]->removePlayer(player2);
         board.getBoard()[3]->addPlayer(player2);
@@ -503,7 +502,8 @@ TEST_CASE("Testing game logic")
         CHECK(player2.getAssets().size() == 0);
     }
 
-    SUBCASE("Checking buying Station and payment"){
+    SUBCASE("Checking buying Station and payment")
+    {
         // puting player1 on the station
         board.getBoard()[player1.getPosition()]->removePlayer(player1);
         board.getBoard()[5]->addPlayer(player1);
@@ -522,7 +522,6 @@ TEST_CASE("Testing game logic")
 
         // Checking that the station has an owner
         CHECK(dynamic_cast<Station *>(board.getBoard()[5])->getOwner().getName() == player1.getName());
-
 
         // puting player2 on the station
         board.getBoard()[player2.getPosition()]->removePlayer(player2);
@@ -579,8 +578,87 @@ TEST_CASE("Testing game logic")
         CHECK(player3.getTrains() == 0);
 
         // Check that he has the same amount of money
-        CHECK(player3.getMoney() == 50);        
+        CHECK(player3.getMoney() == 50);
     }
 
+    SUBCASE("Testing Utility fucntions")
+    {
+        // let assume player 1 bought the utility
+        // puting player1 on the utility
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[12]->addPlayer(player1);
+        player1.setPosition(12);
 
+        // Checking that player1 has 1500$
+        CHECK(player1.getMoney() == 1500);
+
+        monopoly.buyUtility(player1, *dynamic_cast<Utility *>(board.getBoard()[12]));
+
+        // Checking that player1 has 1350$
+        CHECK(player1.getMoney() == 1350);
+
+        // Checking that player1 has the utility
+        CHECK(player1.getUtilities() == 1);
+
+        // Checking that the utility has an owner
+        CHECK(dynamic_cast<Utility *>(board.getBoard()[12])->getOwner().getName() == player1.getName());
+
+        // puting player2 on the utility
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[12]->addPlayer(player2);
+        player2.setPosition(12);
+
+        // Checking that player2 has 1500$
+        CHECK(player2.getMoney() == 1500);
+
+        monopoly.payUtilityRent(player2, player1, *dynamic_cast<Utility *>(board.getBoard()[12]), 5);
+
+        // player2 should pay 20$ to player1
+        CHECK(player2.getMoney() == 1480);
+        CHECK(player1.getMoney() == 1370);
+
+        // player2 wna;t to by the utility but he has no money
+        player2.removeMoney(1470);
+        CHECK(player2.getMoney() == 10);
+        monopoly.buyUtility(player2, *dynamic_cast<Utility *>(board.getBoard()[28]));
+
+        // Checking that the utility has no owner
+        CHECK(dynamic_cast<Utility *>(board.getBoard()[28])->getOwnerPtr() == nullptr);
+
+        // Checking that player2 has no utilities
+        CHECK(player2.getUtilities() == 0);
+
+        // Adding another utility to player1
+
+        // puting player1 on the utility
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[28]->addPlayer(player1);
+        player1.setPosition(28);
+
+        monopoly.buyUtility(player1, *dynamic_cast<Utility *>(board.getBoard()[28]));
+
+        // Checking that player1 has 1220$
+        CHECK(player1.getMoney() == 1220);
+
+        // Checking that player1 has 2 utilities
+        CHECK(player1.getUtilities() == 2);
+
+        // Checking that the utility has an owner
+        CHECK(dynamic_cast<Utility *>(board.getBoard()[28])->getOwner().getName() == player1.getName());
+
+        // puting player3 on the utility
+
+        board.getBoard()[player3.getPosition()]->removePlayer(player3);
+        board.getBoard()[12]->addPlayer(player3);
+        player3.setPosition(12);
+
+        // Checking that player3 has 1500$
+        CHECK(player3.getMoney() == 1500);
+
+        monopoly.payUtilityRent(player3, player1, *dynamic_cast<Utility *>(board.getBoard()[12]), 5);
+
+        // player3 should pay 50$ to player1
+        CHECK(player3.getMoney() == 1450);
+        CHECK(player1.getMoney() == 1270);
+    }
 }
