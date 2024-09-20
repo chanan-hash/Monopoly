@@ -99,6 +99,10 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
             {
                 buyStreet(player, *street);
             }
+            // else
+            // {
+            //     return;
+            // }
         }
     }
 

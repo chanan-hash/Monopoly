@@ -703,7 +703,7 @@ TEST_CASE("Testing game logic")
         CHECK(freeParking->getMoney() == 300);
     }
 
-    SUBCASE("Checking buy by SlotCheck function")
+    SUBCASE("Checking Street buy by SlotCheck function")
     {
         // putting player2 on the street Virginia Avenue
         board.getBoard()[player2.getPosition()]->removePlayer(player2);
@@ -730,5 +730,232 @@ TEST_CASE("Testing game logic")
 
         // Checking that the street has an owner
         CHECK(dynamic_cast<Streets *>(board.getBoard()[14])->getOwner().getName() == player2.getName());
+
+        // now putting player3 on the street Virginia Avenue and checking that he can't buy it and needs to pay the rent
+        // working with the simulated input
+        board.getBoard()[player3.getPosition()]->removePlayer(player3);
+        board.getBoard()[14]->addPlayer(player3);
+        player3.setPosition(14);
+
+        // Checking that player3 has 1500$
+        CHECK(player3.getMoney() == 1500);
+
+        monopoly.SlotCheck(player3, board, 0);
+
+        // player3 should pay 12$ to player2
+        CHECK(player3.getMoney() == 1488);
+
+        CHECK(player2.getMoney() == 1352);
+
+        // Checking that the street has an the same owner
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[14])->getOwner().getName() == player2.getName());
+
+        // Checking that player3 has no assets
+        CHECK(player3.getAssets().size() == 0);
     }
+
+    SUBCASE("Checking Station buy by SlotCheck function")
+    {
+
+        // putting player1 on the station
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[5]->addPlayer(player1);
+        player1.setPosition(5);
+
+        // Checking that player1 has 1500$
+        CHECK(player1.getMoney() == 1500);
+
+        // For the simulated input
+        std::istringstream simulatedInput("your simulated input here\n");
+        std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
+
+        monopoly.SlotCheck(player1, board, 0);
+
+        std::cin.rdbuf(originalCin);
+
+        // player1 should buy the station
+        CHECK(player1.getMoney() == 1300);
+
+        // Checking that player1 has the station
+
+        CHECK(player1.getTrains() == 1);
+
+        // Checking that the station has an owner
+        CHECK(dynamic_cast<Station *>(board.getBoard()[5])->getOwner().getName() == player1.getName());
+
+        // now putting player2 on the station and checking that he can't buy it and needs to pay the rent
+        // working with the simulated input
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[5]->addPlayer(player2);
+        player2.setPosition(5);
+
+        // Checking that player2 has 1500$
+        CHECK(player2.getMoney() == 1500);
+
+        monopoly.SlotCheck(player2, board, 0);
+
+        // player2 should pay 25$ to player1
+        CHECK(player2.getMoney() == 1475);
+
+        CHECK(player1.getMoney() == 1325);
+
+        // Now player1 buyin another station
+        // putting player1 on the station
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[15]->addPlayer(player1);
+        player1.setPosition(15);
+
+        // Checking that player1 has 1325$
+        CHECK(player1.getMoney() == 1325);
+
+        // For the simulated input
+        std::istringstream simulatedInput2("your simulated input here\n");
+        std::streambuf *originalCin2 = std::cin.rdbuf(simulatedInput2.rdbuf());
+
+        monopoly.SlotCheck(player1, board, 0);
+
+        std::cin.rdbuf(originalCin2);
+
+        // player1 should buy the station
+        CHECK(player1.getMoney() == 1125);
+
+        // Checking that player1 has 2 stations
+        CHECK(player1.getTrains() == 2);
+
+        // Checking that the station has an owner
+        CHECK(dynamic_cast<Station *>(board.getBoard()[15])->getOwner().getName() == player1.getName());
+
+        // now putting player3 on the station and checking that he can't buy it and needs to pay the rent
+        // working with the simulated input
+        board.getBoard()[player3.getPosition()]->removePlayer(player3);
+        board.getBoard()[5]->addPlayer(player3);
+        player3.setPosition(5);
+
+        // Checking that player3 has 1500$
+        CHECK(player3.getMoney() == 1500);
+
+        monopoly.SlotCheck(player3, board, 0);
+
+        // player3 should pay 50$ to player1
+        CHECK(player3.getMoney() == 1450);
+
+        CHECK(player1.getMoney() == 1175);
+    }
+
+    // SUBCASE("Checking Utility buy by SlotCheck function"){
+    //     // putting player1 on the utility
+    //     // he won't buy it
+    //     board.getBoard()[player1.getPosition()]->removePlayer(player1);
+    //     board.getBoard()[12]->addPlayer(player1);
+    //     player1.setPosition(12);
+
+    //     // Checking that player1 has 1500$
+    //     CHECK(player1.getMoney() == 1500);
+
+    //     // For the simulated input
+    //     std::istringstream simulatedInput("n\n");
+    //     std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
+
+    //     monopoly.SlotCheck(player1, board, 0);
+
+    //     std::cin.rdbuf(originalCin);
+
+    //     // player1 should not buy the utility
+    //     CHECK(player1.getMoney() == 1500);
+
+    //     // Checking that player1 has no utilities
+    //     CHECK(player1.getUtilities() == 0);
+
+    //     // Checking that the utility has no owner
+    //     CHECK(dynamic_cast<Utility *>(board.getBoard()[12])->getOwnerPtr() == nullptr);
+
+    //     // Now player3 buyin the utility
+
+    //     // putting player3 on the utility
+    //     board.getBoard()[player3.getPosition()]->removePlayer(player3);
+    //     board.getBoard()[12]->addPlayer(player3);
+    //     player3.setPosition(12);
+
+    //     // Checking that player3 has 1500$
+    //     CHECK(player3.getMoney() == 1500);
+
+    //     // For the simulated input
+    //     std::istringstream simulatedInput2("y\n");
+    //     std::streambuf *originalCin2 = std::cin.rdbuf(simulatedInput2.rdbuf());
+
+    //     monopoly.SlotCheck(player3, board, 0);
+
+    //     std::cin.rdbuf(originalCin2);
+
+    //     // player3 should buy the utility
+    //     CHECK(player3.getMoney() == 1350);
+
+    //     // Checking that player3 has the utility
+    //     CHECK(player3.getUtilities() == 1);
+
+    //     // Checking that the utility has an owner
+    //     CHECK(dynamic_cast<Utility *>(board.getBoard()[12])->getOwner().getName() == player3.getName());
+
+    //     // now putting player2 on the utility and checking that he can't buy it and needs to pay the rent
+    //     // working with the simulated input
+    //     board.getBoard()[player2.getPosition()]->removePlayer(player2);
+    //     board.getBoard()[12]->addPlayer(player2);
+    //     player2.setPosition(12);
+
+    //     // Checking that player2 has 1500$
+    //     CHECK(player2.getMoney() == 1500);
+
+    //     monopoly.SlotCheck(player2, board, 7);
+
+    //     // player2 should pay 28$ to player3
+    //     CHECK(player2.getMoney() == 1472);
+
+    //     CHECK(player3.getMoney() == 1378);
+
+    //     // Now player3 buyin another utility
+
+    //     // putting player3 on the utility
+    //     board.getBoard()[player3.getPosition()]->removePlayer(player3);
+    //     board.getBoard()[28]->addPlayer(player3);
+    //     player3.setPosition(28);
+
+    //     // Checking that player3 has 1378$
+    //     CHECK(player3.getMoney() == 1378);
+
+    //     // For the simulated input
+    //     std::istringstream simulatedInput3("y\n");
+    //     std::streambuf *originalCin3 = std::cin.rdbuf(simulatedInput3.rdbuf());
+
+    //     monopoly.SlotCheck(player3, board, 0);
+
+    //     std::cin.rdbuf(originalCin3);
+
+    //     // player3 should buy the utility
+
+    //     CHECK(player3.getMoney() == 1228);
+
+    //     // Checking that player3 has 2 utilities
+    //     CHECK(player3.getUtilities() == 2);
+
+    //     // Checking that the utility has an owner
+    //     CHECK(dynamic_cast<Utility *>(board.getBoard()[28])->getOwner().getName() == player3.getName());
+
+    //     // now putting player1 on the utility and checking that he can't buy it and needs to pay the rent
+    //     // working with the simulated input
+
+    //     board.getBoard()[player1.getPosition()]->removePlayer(player1);
+    //     board.getBoard()[12]->addPlayer(player1);
+    //     player1.setPosition(12);
+
+    //     // Checking that player1 has 1500$
+    //     CHECK(player1.getMoney() == 1500);
+
+    //     monopoly.SlotCheck(player1, board, 10);
+
+    //     // player1 should pay 100$ to player3
+    //     CHECK(player1.getMoney() == 1400);
+
+    //     CHECK(player3.getMoney() == 1328);
+
+    // }
 }
