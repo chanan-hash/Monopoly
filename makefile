@@ -34,6 +34,6 @@ clean:
 	rm -f $(OBJS) $(TOBJ) main test
 	make -C Cards clean
 	make -C BoardsSlots clean
-	make -C Tests clean
+	make -C Test clean
 
 .PHONY: all clean test
