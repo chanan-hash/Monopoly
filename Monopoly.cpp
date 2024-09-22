@@ -99,10 +99,10 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
             {
                 buyStreet(player, *street);
             }
-            // else
-            // {
-            //     return;
-            // }
+            else
+            {
+                return;
+            }
         }
     }
 
@@ -127,7 +127,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         }
     }
 
-    else if (slot->getName() == "Utility")
+    else if (slot->getType() == "Utility")
     {
         Utility *utility = dynamic_cast<Utility *>(slot);
         // Checking if the utility is owned
