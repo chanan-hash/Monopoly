@@ -362,20 +362,28 @@ TEST_CASE("Testing game logic")
         CHECK(dice <= 6);
     }
 
-    // SUBCASE("Checking movePlayer")
-    // {
-    //     monopoly.movePlayer(player1, board);
-    //     CHECK(player1.getPosition() >= 2); // because the player should move at least 2 steps
+    SUBCASE("Checking movePlayer")
+    {
 
-    //     // Checking that the player is on the new slot
-    //     CHECK(board.getBoard()[player1.getPosition()]->getPlayers()[0].getName() == player1.getName());
+        std::istringstream simulatedInput("n\n");
+        std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
 
-    //     // Checking that he is not on the first slot
-    //     for (size_t i = 0; i < board.getBoard()[0]->getPlayers().size(); i++)
-    //     {
-    //         CHECK(board.getBoard()[0]->getPlayers()[i].getName() != player1.getName());
-    //     }
-    // }
+        // player1 will move
+        monopoly.movePlayer(player1, board);
+
+        std::cin.rdbuf(originalCin);
+
+        CHECK(player1.getPosition() >= 2); // because the player should move at least 2 steps
+
+        // Checking that the player is on the new slot
+        CHECK(board.getBoard()[player1.getPosition()]->getPlayers()[0].getName() == player1.getName());
+
+        // Checking that he is not on the first slot
+        for (size_t i = 0; i < board.getBoard()[0]->getPlayers().size(); i++)
+        {
+            CHECK(board.getBoard()[0]->getPlayers()[i].getName() != player1.getName());
+        }
+    }
 
     SUBCASE("Checking pay function")
     {
@@ -443,24 +451,31 @@ TEST_CASE("Testing game logic")
         CHECK(player3.getMoney() == 1990);
     }
 
-    // SUBCASE("Checking passed GO")
-    // {
-    //     // puting player1 on the last slot
-    //     board.getBoard()[player1.getPosition()]->removePlayer(player1);
-    //     board.getBoard()[39]->addPlayer(player1);
-    //     player1.setPosition(39);
+    SUBCASE("Checking passed GO")
+    {
+        // puting player1 on the last slot
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[39]->addPlayer(player1);
+        player1.setPosition(39);
 
-    //     cout << "player1 position: " << player1.getPosition() << endl;
-    //     // Cheking that player1 has 1500$
-    //     CHECK(player1.getMoney() == 1500);
+        cout << "player1 position: " << player1.getPosition() << endl;
+        // Cheking that player1 has 1500$
+        CHECK(player1.getMoney() == 1500);
 
-    //     // player1 will move
-    //     monopoly.movePlayer(player1, board);
-    //     cout << "player1 position: " << player1.getPosition() << endl;
+        // input n not to buy
+        std::istringstream simulatedInput("n\n");
+        std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
 
-    //     // Checking that player1 has 1700$
-    //     CHECK(player1.getMoney() == 1700);
-    // }
+        // player1 will move
+        monopoly.movePlayer(player1, board);
+
+        std::cin.rdbuf(originalCin);
+
+        cout << "player1 position: " << player1.getPosition() << endl;
+
+        // Checking that player1 has 1700$
+        CHECK(player1.getMoney() == 1700);
+    }
 
     SUBCASE("Checking buying a street")
     {
