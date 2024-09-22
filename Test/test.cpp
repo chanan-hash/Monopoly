@@ -973,4 +973,58 @@ TEST_CASE("Testing game logic")
 
         CHECK(player3.getMoney() == 1328);
     }
+
+    SUBCASE("Hotel buying")
+    {
+        // putting player1 on the street
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[1]->addPlayer(player1);
+        player1.setPosition(1);
+
+        // Checking that player1 has 1500$
+        CHECK(player1.getMoney() == 1500);
+
+        std::istringstream simulatedInput("y\n");
+        std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
+
+        monopoly.SlotCheck(player1, board, 0);
+
+        std::cin.rdbuf(originalCin);
+
+        // Checking that player1 has 1440$
+        CHECK(player1.getMoney() == 1440);
+
+        // Checking that player1 has the street
+        CHECK(player1.getAssets().size() == 1);
+        CHECK(player1.getAssets()[0]->getName() == "Mediterranean Avenue");
+
+        // Checking that the street has an owner
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[1])->getOwner().getName() == player1.getName());
+
+        // Now player1 will try to buy a hotel and get exception
+        CHECK_THROWS(monopoly.buyHotel(player1, *dynamic_cast<Streets *>(board.getBoard()[1])));
+
+        // lets add the houses to the street, but remove the money from player1
+        player1.removeMoney(1440);
+
+        // Adding to it 4 houses
+        dynamic_cast<Streets *>(board.getBoard()[1])->addHouse();
+        dynamic_cast<Streets *>(board.getBoard()[1])->addHouse();
+        dynamic_cast<Streets *>(board.getBoard()[1])->addHouse();
+        dynamic_cast<Streets *>(board.getBoard()[1])->addHouse();
+
+        // Checking that player1 has 0$
+        CHECK(player1.getMoney() == 0);
+
+        // Now player1 will try to buy a hotel and get exception
+        CHECK_THROWS(monopoly.buyHotel(player1, *dynamic_cast<Streets *>(board.getBoard()[1])));
+
+        // Adding the money to player1
+        player1.addMoney(1440);
+
+        monopoly.buyHotel(player1, *dynamic_cast<Streets *>(board.getBoard()[1]));
+
+        // Checking that the street has a hotel
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[1])->getHotel() == true);        
+    }
 }

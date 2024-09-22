@@ -2,6 +2,7 @@
 #include <cmath>
 #include <sstream>
 #include <string>
+#include <stdexcept>
 
 // Monopoly::Monopoly()
 // {
@@ -269,4 +270,67 @@ void Monopoly::buyUtility(Player &player, Utility &utility)
     }
     player.removeMoney(utility.getPrice());
     player.addUtility(utility);
+}
+
+// house and hotel buying
+// To buy a hoyel the player should have 4 houses on the street, so we need to check that
+// The price of a hotel is 4 times the price of a house + 100
+
+void Monopoly::buyHotel(Player &player, Streets &street)
+{
+    if (street.getHouses() < 4)
+    {
+        // cout << "You need to have 4 houses on the street to buy a hotel" << endl;
+        // return;
+        throw runtime_error("You need to have 4 houses on the street to buy a hotel"); // in the main we'll catch it
+    }
+    if (player.getMoney() < street.getHousePrice() * 4 + 100)
+    {
+        // cout << "You don't have enough money to buy a hotel" << endl;
+        // return;
+        throw runtime_error("You don't have enough money to buy a hotel"); // in the main we'll catch it
+    }
+    player.removeMoney(street.getHousePrice() * 4 + 100);
+    street.addHotel();
+}
+
+// helper function to check if the player has all the streets of a color
+bool Monopoly::checkIfHasAllRoad(Player &player, Streets &street)
+{
+    string color = street.getColor();
+    int count = 0;
+
+    // In dark blue the player should have 2 streets
+    if (color == "Dark Blue")
+    {
+        for (auto asset : player.getAssets())
+        {
+            Streets *street = dynamic_cast<Streets *>(asset);
+            if (street != nullptr && street->getColor() == color)
+            {
+                count++;
+            }
+        }
+        if (count == 2)
+        {
+            return true;
+        }
+        return false;
+    }
+    else
+    {
+        for (auto asset : player.getAssets())
+        {
+            Streets *street = dynamic_cast<Streets *>(asset);
+            if (street != nullptr && street->getColor() == color)
+            {
+                count++;
+            }
+        }
+        if (count == 3)
+        {
+            return true;
+        }
+        return false;
+    }
 }

@@ -59,6 +59,12 @@ public:
     void payUtilityRent(Player &player1, Player &player2, Utility &utility, int dice);
     void buyUtility(Player &player, Utility &utility);
 
+    // house and hotel buying
+    void buyHouse(Player &player, Streets &street);
+    void buyHotel(Player &player, Streets &street);
+
+    bool checkIfHasAllRoad(Player &player, Streets &street);
+
     // Getters
     Board &getBoard();
     const Board &getBoard() const;
