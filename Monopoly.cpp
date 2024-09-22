@@ -273,7 +273,29 @@ void Monopoly::buyUtility(Player &player, Utility &utility)
 }
 
 // house and hotel buying
-// To buy a hoyel the player should have 4 houses on the street, so we need to check that
+// To buy a house the player should have all the streets of the same color
+// then to buy another house the player should have the same number of houses on all the streets
+void Monopoly::buyHouse(Player &player, Streets &street)
+{
+    if (!checkIfHasAllRoad(player, street)) // Here we're checking if the player has all the streets of the same color
+    {
+        // cout << "You need to have all the streets of the same color to buy a house" << endl;
+        // return;
+        throw runtime_error("You need to have all the streets of the same color to buy a house"); // in the main we'll catch it
+    }
+    if (player.getMoney() < street.getHousePrice())
+    {
+        // cout << "You don't have enough money to buy a house" << endl;
+        // return;
+        throw runtime_error("You don't have enough money to buy a house"); // in the main we'll catch it
+    }
+    player.removeMoney(street.getHousePrice());
+    street.addHouse();
+}
+
+
+
+// To buy a hotel the player should have 4 houses on the street, so we need to check that
 // The price of a hotel is 4 times the price of a house + 100
 
 void Monopoly::buyHotel(Player &player, Streets &street)
@@ -298,10 +320,10 @@ void Monopoly::buyHotel(Player &player, Streets &street)
 bool Monopoly::checkIfHasAllRoad(Player &player, Streets &street)
 {
     string color = street.getColor();
-    int count = 0;
+            int count = 0;
 
     // In dark blue the player should have 2 streets
-    if (color == "Dark Blue")
+    if (color == "Dark Blue" || color == "Brown")
     {
         for (auto asset : player.getAssets())
         {

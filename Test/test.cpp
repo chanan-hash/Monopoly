@@ -1025,6 +1025,53 @@ TEST_CASE("Testing game logic")
         monopoly.buyHotel(player1, *dynamic_cast<Streets *>(board.getBoard()[1]));
 
         // Checking that the street has a hotel
-        CHECK(dynamic_cast<Streets *>(board.getBoard()[1])->getHotel() == true);        
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[1])->getHotel() == true);
+    }
+
+    SUBCASE("checkIfHasAllRoad function")
+    {
+        // checking the brown streets
+        // let's assume that player1 has all the brown streets
+        player1.addAsset(*dynamic_cast<Streets *>(board.getBoard()[1]));
+        player1.addAsset(*dynamic_cast<Streets *>(board.getBoard()[3]));
+
+        CHECK(monopoly.checkIfHasAllRoad(player1, *dynamic_cast<Streets *>(board.getBoard()[1])) == true);
+        CHECK(monopoly.checkIfHasAllRoad(player1, *dynamic_cast<Streets *>(board.getBoard()[3])) == true);
+
+        // checking the dark blue streets
+        // let's assume that player2 has all the dark blue streets
+
+        player2.addAsset(*dynamic_cast<Streets *>(board.getBoard()[37]));
+        player2.addAsset(*dynamic_cast<Streets *>(board.getBoard()[39]));
+
+        CHECK(monopoly.checkIfHasAllRoad(player2, *dynamic_cast<Streets *>(board.getBoard()[37])) == true);
+        CHECK(monopoly.checkIfHasAllRoad(player2, *dynamic_cast<Streets *>(board.getBoard()[39])) == true);
+
+        // checking yellow streets
+        // let's assume that player3 has all the yellow streets
+
+        player3.addAsset(*dynamic_cast<Streets *>(board.getBoard()[26]));
+        player3.addAsset(*dynamic_cast<Streets *>(board.getBoard()[27]));
+        player3.addAsset(*dynamic_cast<Streets *>(board.getBoard()[29]));
+
+        CHECK(monopoly.checkIfHasAllRoad(player3, *dynamic_cast<Streets *>(board.getBoard()[26])) == true);
+        CHECK(monopoly.checkIfHasAllRoad(player3, *dynamic_cast<Streets *>(board.getBoard()[27])) == true);
+        CHECK(monopoly.checkIfHasAllRoad(player3, *dynamic_cast<Streets *>(board.getBoard()[29])) == true);
+
+        // checking if the player hasn't have all the streets
+        // if buying only one street
+
+        player1.addAsset(*dynamic_cast<Streets *>(board.getBoard()[8]));
+        player3.addAsset(*dynamic_cast<Streets *>(board.getBoard()[9]));
+        player2.addAsset(*dynamic_cast<Streets *>(board.getBoard()[6]));
+
+        CHECK_FALSE(monopoly.checkIfHasAllRoad(player1, *dynamic_cast<Streets *>(board.getBoard()[6])));
+        CHECK_FALSE(monopoly.checkIfHasAllRoad(player2, *dynamic_cast<Streets *>(board.getBoard()[9])));
+        CHECK_FALSE(monopoly.checkIfHasAllRoad(player3, *dynamic_cast<Streets *>(board.getBoard()[8])));
+
+        // if buying only 2 streets and it's from the brown streets or the dark blue streets
+        player1.addAsset(*dynamic_cast<Streets *>(board.getBoard()[19]));
+        player1.addAsset(*dynamic_cast<Streets *>(board.getBoard()[18]));
+        CHECK_FALSE(monopoly.checkIfHasAllRoad(player1, *dynamic_cast<Streets *>(board.getBoard()[18])));
     }
 }
