@@ -63,7 +63,8 @@ public:
     void buyHouse(Player &player, Streets &street);
     void buyHotel(Player &player, Streets &street);
 
-    bool checkIfHasAllRoad(Player &player, Streets &street);
+    bool checkIfHasAllRoad(Player &player, Streets &street) const;
+    bool checkSameNumberOfHouses(Player &player, Streets &street) const;
 
     // Getters
     Board &getBoard();

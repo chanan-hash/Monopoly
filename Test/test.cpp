@@ -1074,4 +1074,6 @@ TEST_CASE("Testing game logic")
         player1.addAsset(*dynamic_cast<Streets *>(board.getBoard()[18]));
         CHECK_FALSE(monopoly.checkIfHasAllRoad(player1, *dynamic_cast<Streets *>(board.getBoard()[18])));
     }
+
+    SUBCASE("Checking house buying ") {}
 }

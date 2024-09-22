@@ -289,11 +289,17 @@ void Monopoly::buyHouse(Player &player, Streets &street)
         // return;
         throw runtime_error("You don't have enough money to buy a house"); // in the main we'll catch it
     }
+    if (!checkSameNumberOfHouses(player, street)) // Here we're checking if the player has the same number of houses on all the streets
+    {
+        // cout << "You need to have the same number of houses on all the streets to buy a house" << endl;
+        // return;
+        throw runtime_error("You need to have the same number of houses on all the streets to buy a house"); // in the main we'll catch it
+    }
+
+    // If the player has all the streets of the same color and the same number of houses on all the streets
     player.removeMoney(street.getHousePrice());
     street.addHouse();
 }
-
-
 
 // To buy a hotel the player should have 4 houses on the street, so we need to check that
 // The price of a hotel is 4 times the price of a house + 100
@@ -317,10 +323,10 @@ void Monopoly::buyHotel(Player &player, Streets &street)
 }
 
 // helper function to check if the player has all the streets of a color
-bool Monopoly::checkIfHasAllRoad(Player &player, Streets &street)
+bool Monopoly::checkIfHasAllRoad(Player &player, Streets &street) const
 {
     string color = street.getColor();
-            int count = 0;
+    int count = 0;
 
     // In dark blue the player should have 2 streets
     if (color == "Dark Blue" || color == "Brown")
@@ -355,4 +361,25 @@ bool Monopoly::checkIfHasAllRoad(Player &player, Streets &street)
         }
         return false;
     }
+}
+
+// helper function to check if the player has the same number of houses on all the streets
+bool Monopoly::checkSameNumberOfHouses(Player &player, Streets &street) const
+{
+    string color = street.getColor(); // getting the color of the street
+
+    int houses = street.getHouses(); // getting the number of houses on the street
+
+    for (auto asset : player.getAssets())
+    {
+        Streets *street = dynamic_cast<Streets *>(asset);
+        if (street != nullptr && street->getColor() == color) // checking if the street has the same color
+        {
+            if (street->getHouses() != houses) // checking if the street has the same number of houses
+            {
+                return false;
+            }
+        }
+    }
+    return true;
 }
