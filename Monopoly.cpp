@@ -10,7 +10,7 @@
 
 int Monopoly::diceRoll() const
 {
-    // srand(time(0));
+    srand(time(0));
 
     return (rand() % 6) + 1;
 }
@@ -27,6 +27,16 @@ void Monopoly::movePlayer(Player &player, Board &board)
     bool inJail = player.getIsInJail();
 
     bool missTurn = player.getMissTurn();
+
+    if (doubleCount == 3)
+    {
+        cout << "Player " << player.getName() << " rolled 3 doubles in a row, he will go to jail" << endl;
+        board.getBoard()[player.getPosition()]->removePlayer(player);
+        player.setPosition(10);
+        board.getBoard()[10]->addPlayer(player);
+        player.setIsInJail(true);
+        return;
+    }
 
     if (missTurn) // if the player has to miss a turn we just return
     {
@@ -78,12 +88,12 @@ void Monopoly::movePlayer(Player &player, Board &board)
     SlotCheck(player, board, dice);
 
     // Checking if the player rolled a double
-    // if (dice1 == dice2)
-    // {
-    //     cout << "Player " << player.getName() << " rolled a double, he can roll again" << endl;
-    //      doubleCount++;
-    //     movePlayer(player, board);
-    // }
+    if (dice1 == dice2)
+    {
+        cout << "Player " << player.getName() << " rolled a double, he can roll again" << endl;
+        doubleCount++;
+        movePlayer(player, board);
+    }
 }
 
 void Monopoly::SlotCheck(Player &player, Board &board, int dice)

@@ -1288,5 +1288,19 @@ TEST_CASE("Testing game logic")
         // CHECK(board.getBoard()[player1.getPosition()]->getPlayers()[0].getName() == player1.getName());
     }
 
-    SUBCASE("Double roll checkup"){}
+    SUBCASE("Double roll checkup"){
+        // let put player1 will roll the dice and get double after 3 times he will go to jail
+        
+        // For the simulated input
+        // std::istringstream simulatedInput("n\n");
+        // std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
+
+        // monopoly.movePlayer(player1, board);
+
+        // std::cin.rdbuf(originalCin);
+
+        // // Checking that player1 is not in jail
+        // CHECK(player1.getIsInJail() == true);                
+       
+    }
 }
