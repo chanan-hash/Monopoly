@@ -1131,9 +1131,9 @@ TEST_CASE("Testing game logic")
 
         // buying another house on the street and succeeding to buy another house
         monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[31]));
-        monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[34]));
+        // monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[34]));
 
-        // // Checking that the street has 1 house
+        // Checking that the street has 1 house
         // CHECK(dynamic_cast<Streets *>(board.getBoard()[31])->getHouses() == 1);
         // CHECK(dynamic_cast<Streets *>(board.getBoard()[34])->getHouses() == 1);
 

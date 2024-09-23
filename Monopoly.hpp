@@ -65,6 +65,7 @@ public:
 
     bool checkIfHasAllRoad(Player &player, Streets &street) const;
     bool checkSameNumberOfHouses(Player &player, Streets &street) const;
+    bool checkNumberOfHousesDiff1(Player &player, Streets &street) const;
 
     // Getters
     Board &getBoard();
