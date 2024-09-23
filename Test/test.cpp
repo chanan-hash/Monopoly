@@ -369,7 +369,7 @@ TEST_CASE("Testing game logic")
         std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
 
         // player1 will move
-        monopoly.movePlayer(player1, board);
+        monopoly.movePlayer(player1, board, 0);
 
         std::cin.rdbuf(originalCin);
 
@@ -467,7 +467,7 @@ TEST_CASE("Testing game logic")
         std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
 
         // player1 will move
-        monopoly.movePlayer(player1, board);
+        monopoly.movePlayer(player1, board, 0);
 
         std::cin.rdbuf(originalCin);
 
@@ -1185,7 +1185,7 @@ TEST_CASE("Testing game logic")
 
         // now player2 will try to do his turn again, but won't move, but in the second time will move
 
-        monopoly.movePlayer(player2, board);
+        monopoly.movePlayer(player2, board, 0);
 
         // checking that he is still on the free parking slot
         CHECK(player2.getPosition() == 20);
@@ -1196,7 +1196,7 @@ TEST_CASE("Testing game logic")
         std::istringstream simulatedInput("n\n");
         std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
 
-        monopoly.movePlayer(player2, board);
+        monopoly.movePlayer(player2, board, 0);
 
         std::cin.rdbuf(originalCin);
 
@@ -1241,7 +1241,7 @@ TEST_CASE("Testing game logic")
         std::istringstream simulatedInput("y\n");
         std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
 
-        monopoly.movePlayer(player3, board);
+        monopoly.movePlayer(player3, board, 0);
 
         std::cin.rdbuf(originalCin);
 
@@ -1269,7 +1269,7 @@ TEST_CASE("Testing game logic")
         // // For the simulated input
         // std::istringstream simulatedInput2("n\n");
         // std::streambuf *originalCin2 = std::cin.rdbuf(simulatedInput2.rdbuf());
-        
+
         // monopoly.movePlayer(player1, board);
 
         // std::cin.rdbuf(originalCin2);
@@ -1286,21 +1286,156 @@ TEST_CASE("Testing game logic")
 
         // // Checking that he is on the new slot
         // CHECK(board.getBoard()[player1.getPosition()]->getPlayers()[0].getName() == player1.getName());
+
+        // putting palyer3 in the jail and he will try to get out by free from jail card
+        board.getBoard()[player3.getPosition()]->removePlayer(player3);
+        board.getBoard()[10]->addPlayer(player3);
+        player3.setPosition(10);
+
+        player3.setIsInJail(true);
+
+        CHECK(player3.getMoney() == 1450);
+
+        player3.setFreeJailCard(true);
+
+        // For the simulated input
+        std::istringstream simulatedInput3("y\n");
+        std::streambuf *originalCin3 = std::cin.rdbuf(simulatedInput3.rdbuf());
+
+        monopoly.movePlayer(player3, board, 0);
+
+        std::cin.rdbuf(originalCin3);
+
+        // Checking that player3 has 1450$
+
+        CHECK(player3.getMoney() == 1450);
+
+        // Checking that player3 is not in jail
+        CHECK(player3.getIsInJail() == false);
+
+        // Checking that player3 is not on the jail slot
+        CHECK(player3.getPosition() != 10);
+
+        // now player1 will be in jail and won't get out by free from jail card
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[10]->addPlayer(player1);
+        player1.setPosition(10);
+
+        player1.setIsInJail(true);
+
+        CHECK(player1.getMoney() == 1500);
+
+        player1.setFreeJailCard(true);
+
+        // For the simulated input
+        std::istringstream simulatedInput4("n\n");
+        std::streambuf *originalCin4 = std::cin.rdbuf(simulatedInput4.rdbuf());
+
+        monopoly.movePlayer(player1, board, 0);
+
+        std::cin.rdbuf(originalCin4);
+
+        // Checking that player1 has 1500$
+
+        CHECK(player1.getMoney() == 1500);
+
+        // Checking that player1 is in jail
+        CHECK(player1.getIsInJail() == true);
+
+        // Checking that player1 is on the jail slot
+        CHECK(player1.getPosition() == 10);
     }
 
-    SUBCASE("Double roll checkup"){
-        // let put player1 will roll the dice and get double after 3 times he will go to jail
-        
+    SUBCASE("3 Truns in the jail and must go out"){
+        // let put player1 in the jail and he'll get double and go out
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[10]->addPlayer(player1);
+        player1.setPosition(10);
+
+        player1.setIsInJail(true);
+
+        CHECK(player1.getMoney() == 1500);
+
+        // turn 1
         // For the simulated input
+        std::istringstream simulatedInput2("n\n");
+        std::streambuf *originalCin2 = std::cin.rdbuf(simulatedInput2.rdbuf());
+
+        monopoly.movePlayer(player1, board, 0);
+
+        std::cin.rdbuf(originalCin2);
+
+        // Checking that player1 has 1500$
+
+        CHECK(player1.getMoney() == 1500);
+
+        // Checking that player1 is not in jail
+        CHECK(player1.getIsInJail() == true);
+
+        // Checking that player1 is not on the jail slot
+        CHECK(player1.getPosition() == 10);
+
+        // Checking that he is on the new slot
+        CHECK(board.getBoard()[10]->getPlayers()[0].getName() == player1.getName());
+
+        // turn 2
+        // For the simulated input
+        std::istringstream simulatedInput3("n\n");
+        std::streambuf *originalCin3 = std::cin.rdbuf(simulatedInput3.rdbuf());
+
+        monopoly.movePlayer(player1, board, 0);
+
+        std::cin.rdbuf(originalCin3);
+
+        // Checking that player1 has 1500$
+
+        CHECK(player1.getMoney() == 1500);
+
+        // Checking that player1 is not in jail
+        CHECK(player1.getIsInJail() == true);
+
+        // Checking that player1 is not on the jail slot
+        CHECK(player1.getPosition() == 10);
+
+        // Checking that he is on the new slot
+        CHECK(board.getBoard()[10]->getPlayers()[0].getName() == player1.getName());
+
+        // turn 3
+        // For the simulated input
+        std::istringstream simulatedInput4("n\n");
+        std::streambuf *originalCin4 = std::cin.rdbuf(simulatedInput4.rdbuf());
+
+        monopoly.movePlayer(player1, board, 0);
+
+        std::cin.rdbuf(originalCin4);
+
+        // Checking that player1 has 1450$
+
+        CHECK(player1.getMoney() == 1450);
+
+        // Checking that player1 is not in jail
+        CHECK(player1.getIsInJail() == false);
+
+        // Checking that player1 is not on the jail slot
+        CHECK(player1.getPosition() != 10);
+
+        // Checking that he is on the new slot
+        CHECK(board.getBoard()[player1.getPosition()]->getPlayers()[0].getName() == player1.getName());
+    }
+
+    SUBCASE("Double roll checkup")
+    {
+        // // let put player1 will roll the dice and get double after 3 times he will go to jail
+
+        // // For the simulated input
         // std::istringstream simulatedInput("n\n");
         // std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
 
-        // monopoly.movePlayer(player1, board);
+        // monopoly.movePlayer(player1, board, 0);
 
         // std::cin.rdbuf(originalCin);
 
         // // Checking that player1 is not in jail
-        // CHECK(player1.getIsInJail() == true);                
-       
+        // CHECK(player1.getIsInJail() == true);
     }
 }

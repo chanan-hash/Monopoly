@@ -123,6 +123,16 @@ bool Player::getIsInJail() const
     return isInJail;
 }
 
+int Player::getTurnsInJail() const
+{
+    return turnsInJail;
+}
+
+void Player::setTurnsInJail(int turnsInJail)
+{
+    this->turnsInJail = turnsInJail;
+}
+
 void Player::setFreeJailCard(bool FreeJailCard)
 {
     this->FreeJailCard = FreeJailCard;

@@ -47,7 +47,7 @@ private:
 public:
     // Monopoly(); // Constructor will initialize the board and the suprise cards, getting Board, players and suprise cards
     int diceRoll() const;                          // Method to roll the dice
-    void movePlayer(Player &player, Board &board); // Method to move the player
+    void movePlayer(Player &player, Board &board,int doubleCount); // Method to move the player
 
     void SlotCheck(Player &player, Board &board, int dice); // Method to check the slot
     void payStreetRent(Player &player1, Player &player2, Streets &street);

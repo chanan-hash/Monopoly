@@ -10,18 +10,16 @@
 
 int Monopoly::diceRoll() const
 {
-    srand(time(0));
+    // srand(time(NULL));
 
     return (rand() % 6) + 1;
 }
 
-void Monopoly::movePlayer(Player &player, Board &board)
+void Monopoly::movePlayer(Player &player, Board &board, int doubleCount)
 {
     int dice1 = diceRoll();
     int dice2 = diceRoll();
     int dice = dice1 + dice2;
-
-    int doubleCount = 0;
 
     // need to check if the player is in jail
     bool inJail = player.getIsInJail();
@@ -45,7 +43,7 @@ void Monopoly::movePlayer(Player &player, Board &board)
         return;
     }
 
-    if (inJail && (dice1 != dice2)) // if the player is in jail and didn't roll a double
+    if (inJail && (dice1 != dice2) && !player.getFreeJailCard()) // if the player is in jail and didn't roll a double, and he doesn't have a free jail card
     {
         cout << "Player " << player.getName() << " is in jail" << endl;
         cout << "Do you want to pay 50$ to get out of jail? (y/n)" << endl;
@@ -56,15 +54,38 @@ void Monopoly::movePlayer(Player &player, Board &board)
             player.removeMoney(50);
             player.setIsInJail(false);
         }
+        else if (player.getTurnsInJail() == 2) // in the beginning of the 3rd turn if the player didn't pay the 50$ he will pay it
+        {
+            cout << "Player " << player.getName() << " has been in jail for 3 turns, he will pay 50$ to get out" << endl;
+            player.removeMoney(50);
+            player.setIsInJail(false);
+        }
         else
         {
             cout << "Player " << player.getName() << " will stay in jail" << endl;
+            player.setTurnsInJail(player.getTurnsInJail() + 1);
             return;
         }
     }
     else if (inJail && (dice1 == dice2)) // if the player is in jail and rolled a double
     {
         player.setIsInJail(false);
+    }
+
+    else if (player.getFreeJailCard())
+    {
+        cout << "Do you want to use your free jail card? (y/n)" << endl;
+        char answer;
+        cin >> answer;
+        if (answer == 'y')
+        {
+            player.setFreeJailCard(false);
+            player.setIsInJail(false);
+        }
+        else
+        {
+            return; // didn't use the free jail card stay in jail
+        }
     }
 
     int oldPosition = player.getPosition(); // for checking if the player passed the Go slot
@@ -88,12 +109,12 @@ void Monopoly::movePlayer(Player &player, Board &board)
     SlotCheck(player, board, dice);
 
     // Checking if the player rolled a double
-    if (dice1 == dice2)
-    {
-        cout << "Player " << player.getName() << " rolled a double, he can roll again" << endl;
-        doubleCount++;
-        movePlayer(player, board);
-    }
+    // if (dice1 == dice2)
+    // {
+    //     cout << "Player " << player.getName() << " rolled a double, he can roll again" << endl;
+    //     doubleCount++;
+    //     movePlayer(player, board,doubleCount+1);
+    // }
 }
 
 void Monopoly::SlotCheck(Player &player, Board &board, int dice)
