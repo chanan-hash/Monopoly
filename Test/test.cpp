@@ -1141,6 +1141,17 @@ TEST_CASE("Testing game logic")
 
         // Checking that the street has 2 houses
         CHECK(dynamic_cast<Streets *>(board.getBoard()[32])->getHouses() == 2);
+
+        // Now adding more houses
+        monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[31]));
+        monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[34]));
+
+        // Checking that the street has 2 houses
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[31])->getHouses() == 2);
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[34])->getHouses() == 2);
+
+        monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[31]));
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[31])->getHouses() == 3);
     }
 
     SUBCASE("Checking FreeParking")
@@ -1195,4 +1206,87 @@ TEST_CASE("Testing game logic")
         // Checking that he is on the new slot
         CHECK(board.getBoard()[player2.getPosition()]->getPlayers()[0].getName() == player2.getName());
     }
+
+    SUBCASE("Checking Go To Jail")
+    {
+        // let put player2 on the Go To Jail slot and checked if he goes to jail
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[30]->addPlayer(player2);
+        player2.setPosition(30);
+
+        // Checking that player2 is not in jail
+        CHECK(player2.getIsInJail() == false);
+
+        monopoly.SlotCheck(player2, board, 0);
+
+        // Checking that player2 is in jail
+        CHECK(player2.getIsInJail() == true);
+
+        // Checking that player2 is on the jail slot
+        CHECK(player2.getPosition() == 10);
+
+        // Checking that he is on the new slot
+        CHECK(board.getBoard()[player2.getPosition()]->getPlayers()[0].getName() == player2.getName());
+
+        // let put player3 in the jail and he will pay 50$ to get out
+        board.getBoard()[player3.getPosition()]->removePlayer(player3);
+        board.getBoard()[10]->addPlayer(player3);
+        player3.setPosition(10);
+
+        player3.setIsInJail(true);
+
+        CHECK(player3.getMoney() == 1500);
+
+        // For the simulated input
+        std::istringstream simulatedInput("y\n");
+        std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
+
+        monopoly.movePlayer(player3, board);
+
+        std::cin.rdbuf(originalCin);
+
+        // Checking that player3 has 1450$
+        CHECK(player3.getMoney() == 1450);
+
+        // Checking that player3 is not in jail
+        CHECK(player3.getIsInJail() == false);
+
+        // Checking that player3 is not on the jail slot
+        CHECK(player3.getPosition() != 10);
+
+        // Checking that he is on the new slot
+        CHECK(board.getBoard()[player3.getPosition()]->getPlayers()[0].getName() == player3.getName());
+
+        // let put player1 in the jail and he'll get double and go out
+        // board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        // board.getBoard()[10]->addPlayer(player1);
+        // player1.setPosition(10);
+
+        // player1.setIsInJail(true);
+
+        // CHECK(player1.getMoney() == 1500);
+
+        // // For the simulated input
+        // std::istringstream simulatedInput2("n\n");
+        // std::streambuf *originalCin2 = std::cin.rdbuf(simulatedInput2.rdbuf());
+        
+        // monopoly.movePlayer(player1, board);
+
+        // std::cin.rdbuf(originalCin2);
+
+        // // Checking that player1 has 1500$
+
+        // CHECK(player1.getMoney() == 1500);
+
+        // // Checking that player1 is not in jail
+        // CHECK(player1.getIsInJail() == false);
+
+        // // Checking that player1 is not on the jail slot
+        // CHECK(player1.getPosition() != 10);
+
+        // // Checking that he is on the new slot
+        // CHECK(board.getBoard()[player1.getPosition()]->getPlayers()[0].getName() == player1.getName());
+    }
+
+    SUBCASE("Double roll checkup"){}
 }

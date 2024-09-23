@@ -10,6 +10,8 @@
 
 int Monopoly::diceRoll() const
 {
+    // srand(time(0));
+
     return (rand() % 6) + 1;
 }
 
@@ -19,8 +21,10 @@ void Monopoly::movePlayer(Player &player, Board &board)
     int dice2 = diceRoll();
     int dice = dice1 + dice2;
 
+    int doubleCount = 0;
+
     // need to check if the player is in jail
-    // bool inJail = player.getIsInJail();
+    bool inJail = player.getIsInJail();
 
     bool missTurn = player.getMissTurn();
 
@@ -29,6 +33,28 @@ void Monopoly::movePlayer(Player &player, Board &board)
         player.setMissTurn(false);
         cout << "Player " << player.getName() << " has to miss a turn" << endl;
         return;
+    }
+
+    if (inJail && (dice1 != dice2)) // if the player is in jail and didn't roll a double
+    {
+        cout << "Player " << player.getName() << " is in jail" << endl;
+        cout << "Do you want to pay 50$ to get out of jail? (y/n)" << endl;
+        char answer;
+        cin >> answer;
+        if (answer == 'y')
+        {
+            player.removeMoney(50);
+            player.setIsInJail(false);
+        }
+        else
+        {
+            cout << "Player " << player.getName() << " will stay in jail" << endl;
+            return;
+        }
+    }
+    else if (inJail && (dice1 == dice2)) // if the player is in jail and rolled a double
+    {
+        player.setIsInJail(false);
     }
 
     int oldPosition = player.getPosition(); // for checking if the player passed the Go slot
@@ -50,6 +76,14 @@ void Monopoly::movePlayer(Player &player, Board &board)
 
     // Now all the checkup
     SlotCheck(player, board, dice);
+
+    // Checking if the player rolled a double
+    // if (dice1 == dice2)
+    // {
+    //     cout << "Player " << player.getName() << " rolled a double, he can roll again" << endl;
+    //      doubleCount++;
+    //     movePlayer(player, board);
+    // }
 }
 
 void Monopoly::SlotCheck(Player &player, Board &board, int dice)
@@ -162,6 +196,18 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         player.setMissTurn(true);              // the player will miss the next turn
     }
     // jail slot
+    else if (slot->getName() == "Go To Jail")
+    {
+        // Removing the player from the slot
+        slot->removePlayer(player);
+        // Adding the player to the jail slot
+        Slot *jail = board.getBoard()[10];
+        jail->addPlayer(player);
+        player.setPosition(10); // setting his position to the jail slot
+
+        player.setIsInJail(true);
+    }
+
     // card slots
 }
 
