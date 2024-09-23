@@ -12,7 +12,7 @@
 class FreeParking : public Slot
 {
 private:
-    int money; // the money that the player will pay for the taxes
+    int money = 0; // the money that the player will pay for the taxes
 public:
     FreeParking(const string &name);
     FreeParking(const string &name, const string &type);

@@ -1193,6 +1193,6 @@ TEST_CASE("Testing game logic")
 
         // Checking that he is on the new slot
         CHECK(board.getBoard()[player2.getPosition()]->getPlayers()[0].getName() == player2.getName());
-        
+       
     }
 }
