@@ -109,12 +109,12 @@ void Monopoly::movePlayer(Player &player, Board &board, int doubleCount)
     SlotCheck(player, board, dice);
 
     // Checking if the player rolled a double
-    // if (dice1 == dice2)
-    // {
-    //     cout << "Player " << player.getName() << " rolled a double, he can roll again" << endl;
-    //     doubleCount++;
-    //     movePlayer(player, board,doubleCount+1);
-    // }
+    if (dice1 == dice2)
+    {
+        cout << "Player " << player.getName() << " rolled a double, he can roll again" << endl;
+        doubleCount++;
+        movePlayer(player, board, doubleCount);
+    }
 }
 
 void Monopoly::SlotCheck(Player &player, Board &board, int dice)

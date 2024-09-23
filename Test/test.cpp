@@ -1346,7 +1346,8 @@ TEST_CASE("Testing game logic")
         CHECK(player1.getPosition() == 10);
     }
 
-    SUBCASE("3 Truns in the jail and must go out"){
+    SUBCASE("3 Truns in the jail and must go out")
+    {
         // let put player1 in the jail and he'll get double and go out
         board.getBoard()[player1.getPosition()]->removePlayer(player1);
         board.getBoard()[10]->addPlayer(player1);
@@ -1424,18 +1425,18 @@ TEST_CASE("Testing game logic")
     }
 
     SUBCASE("Double roll checkup")
-    {
-        // // let put player1 will roll the dice and get double after 3 times he will go to jail
+    {   // For checking this test we need to we neet to put in comment all the test cases above
+        // let put player1 will roll the dice and get double after 3 times he will go to jail
 
-        // // For the simulated input
-        // std::istringstream simulatedInput("n\n");
-        // std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
+        // For the simulated input
+        std::istringstream simulatedInput("n\n");
+        std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
 
-        // monopoly.movePlayer(player1, board, 0);
+        monopoly.movePlayer(player1, board, 0); // we've put the dice roll with srand so will double 3 times
 
-        // std::cin.rdbuf(originalCin);
+        std::cin.rdbuf(originalCin);
 
-        // // Checking that player1 is not in jail
+        // Checking that player1 is not in jail
         // CHECK(player1.getIsInJail() == true);
     }
 }
