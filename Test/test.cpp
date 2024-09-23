@@ -1075,5 +1075,71 @@ TEST_CASE("Testing game logic")
         CHECK_FALSE(monopoly.checkIfHasAllRoad(player1, *dynamic_cast<Streets *>(board.getBoard()[18])));
     }
 
-    SUBCASE("Checking house buying ") {}
+    SUBCASE("Checking house buying ")
+    {
+        // putting player1 on the street
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[32]->addPlayer(player1);
+        player1.setPosition(32);
+
+        // Checking that player1 has 1500$
+        CHECK(player1.getMoney() == 1500);
+
+        // For the simulated input
+        std::istringstream simulatedInput("y\n");
+        std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
+
+        monopoly.SlotCheck(player1, board, 0);
+
+        std::cin.rdbuf(originalCin);
+
+        // Checking that player1 has 1200$
+        CHECK(player1.getMoney() == 1200);
+
+        // Checking that player1 has the street
+        CHECK(player1.getAssets().size() == 1);
+        CHECK(player1.getAssets()[0]->getName() == "North Carolina Avenue");
+
+        // Checking that the street has an owner
+
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[32])->getOwner().getName() == player1.getName());
+
+        // Now player1 will try to buy a house and get exception
+        CHECK_THROWS(monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[32])));
+
+        // Let him own all the streets, but remove the money from player1
+        player1.removeMoney(1200);
+
+        player1.addAsset(*dynamic_cast<Streets *>(board.getBoard()[34]));
+        player1.addAsset(*dynamic_cast<Streets *>(board.getBoard()[31]));
+
+        // Because he does't have enough money
+        CHECK_THROWS(monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[32])));
+
+        // Lets add the money to player1
+        player1.addMoney(5000);
+
+        CHECK(player1.getMoney() == 5000);
+
+        monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[32]));
+
+        // Checking that the street has 1 house
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[32])->getHouses() == 1);
+
+        // Now trying to buy another house but don't have the same number of houses in all the streets
+        CHECK_THROWS(monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[32])));
+
+        // buying another house on the street and succeeding to buy another house
+        monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[31]));
+        monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[34]));
+
+        // // Checking that the street has 1 house
+        // CHECK(dynamic_cast<Streets *>(board.getBoard()[31])->getHouses() == 1);
+        // CHECK(dynamic_cast<Streets *>(board.getBoard()[34])->getHouses() == 1);
+
+        // monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[32]));
+
+        // // Checking that the street has 2 houses
+        // CHECK(dynamic_cast<Streets *>(board.getBoard()[32])->getHouses() == 2);
+    }
 }

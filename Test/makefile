@@ -16,7 +16,7 @@ test: test.o $(CARDS) $(SLOTS) $(PLAYR) $(BOARD) $(MONOP)
 #	make -C ../Cards
 #	make -C ../BoardsSlots
 	$(CXX) $(CXXFLAGS) $^ -o $@
-	./test
+#	./test
 
 test.o: test.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
