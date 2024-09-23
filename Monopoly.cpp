@@ -20,59 +20,36 @@ void Monopoly::movePlayer(Player &player, Board &board)
     int dice = dice1 + dice2;
 
     // need to check if the player is in jail
-    bool inJail = player.getIsInJail();
-    if (!inJail)
+    // bool inJail = player.getIsInJail();
+
+    bool missTurn = player.getMissTurn();
+
+    if (missTurn) // if the player has to miss a turn we just return
     {
-
-        int oldPosition = player.getPosition(); // for checking if the player passed the Go slot
-
-        cout << "Player " << player.getName() << " rolled " << dice1 << " and " << dice2 << " for a total of " << dice << endl;
-
-        board.getBoard()[player.getPosition()]->removePlayer(player); // remove the player from the current slot
-
-        player.setPosition((player.getPosition() + dice) % BOARD_SIZE); // for the case of passing the Go slot
-
-        board.getBoard()[player.getPosition()]->addPlayer(player); // add the player to the new slot
-
-        // check if the player passed the Go slot
-        if (oldPosition > player.getPosition())
-        {
-            Go *go = dynamic_cast<Go *>(board.getBoard()[0]);
-            go->add200(player);
-        }
-
-        // Now all the checkup
-        SlotCheck(player, board, dice);
+        player.setMissTurn(false);
+        cout << "Player " << player.getName() << " has to miss a turn" << endl;
+        return;
     }
 
-    // if the player is in jail but rolled a double
-    else if (inJail && (dice1 == dice2))
+    int oldPosition = player.getPosition(); // for checking if the player passed the Go slot
+
+    cout << "Player " << player.getName() << " rolled " << dice1 << " and " << dice2 << " for a total of " << dice << endl;
+
+    board.getBoard()[player.getPosition()]->removePlayer(player); // remove the player from the current slot
+
+    player.setPosition((player.getPosition() + dice) % BOARD_SIZE); // for the case of passing the Go slot
+
+    board.getBoard()[player.getPosition()]->addPlayer(player); // add the player to the new slot
+
+    // check if the player passed the Go slot
+    if (oldPosition > player.getPosition())
     {
-        // player.setIsInJail(false);
-        // int oldPosition = player.getPosition(); // for checkups
-
-        // cout << "Player " << player.getName() << " rolled " << dice1 << " and " << dice2 << " for a total of " << dice << endl;
-
-        // board.getBoard()[player.getPosition()]->removePlayer(player); // remove the player from the current slot
-
-        // player.setPosition((player.getPosition() + dice) % BOARD_SIZE); // for the case of passing the Go slot
-
-        // board.getBoard()[player.getPosition()]->addPlayer(player); // add the player to the new slot
-
-        // // check if the player passed the Go slot
-        // if (oldPosition > player.getPosition())
-        // {
-        //     Go *go = dynamic_cast<Go *>(board.getBoard()[0]);
-        //     go->add200(player);
-        // }
-
-        // // Now all the checkup
-        // SlotCheck(player, board);
+        Go *go = dynamic_cast<Go *>(board.getBoard()[0]);
+        go->add200(player);
     }
-    else
-    {
-        cout << "Player " << player.getName() << " is in jail" << endl;
-    }
+
+    // Now all the checkup
+    SlotCheck(player, board, dice);
 }
 
 void Monopoly::SlotCheck(Player &player, Board &board, int dice)
@@ -174,8 +151,17 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         FreeParking *freeParking = dynamic_cast<FreeParking *>(board.getBoard()[20]);
         freeParking->addMoney(100);
     }
+
+    // Free parking slot
+    else if (slot->getName() == "Free Parking")
+    {
+        FreeParking *freeParking = dynamic_cast<FreeParking *>(slot);
+        // FreeParking *freeParking = dynamic_cast<FreeParking *>(board.getBoard()[20]);
+
+        freeParking->addMoneyToPlayer(player); // adding all the money in the free parking to the player
+        player.setMissTurn(true);              // the player will miss the next turn
+    }
     // jail slot
-    // free parking slot
     // card slots
 }
 
@@ -384,7 +370,6 @@ bool Monopoly::checkSameNumberOfHouses(Player &player, Streets &street) const
     }
     return true;
 }
-
 
 // Checking if the difference in houses is more than one
 // bool Monopoly::checkNumberOfHousesDiff1(Player &player, Streets &street) const

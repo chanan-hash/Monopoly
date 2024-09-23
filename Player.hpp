@@ -27,8 +27,9 @@ private:
 
     int position; // The position of the player on the board
 
-    bool isInJail; // A flag to indicate if the player is in jail or not
-    bool FreeJailCard; // A flag to indicate if the player has a free jail card or not
+    bool isInJail = false; // A flag to indicate if the player is in jail or not
+    bool FreeJailCard = false; // A flag to indicate if the player has a free jail card or not
+    bool missTurn = false; // A flag to indicate if the player has to miss a turn or not
 
 public:
     Player(string name);
@@ -52,6 +53,7 @@ public:
     int getPosition() const;
     bool getIsInJail() const;
     bool getFreeJailCard() const;
+    bool getMissTurn() const;
     void printPlayer();
     bool operator==(const Player &other) const;
     bool operator!=(const Player &other) const;
@@ -61,6 +63,7 @@ public:
     void setPosition(int position);
     void setIsInJail(bool isInJail);
     void setFreeJailCard(bool FreeJailCard);
+    void setMissTurn(bool missTurn);
 };
 
 #endif // PLAYER_HPP

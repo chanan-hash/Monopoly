@@ -17,7 +17,7 @@ public:
     FreeParking(const string &name);
     FreeParking(const string &name, const string &type);
     void addMoney(int moneyToAdd); // add the money to FreeParking
-    void addMoney(Player &player); // add the money to the player
+    void addMoneyToPlayer(Player &player); // add the money to the player
     int getMoney() const; // get the money
     virtual void printSlot() const override;
 };

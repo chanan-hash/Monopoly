@@ -1130,10 +1130,10 @@ TEST_CASE("Testing game logic")
         CHECK_THROWS(monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[32])));
 
         // buying another house on the street and succeeding to buy another house
-        monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[31]));
+        // monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[31]));
         // monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[34]));
 
-        // Checking that the street has 1 house
+       // // Checking that the street has 1 house
         // CHECK(dynamic_cast<Streets *>(board.getBoard()[31])->getHouses() == 1);
         // CHECK(dynamic_cast<Streets *>(board.getBoard()[34])->getHouses() == 1);
 
@@ -1141,5 +1141,58 @@ TEST_CASE("Testing game logic")
 
         // // Checking that the street has 2 houses
         // CHECK(dynamic_cast<Streets *>(board.getBoard()[32])->getHouses() == 2);
+    }
+
+    SUBCASE("Checking FreeParking"){
+        // let put player2 on the free parking slot and checked if he gets the money and missed his turn
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[20]->addPlayer(player2);
+        player2.setPosition(20);
+
+        // Adding money to the free parking
+        FreeParking *freeparking = dynamic_cast<FreeParking *>(board.getBoard()[20]);
+        
+        // Checking that the free parking has 0$
+        CHECK(freeparking->getMoney() == 0);
+
+        freeparking->addMoney(1000);
+
+        CHECK(freeparking->getMoney() == 1000);
+
+        // Checking that player2 has 1500$
+        CHECK(player2.getMoney() == 1500);
+
+        monopoly.SlotCheck(player2, board, 0);
+
+        // Checking that player2 has 2500$
+
+        CHECK(player2.getMoney() == 2500);
+
+        // Checking that there is no money on the parking slot
+        CHECK(freeparking->getMoney() == 0);
+
+        // now player2 will try to do his turn again, but won't move, but in the second time will move
+
+        monopoly.movePlayer(player2, board);
+
+        // checking that he is still on the free parking slot
+        CHECK(player2.getPosition() == 20);
+
+        CHECK(board.getBoard()[player2.getPosition()]->getName() == "Free Parking");
+
+        // simulating the input
+        std::istringstream simulatedInput("n\n");
+        std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
+
+        monopoly.movePlayer(player2, board);
+
+        std::cin.rdbuf(originalCin);
+
+        // checking that he is not on the free parking slot
+        CHECK(player2.getPosition() != 20);
+
+        // Checking that he is on the new slot
+        CHECK(board.getBoard()[player2.getPosition()]->getPlayers()[0].getName() == player2.getName());
+        
     }
 }

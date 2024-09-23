@@ -133,6 +133,16 @@ bool Player::getFreeJailCard() const
     return FreeJailCard;
 }
 
+void Player::setMissTurn(bool missTurn)
+{
+    this->missTurn = missTurn;
+}
+
+bool Player::getMissTurn() const
+{
+    return missTurn;
+}
+
 void Player::printPlayer()
 {
     cout << "Player: " << name << std::endl;
