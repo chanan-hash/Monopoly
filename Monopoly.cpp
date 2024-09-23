@@ -362,7 +362,7 @@ bool Monopoly::checkSameNumberOfHouses(Player &player, Streets &street) const
         if (otherStreet != nullptr && otherStreet->getColor() == color && street.getName() != otherStreet->getName()) // checking if the street has the same color
         {
             int otherHouses = otherStreet->getHouses();
-            if (houses != otherHouses) // checking if the difference in houses is more than one
+            if (houses > otherHouses) // checking if the difference in houses is more than one, if the street has more houses than the other street, we can't build more
             {
                 return false;
             }
@@ -370,25 +370,3 @@ bool Monopoly::checkSameNumberOfHouses(Player &player, Streets &street) const
     }
     return true;
 }
-
-// Checking if the difference in houses is more than one
-// bool Monopoly::checkNumberOfHousesDiff1(Player &player, Streets &street) const
-// {
-//     string color = street.getColor(); // getting the color of the street
-
-//     int houses = street.getHouses(); // getting the number of houses on the street
-
-//     for (auto asset : player.getAssets())
-//     {
-//         Streets *otherStreet = dynamic_cast<Streets *>(asset);
-//         if (otherStreet != nullptr && otherStreet->getColor() == color && street.getName() != otherStreet->getName()) // checking if the street has the same color
-//         {
-//             int otherHouses = otherStreet->getHouses();
-//             if (abs(houses - otherHouses) > 1) // checking if the difference in houses is more than one
-//             {
-//                 return false;
-//             }
-//         }
-//     }
-//     return true;
-// }

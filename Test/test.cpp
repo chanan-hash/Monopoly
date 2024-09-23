@@ -1130,20 +1130,21 @@ TEST_CASE("Testing game logic")
         CHECK_THROWS(monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[32])));
 
         // buying another house on the street and succeeding to buy another house
-        // monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[31]));
-        // monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[34]));
+        monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[31]));
+        monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[34]));
 
-       // // Checking that the street has 1 house
-        // CHECK(dynamic_cast<Streets *>(board.getBoard()[31])->getHouses() == 1);
-        // CHECK(dynamic_cast<Streets *>(board.getBoard()[34])->getHouses() == 1);
+        // Checking that the street has 1 house
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[31])->getHouses() == 1);
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[34])->getHouses() == 1);
 
-        // monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[32]));
+        monopoly.buyHouse(player1, *dynamic_cast<Streets *>(board.getBoard()[32]));
 
-        // // Checking that the street has 2 houses
-        // CHECK(dynamic_cast<Streets *>(board.getBoard()[32])->getHouses() == 2);
+        // Checking that the street has 2 houses
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[32])->getHouses() == 2);
     }
 
-    SUBCASE("Checking FreeParking"){
+    SUBCASE("Checking FreeParking")
+    {
         // let put player2 on the free parking slot and checked if he gets the money and missed his turn
         board.getBoard()[player2.getPosition()]->removePlayer(player2);
         board.getBoard()[20]->addPlayer(player2);
@@ -1151,7 +1152,7 @@ TEST_CASE("Testing game logic")
 
         // Adding money to the free parking
         FreeParking *freeparking = dynamic_cast<FreeParking *>(board.getBoard()[20]);
-        
+
         // Checking that the free parking has 0$
         CHECK(freeparking->getMoney() == 0);
 
@@ -1193,6 +1194,5 @@ TEST_CASE("Testing game logic")
 
         // Checking that he is on the new slot
         CHECK(board.getBoard()[player2.getPosition()]->getPlayers()[0].getName() == player2.getName());
-       
     }
 }
