@@ -3,11 +3,12 @@ CXXFLAGS = -std=c++17 -Wall -g
 
 # Source directories
 #SRC_DIRS = . Cards Slots BoardSlots
-CARDS = Cards/AsupriseCard.o Cards/Loan.o Cards/GoToJail.o Cards/BankPays.o Cards/PayPlayer.o Cards/AdvancedToGo.o Cards/RepairPay.o Cards/TrainTrip.o Cards/AdvancedToBoardWalk.o Cards/PayTax.o Cards/GoBack.o
-SLOTS = Slots/FreeParking.o Slots/Go.o Slots/Streets.o Slots/Slot.o Slots/Utility.o Slots/Station.o
+CARDS = Cards/supriseCard.o Cards/Loan.o Cards/GoToJail.o Cards/BankPays.o Cards/PayPlayer.o Cards/AdvancedToGo.o Cards/RepairPay.o Cards/TrainTrip.o Cards/AdvancedToBoardWalk.o Cards/PayTax.o Cards/GoBack.o Cards/FreeJail.o
+SLOTS = BoardsSlots/FreeParking.o BoardsSlots/Go.o BoardsSlots/Streets.o BoardsSlots/Slot.o BoardsSlots/Utility.o BoardsSlots/Station.o
 
 # Find all .cpp files in the source directories
 #SRCS := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
+SRCS = main.cpp Monopoly.cpp Player.cpp Board.cpp
 
 # Generate a list of object files
 OBJS := $(SRCS:.cpp=.o)
@@ -22,7 +23,9 @@ all: main
 test:
 	make -C Test
 
-main: main.cpp $(CARDS) $(SLOTS)
+main: $(OBJS) $(CARDS) $(SLOTS)
+#	make -C Cards
+#	make -C BoardsSlots
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 # Generic rule for compiling .cpp to .o

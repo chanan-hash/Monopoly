@@ -709,6 +709,16 @@ void Monopoly::printWinner()
 }
 
 // Getters
+// getting the board
+const Board &Monopoly::getBoard() const
+{
+    return board;
+}
+
+Board &Monopoly::getBoard()
+{
+    return board;
+}
 
 // getting the cards
 const vector<supriseCard *> &Monopoly::getSupriseCards() const
@@ -730,4 +740,13 @@ const vector<Player *> &Monopoly::getPlayers() const
 vector<Player *> &Monopoly::getPlayers()
 {
     return players;
+}
+
+// The reason we're using this function here because of the tests, that we won't need to initialize in each test
+void deletePlayers(vector<Player *> &players)
+{
+    for (size_t i = 0; i < players.size(); i++)
+    {
+        delete players[i];
+    }
 }

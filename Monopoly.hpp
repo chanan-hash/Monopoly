@@ -47,16 +47,15 @@ private:
     vector<Player *> players;
 
 public:
-    Monopoly(); // Constructor will initialize the board and the suprise cards, getting Board, players and suprise cards
+    Monopoly();  // Constructor will initialize the board and the suprise cards, getting Board, players and suprise cards
     ~Monopoly(); // Destructor
 
     // init players and board and suprise cards
     void initPlayers();
     void initSupriseCards();
 
-
-    int diceRoll() const;                          // Method to roll the dice
-    void movePlayer(Player &player, Board &board,int doubleCount); // Method to move the player
+    int diceRoll() const;                                           // Method to roll the dice
+    void movePlayer(Player &player, Board &board, int doubleCount); // Method to move the player
 
     void SlotCheck(Player &player, Board &board, int dice); // Method to check the slot
     void payStreetRent(Player &player1, Player &player2, Streets &street);
@@ -88,6 +87,8 @@ public:
     bool didLose(Player &player); // if the player has no money he loses and is taken out of the game
     bool isGameFinished() const;
     void printWinner();
+
+    void deletePlayers(); // delete the players, not in the consturcotr becuase of the testing it easer
 };
 
 #endif // MONOPOLY_HPP
