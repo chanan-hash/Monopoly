@@ -36,8 +36,6 @@ public:
     Player(string name);
     void addMoney(int amount); // we can add a negative amount to remove money
     void removeMoney(int amount);
-    // void addCard(supriseCard card);    // need to be implemented
-    // void removeCard(supriseCard card); // need to be implemented
     void addAsset(Streets &asset); // Adding the asset to the player
     void removeAsset(Streets &asset);
     void addTrain(Station &train); // Adding the train to the player, and increment the number of trains for payment calculation

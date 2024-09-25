@@ -265,34 +265,36 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         cout << "Player " << player.getName() << " picked a card: " << card->getName() << " " << card->getDescription() << endl;
 
         // will use switch case to check the type of the card and according to that do the action
-       
+
         string cardName = card->getName();
-        if (cardName == "Advance to Go")
+        if (cardName == "AdvancedToGo")
         {
             AdvancedToGo *advanceToGo = dynamic_cast<AdvancedToGo *>(card);
             advanceToGo->action(player, board);
         }
-        else if (cardName == "Advance to Boardwalk")
+        else if (cardName == "Advanced To Boardwalk")
         {
             AdvancedToBoardWalk *advanceToBoardWalk = dynamic_cast<AdvancedToBoardWalk *>(card);
             advanceToBoardWalk->action(player, board);
         }
-        else if (cardName == "Bank Pays")
+        else if (cardName == "BankPays")
         {
             BankPays *bankPays = dynamic_cast<BankPays *>(card);
             bankPays->action(player);
         }
-        else if (cardName == "Go Back")
+        else if (cardName == "GoBack")
         {
             GoBack *goBack = dynamic_cast<GoBack *>(card);
             goBack->action(player, board);
+
+            // need ot check if the slot is a street or not and owned or not
         }
         else if (cardName == "Loan")
         {
             Loan *loan = dynamic_cast<Loan *>(card);
             loan->action(player);
         }
-        else if (cardName == "Go To Jail")
+        else if (cardName == "GoToJail")
         {
             GoToJail *goToJail = dynamic_cast<GoToJail *>(card);
             goToJail->action(player, board);
@@ -307,7 +309,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
             PayTax *payTax = dynamic_cast<PayTax *>(card);
             payTax->action(player, board);
         }
-        else if (cardName == "Repair Pay")
+        else if (cardName == "RepairPay")
         {
             RepairPay *repairPay = dynamic_cast<RepairPay *>(card);
             repairPay->action(player);
@@ -316,6 +318,25 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         {
             TrainTrip *trainTrip = dynamic_cast<TrainTrip *>(card);
             trainTrip->action(player, board);
+            // checking if the station is owned
+            // if it is owned the player will pay the rent, the train is Reading Railroad
+            // if it is not owned the player will have the option to buy it
+
+            Station *station = dynamic_cast<Station *>(board.getBoard()[5]);
+            if (station->getOwnerPtr() != nullptr)
+            {
+                payStationRent(player, station->getOwner(), *station);
+            }
+            else
+            {
+                cout << "Do you want to buy this station? (y/n)" << endl;
+                char answer;
+                cin >> answer;
+                if (answer == 'y')
+                {
+                    buyStation(player, *station);
+                }
+            }
         }
 
         // Removing the card from the vector
@@ -565,6 +586,7 @@ void Monopoly::initSupriseCards()
     supriseCards.push_back(new PayTax());
     supriseCards.push_back(new RepairPay());
     supriseCards.push_back(new TrainTrip());
+    // supriseCards.push_back(new FreeJail());
 }
 
 bool Monopoly::didLose(Player &player)

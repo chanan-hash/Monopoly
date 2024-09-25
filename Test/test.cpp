@@ -459,8 +459,8 @@ TEST_CASE("Testing game logic")
     {
         // puting player1 on the last slot
         board.getBoard()[player1.getPosition()]->removePlayer(player1);
-        board.getBoard()[39]->addPlayer(player1);
-        player1.setPosition(39);
+        board.getBoard()[37]->addPlayer(player1);
+        player1.setPosition(37);
 
         cout << "player1 position: " << player1.getPosition() << endl;
         // Cheking that player1 has 1500$
@@ -1489,8 +1489,211 @@ TEST_CASE("Testing game logic")
 
     SUBCASE("Checking cards slot")
     {
+        // let put player1 on the cards slot the first card is advance to "GO"
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[2]->addPlayer(player1);
+        player1.setPosition(2);
 
+        // Checking that player1 has 1500$
+        CHECK(player1.getMoney() == 1500);
 
+        monopoly.SlotCheck(player1, board, 0);
+
+        // Checking that player1 has 1700$
+
+        CHECK(player1.getMoney() == 1700);
+
+        // Checking that player1 is on the new slot
+        CHECK(board.getBoard()[player1.getPosition()]->getPlayers()[0].getName() == player1.getName());
+
+        // Checking that the first card is removed, and it in the end of the vector
+        CHECK(monopoly.getSupriseCards()[0]->getName() != "AdvancedToGo");
+
+        CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "AdvancedToGo");
+
+        // Puttinh player2 landing on Chance slot
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[7]->addPlayer(player2);
+        player2.setPosition(7);
+
+        // Checking that player2 has 1500$
+        CHECK(player2.getMoney() == 1500);
+
+        monopoly.SlotCheck(player2, board, 0);
+
+        // The card is Advance to boardwalk
+
+        // checking that player2 is on the boardwalk
+        CHECK(player2.getPosition() == 39);
+
+        // Checking that he is on the new slot
+        CHECK(board.getBoard()[player2.getPosition()]->getPlayers()[0].getName() == player2.getName());
+
+        // Checking card is removed
+        CHECK(monopoly.getSupriseCards()[0]->getName() != "Advanced To Boardwalk");
+
+        CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "Advanced To Boardwalk");
+
+        // putting player3 on the cards slot and the card is bank pays you 50$
+
+        board.getBoard()[player3.getPosition()]->removePlayer(player3);
+        board.getBoard()[17]->addPlayer(player3);
+
+        player3.setPosition(17);
+
+        CHECK(player3.getMoney() == 1500);
+
+        monopoly.SlotCheck(player3, board, 0);
+
+        // Checking that player3 has 1550$
+
+        CHECK(player3.getMoney() == 1550);
+
+        CHECK(monopoly.getSupriseCards()[0]->getName() != "BankPays");
+
+        CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "BankPays");
+
+        // putting player1 on the cards slot again and checking if he went back 3 steps
+
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[2]->addPlayer(player1);
+        player1.setPosition(2);
+
+        CHECK(player1.getMoney() == 1700);
+
+        monopoly.SlotCheck(player1, board, 0);
+
+        // Checking that player1 went back 3 steps
+
+        CHECK(player1.getPosition() == 39);
+
+        // Checking that player1 on the new slot, player2 is also on the boardwalk
+        CHECK(board.getBoard()[player1.getPosition()]->getPlayers()[1].getName() == player1.getName());
+        CHECK(board.getBoard()[player1.getPosition()]->getPlayers()[0].getName() == player2.getName());
+
+        // Cheking The Loan card
+        // putting player2 on the cards slot and the card is bank pays you 150$
+
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[22]->addPlayer(player2);
+        player2.setPosition(22);
+
+        CHECK(player2.getMoney() == 1500);
+
+        monopoly.SlotCheck(player2, board, 0);
+
+        // Checking that player2 has 1650$
+
+        CHECK(player2.getMoney() == 1650);
+
+        CHECK(monopoly.getSupriseCards()[0]->getName() != "Loan");
+
+        CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "Loan");
+
+        // putting player3 on the cards slot and the card is go to jail
+
+        board.getBoard()[player3.getPosition()]->removePlayer(player3);
+        board.getBoard()[33]->addPlayer(player3);
+        player3.setPosition(33);
+
+        CHECK(player3.getMoney() == 1550);
+
+        monopoly.SlotCheck(player3, board, 0);
+
+        // Checking that player3 is in jail
+
+        CHECK(player3.getIsInJail() == true);
+
+        // Checking that player3 is on the jail slot
+        CHECK(player3.getPosition() == 10);
+
+        // Checking that he is on the new slot
+        CHECK(board.getBoard()[10]->getPlayers()[0].getName() == player3.getName());
+
+        // Checking that the card is removed
+        CHECK(monopoly.getSupriseCards()[0]->getName() != "GoToJail");
+
+        CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "GoToJail");
+
+        // putting player1 on the cards slot and the card is pay 50$ to each player
+
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[17]->addPlayer(player1);
+        player1.setPosition(17);
+
+        CHECK(player1.getMoney() == 1700);
+
+        CHECK(player2.getMoney() == 1650);
+
+        CHECK(player3.getMoney() == 1550);
+
+        monopoly.SlotCheck(player1, board, 0);
+
+        // Checking that player1 has 1600$
+
+        CHECK(player1.getMoney() == 1600);
+
+        // Checking that player2 has 1700$
+
+        CHECK(player2.getMoney() == 1700);
+
+        // Checking that player3 has 1600$
+
+        CHECK(player3.getMoney() == 1600);
+
+        // Checking that the card is removed
+
+        CHECK(monopoly.getSupriseCards()[0]->getName() != "Pay Player");
+
+        CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "Pay Player");
+
+        // putting player2 on the cards slot and the card is pay taxes 15$ and the money goes to the free parking
+
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[33]->addPlayer(player2);
+        player2.setPosition(33);
+
+        CHECK(player2.getMoney() == 1700);
+
+        CHECK(dynamic_cast<FreeParking *>(board.getBoard()[20])->getMoney() == 0);
+
+        monopoly.SlotCheck(player2, board, 0);
+
+        // Checking that player2 has 1685$
+
+        CHECK(player2.getMoney() == 1685);
+
+        // Checking that the free parking has 15$
+
+        CHECK(dynamic_cast<FreeParking *>(board.getBoard()[20])->getMoney() == 15);
+
+        // Checking that the card is removed
+
+        CHECK(monopoly.getSupriseCards()[0]->getName() != "Pay Tax");
+
+        CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "Pay Tax");
+
+        // putting player3 on the cards slot and the card is Repair 25$ for each house and 100$ for each hotel
+
+        board.getBoard()[player3.getPosition()]->removePlayer(player3);
+        board.getBoard()[33]->addPlayer(player3);
+        player3.setPosition(33);
+
+        CHECK(player3.getMoney() == 1600);
+
+        monopoly.SlotCheck(player3, board, 0);
+
+        // Checking that player3 has 1550$
+        // he doesn't have any houses or hotels
+        
+        CHECK(player3.getMoney() == 1600);
+
+        // Checking that the card is removed
+
+        CHECK(monopoly.getSupriseCards()[0]->getName() != "RepairPay");
+
+        CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "RepairPay");
+        
+        // 
     }
-
 }

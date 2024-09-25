@@ -7,7 +7,7 @@
 using namespace std;
 
 // Player::Player(string name) : name(name), money(1500) {} // Default money is 1500
-Player::Player(string name) : name(name), money(1500), trains(0), utilities(0) {}
+Player::Player(string name) : name(name), money(1500), trains(0), utilities(0), position(0) {}
 
 void Player::addMoney(int amount)
 {
@@ -22,11 +22,6 @@ void Player::removeMoney(int amount)
         cout << "Warning: " << name << " has negative money balance!" << endl;
     }
 }
-
-// need to handle the abstration of the card
-// void Player::addCard(supriseCard card) {
-//     this->card.push_back(card);
-// }
 
 // void Player::removeCard(supriseCard card) {
 //     auto it = std::find(this->card.begin(), this->card.end(), card);
