@@ -18,6 +18,7 @@
 #include "../Cards/PayTax.hpp"
 #include "../Cards/RepairPay.hpp"
 #include "../Cards/TrainTrip.hpp"
+#include "../Cards/FreeJail.hpp"
 
 #include "../BoardsSlots/Streets.hpp"
 #include "../BoardsSlots/FreeParking.hpp"
@@ -1511,7 +1512,8 @@ TEST_CASE("Testing game logic")
 
         CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "AdvancedToGo");
 
-        // Puttinh player2 landing on Chance slot
+        /*********************************************************/
+        // Putting player2 landing on Chance slot
         board.getBoard()[player2.getPosition()]->removePlayer(player2);
         board.getBoard()[7]->addPlayer(player2);
         player2.setPosition(7);
@@ -1519,7 +1521,13 @@ TEST_CASE("Testing game logic")
         // Checking that player2 has 1500$
         CHECK(player2.getMoney() == 1500);
 
+        // For the simulated input
+        std::istringstream simulatedInput3("n\n");
+        std::streambuf *originalCin3 = std::cin.rdbuf(simulatedInput3.rdbuf());
+
         monopoly.SlotCheck(player2, board, 0);
+
+        std::cin.rdbuf(originalCin3);
 
         // The card is Advance to boardwalk
 
@@ -1534,6 +1542,7 @@ TEST_CASE("Testing game logic")
 
         CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "Advanced To Boardwalk");
 
+        /*********************************************************/
         // putting player3 on the cards slot and the card is bank pays you 50$
 
         board.getBoard()[player3.getPosition()]->removePlayer(player3);
@@ -1553,15 +1562,21 @@ TEST_CASE("Testing game logic")
 
         CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "BankPays");
 
+        /*********************************************************/
         // putting player1 on the cards slot again and checking if he went back 3 steps
-
         board.getBoard()[player1.getPosition()]->removePlayer(player1);
         board.getBoard()[2]->addPlayer(player1);
         player1.setPosition(2);
 
         CHECK(player1.getMoney() == 1700);
 
+        // For the simulated input
+        std::istringstream simulatedInput("n\n");
+        std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
+
         monopoly.SlotCheck(player1, board, 0);
+
+        std::cin.rdbuf(originalCin);
 
         // Checking that player1 went back 3 steps
 
@@ -1571,9 +1586,16 @@ TEST_CASE("Testing game logic")
         CHECK(board.getBoard()[player1.getPosition()]->getPlayers()[1].getName() == player1.getName());
         CHECK(board.getBoard()[player1.getPosition()]->getPlayers()[0].getName() == player2.getName());
 
+        // Cheking that there isn't an owner for the boardwalk
+        CHECK(dynamic_cast<Streets *>(board.getBoard()[39])->getOwnerPtr() == nullptr);
+
+        // Checking that the card is removed
+        CHECK(monopoly.getSupriseCards()[0]->getName() != "GoBack");
+        CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "GoBack");
+
+        /*********************************************************/
         // Cheking The Loan card
         // putting player2 on the cards slot and the card is bank pays you 150$
-
         board.getBoard()[player2.getPosition()]->removePlayer(player2);
         board.getBoard()[22]->addPlayer(player2);
         player2.setPosition(22);
@@ -1590,6 +1612,7 @@ TEST_CASE("Testing game logic")
 
         CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "Loan");
 
+        /*********************************************************/
         // putting player3 on the cards slot and the card is go to jail
 
         board.getBoard()[player3.getPosition()]->removePlayer(player3);
@@ -1615,6 +1638,7 @@ TEST_CASE("Testing game logic")
 
         CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "GoToJail");
 
+        /*********************************************************/
         // putting player1 on the cards slot and the card is pay 50$ to each player
 
         board.getBoard()[player1.getPosition()]->removePlayer(player1);
@@ -1647,6 +1671,7 @@ TEST_CASE("Testing game logic")
 
         CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "Pay Player");
 
+        /*********************************************************/
         // putting player2 on the cards slot and the card is pay taxes 15$ and the money goes to the free parking
 
         board.getBoard()[player2.getPosition()]->removePlayer(player2);
@@ -1673,6 +1698,7 @@ TEST_CASE("Testing game logic")
 
         CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "Pay Tax");
 
+        /*********************************************************/
         // putting player3 on the cards slot and the card is Repair 25$ for each house and 100$ for each hotel
 
         board.getBoard()[player3.getPosition()]->removePlayer(player3);
@@ -1685,7 +1711,7 @@ TEST_CASE("Testing game logic")
 
         // Checking that player3 has 1550$
         // he doesn't have any houses or hotels
-        
+
         CHECK(player3.getMoney() == 1600);
 
         // Checking that the card is removed
@@ -1693,7 +1719,61 @@ TEST_CASE("Testing game logic")
         CHECK(monopoly.getSupriseCards()[0]->getName() != "RepairPay");
 
         CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "RepairPay");
-        
-        // 
+
+        /*********************************************************/
+        // Cheking the card move to Reading Railroad
+        // putting player1 on the cards slot and the card is advance to Reading Railroad
+
+        board.getBoard()[player1.getPosition()]->removePlayer(player1);
+        board.getBoard()[17]->addPlayer(player1);
+        player1.setPosition(17);
+
+        CHECK(player1.getMoney() == 1600);
+
+        // simulating the input
+        // std::istringstream simulatedInput2("n\n");
+        std::istringstream simulatedInput2("y\n");
+        std::streambuf *originalCin2 = std::cin.rdbuf(simulatedInput2.rdbuf());
+
+        monopoly.SlotCheck(player1, board, 0);
+
+        std::cin.rdbuf(originalCin2);
+
+        // Checking that player1 has 1600$
+
+        // Checking that player1 is on the Reading Railroad
+        CHECK(player1.getPosition() == 5);
+
+        // Checking that he is on the new slot
+        CHECK(board.getBoard()[5]->getPlayers()[0].getName() == player1.getName());
+
+        // if he bought the slot
+        CHECK(dynamic_cast<Station *>(board.getBoard()[5])->getOwner().getName() == player1.getName());
+        CHECK(player1.getMoney() == 1600); // went through the GO slot so got 200 and payed 200 for the station
+        CHECK(player1.getTrains() == 1);
+
+        // Checking that the card is removed
+        CHECK(monopoly.getSupriseCards()[0]->getName() != "Train Trip");
+
+        CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "Train Trip");
+
+        /*********************************************************/
+        // Checking the card FreeJail
+        // putting player2 on the cards slot and the card
+
+        board.getBoard()[player2.getPosition()]->removePlayer(player2);
+        board.getBoard()[22]->addPlayer(player2);
+        player2.setPosition(22);
+
+        CHECK(player2.getFreeJailCard() == false);
+
+        monopoly.SlotCheck(player2, board, 0);
+
+        CHECK(player2.getFreeJailCard() == true);
+
+        // Checking that the card is removed
+        CHECK(monopoly.getSupriseCards()[0]->getName() != "Free Jail");
+
+        CHECK(monopoly.getSupriseCards()[monopoly.getSupriseCards().size() - 1]->getName() == "Free Jail");
     }
 }

@@ -21,6 +21,8 @@
 #include "Cards/PayTax.hpp"
 #include "Cards/RepairPay.hpp"
 #include "Cards/TrainTrip.hpp"
+#include "Cards/FreeJail.hpp"
+
 #include "BoardsSlots/Streets.hpp"
 #include "BoardsSlots/FreeParking.hpp"
 #include "BoardsSlots/Go.hpp"

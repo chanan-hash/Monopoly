@@ -159,10 +159,6 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
             {
                 buyStreet(player, *street);
             }
-            else
-            {
-                return;
-            }
         }
     }
 
@@ -272,23 +268,103 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
             AdvancedToGo *advanceToGo = dynamic_cast<AdvancedToGo *>(card);
             advanceToGo->action(player, board);
         }
+
         else if (cardName == "Advanced To Boardwalk")
         {
             AdvancedToBoardWalk *advanceToBoardWalk = dynamic_cast<AdvancedToBoardWalk *>(card);
             advanceToBoardWalk->action(player, board);
+            // need ot check if the  street or not and owned or not
+            Slot *slot = board.getBoard()[player.getPosition()];
+            Streets *street = dynamic_cast<Streets *>(slot);
+            // Checking if the street is owned
+            if (street->getOwnerPtr() != nullptr)
+            {
+                payStreetRent(player, street->getOwner(), *street);
+            }
+            else
+            {
+                cout << "Do you want to buy this street? (y/n)" << endl;
+                char answer;
+                cin >> answer;
+                if (answer == 'y')
+                {
+                    buyStreet(player, *street);
+                }
+            }
         }
+
         else if (cardName == "BankPays")
         {
             BankPays *bankPays = dynamic_cast<BankPays *>(card);
             bankPays->action(player);
         }
+
         else if (cardName == "GoBack")
         {
             GoBack *goBack = dynamic_cast<GoBack *>(card);
             goBack->action(player, board);
 
             // need ot check if the slot is a street or not and owned or not
+            Slot *slot = board.getBoard()[player.getPosition()];
+            if (slot->getType() == "Property")
+            {
+                Streets *street = dynamic_cast<Streets *>(slot);
+                // Checking if the street is owned
+                if (street->getOwnerPtr() != nullptr)
+                {
+                    payStreetRent(player, street->getOwner(), *street);
+                }
+                else
+                {
+                    cout << "Do you want to buy this street? (y/n)" << endl;
+                    char answer;
+                    cin >> answer;
+                    if (answer == 'y')
+                    {
+                        buyStreet(player, *street);
+                    }
+                }
+            }
+            else if (slot->getType() == "Station") // if it a satation
+            {
+                Station *station = dynamic_cast<Station *>(slot);
+                // Checking if the station is owned
+                if (station->getOwnerPtr() != nullptr)
+                {
+                    payStationRent(player, station->getOwner(), *station);
+                }
+                else
+                {
+                    cout << "Do you want to buy this station? (y/n)" << endl;
+                    char answer;
+                    cin >> answer;
+                    if (answer == 'y')
+                    {
+                        buyStation(player, *station);
+                    }
+                }
+            }
+            else if (slot->getType() == "Utility") // if it a utility
+            {
+                Utility *utility = dynamic_cast<Utility *>(slot);
+                // Checking if the utility is owned
+                if (utility->getOwnerPtr() != nullptr)
+                {
+                    payUtilityRent(player, utility->getOwner(), *utility, dice);
+                }
+                else
+                {
+                    cout << "Do you want to buy this utility? (y/n)" << endl;
+                    char answer;
+                    cin >> answer;
+                    if (answer == 'y')
+                    {
+                        buyUtility(player, *utility);
+                    }
+                }
+            }
         }
+
         else if (cardName == "Loan")
         {
             Loan *loan = dynamic_cast<Loan *>(card);
@@ -337,6 +413,11 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
                     buyStation(player, *station);
                 }
             }
+        }
+        else if (cardName == "Free Jail")
+        {
+            FreeJail *freeJail = dynamic_cast<FreeJail *>(card);
+            freeJail->action(player);
         }
 
         // Removing the card from the vector
@@ -586,7 +667,7 @@ void Monopoly::initSupriseCards()
     supriseCards.push_back(new PayTax());
     supriseCards.push_back(new RepairPay());
     supriseCards.push_back(new TrainTrip());
-    // supriseCards.push_back(new FreeJail());
+    supriseCards.push_back(new FreeJail());
 }
 
 bool Monopoly::didLose(Player &player)

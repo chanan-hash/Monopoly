@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -Wall -g
 
 # Source directories
-CARDS = ../Cards/supriseCard.o ../Cards/Loan.o ../Cards/GoToJail.o ../Cards/BankPays.o ../Cards/PayPlayer.o ../Cards/AdvancedToGo.o ../Cards/RepairPay.o ../Cards/TrainTrip.o ../Cards/AdvancedToBoardWalk.o ../Cards/PayTax.o ../Cards/GoBack.o
+CARDS = ../Cards/supriseCard.o ../Cards/Loan.o ../Cards/GoToJail.o ../Cards/BankPays.o ../Cards/PayPlayer.o ../Cards/AdvancedToGo.o ../Cards/RepairPay.o ../Cards/TrainTrip.o ../Cards/AdvancedToBoardWalk.o ../Cards/PayTax.o ../Cards/GoBack.o ../Cards/FreeJail.o
 SLOTS = ../BoardsSlots/FreeParking.o ../BoardsSlots/Go.o ../BoardsSlots/Streets.o ../BoardsSlots/Slot.o ../BoardsSlots/Utility.o ../BoardsSlots/Station.o
 PLAYR = ../Player.o
 BOARD = ../Board.o
