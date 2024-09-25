@@ -1359,6 +1359,8 @@ TEST_CASE("Testing game logic")
 
         player1.setIsInJail(true);
 
+        CHECK(player1.getFreeJailCard() == false); // he doesn't have a free jail card
+
         CHECK(player1.getMoney() == 1500);
 
         // turn 1
@@ -1481,5 +1483,14 @@ TEST_CASE("Testing game logic")
 
         // Checking if the game is over
         CHECK(monopoly.isGameFinished() == true);
+
+        monopoly.printWinner();
     }
+
+    SUBCASE("Checking cards slot")
+    {
+
+
+    }
+
 }

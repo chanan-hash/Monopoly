@@ -257,72 +257,72 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
     }
 
     // Card slots
-    // else if (slot->getName() == "Chance" || slot->getName() == "Community Chest")
-    // {
-    //     // Getting a random card
-    //     int random = rand() % supriseCards.size();
-    //     supriseCard *card = supriseCards[random];
+    else if (slot->getName() == "Chance" || slot->getName() == "Community Chest")
+    {
+        // Getting a random card
+        supriseCard *card = supriseCards[0]; // taking the first card
 
-    //     cout << "Player " << player.getName() << " picked a card: " << card->getName() << " " << card->getDescription() << endl;
+        cout << "Player " << player.getName() << " picked a card: " << card->getName() << " " << card->getDescription() << endl;
 
-    //     // will use switch case to check the type of the card and according to that do the action
-    //     string cardName = card->getName();
-    //     if (cardName == "Advance to Go")
-    //     {
-    //         AdvancedToGo *advanceToGo = dynamic_cast<AdvancedToGo *>(card);
-    //         advanceToGo->action(player, board);
-    //     }
-    //     else if (cardName == "Advance to Boardwalk")
-    //     {
-    //         AdvancedToBoardWalk *advanceToBoardWalk = dynamic_cast<AdvancedToBoardWalk *>(card);
-    //         advanceToBoardWalk->action(player, board);
-    //     }
-    //     else if (cardName == "Bank Pays")
-    //     {
-    //         BankPays *bankPays = dynamic_cast<BankPays *>(card);
-    //         bankPays->action(player);
-    //     }
-    //     else if (cardName == "Go Back")
-    //     {
-    //         GoBack *goBack = dynamic_cast<GoBack *>(card);
-    //         goBack->action(player, board);
-    //     }
-    //     else if (cardName == "Loan")
-    //     {
-    //         Loan *loan = dynamic_cast<Loan *>(card);
-    //         loan->action(player);
-    //     }
-    //     else if (cardName == "Go To Jail")
-    //     {
-    //         GoToJail *goToJail = dynamic_cast<GoToJail *>(card);
-    //         goToJail->action(player, board);
-    //     }
-    //     else if (cardName == "Pay Player")
-    //     {
-    //         PayPlayer *payPlayer = dynamic_cast<PayPlayer *>(card);
-    //         payPlayer->action(player, players);
-    //     }
-    //     else if (cardName == "Pay Tax")
-    //     {
-    //         PayTax *payTax = dynamic_cast<PayTax *>(card);
-    //         payTax->action(player, board);
-    //     }
-    //     else if (cardName == "Repair Pay")
-    //     {
-    //         RepairPay *repairPay = dynamic_cast<RepairPay *>(card);
-    //         repairPay->action(player);
-    //     }
-    //     else if (cardName == "Train Trip")
-    //     {
-    //         TrainTrip *trainTrip = dynamic_cast<TrainTrip *>(card);
-    //         trainTrip->action(player, board);
-    //     }
+        // will use switch case to check the type of the card and according to that do the action
+       
+        string cardName = card->getName();
+        if (cardName == "Advance to Go")
+        {
+            AdvancedToGo *advanceToGo = dynamic_cast<AdvancedToGo *>(card);
+            advanceToGo->action(player, board);
+        }
+        else if (cardName == "Advance to Boardwalk")
+        {
+            AdvancedToBoardWalk *advanceToBoardWalk = dynamic_cast<AdvancedToBoardWalk *>(card);
+            advanceToBoardWalk->action(player, board);
+        }
+        else if (cardName == "Bank Pays")
+        {
+            BankPays *bankPays = dynamic_cast<BankPays *>(card);
+            bankPays->action(player);
+        }
+        else if (cardName == "Go Back")
+        {
+            GoBack *goBack = dynamic_cast<GoBack *>(card);
+            goBack->action(player, board);
+        }
+        else if (cardName == "Loan")
+        {
+            Loan *loan = dynamic_cast<Loan *>(card);
+            loan->action(player);
+        }
+        else if (cardName == "Go To Jail")
+        {
+            GoToJail *goToJail = dynamic_cast<GoToJail *>(card);
+            goToJail->action(player, board);
+        }
+        else if (cardName == "Pay Player")
+        {
+            PayPlayer *payPlayer = dynamic_cast<PayPlayer *>(card);
+            payPlayer->action(player, players);
+        }
+        else if (cardName == "Pay Tax")
+        {
+            PayTax *payTax = dynamic_cast<PayTax *>(card);
+            payTax->action(player, board);
+        }
+        else if (cardName == "Repair Pay")
+        {
+            RepairPay *repairPay = dynamic_cast<RepairPay *>(card);
+            repairPay->action(player);
+        }
+        else if (cardName == "Train Trip")
+        {
+            TrainTrip *trainTrip = dynamic_cast<TrainTrip *>(card);
+            trainTrip->action(player, board);
+        }
 
-    //     // Removing the card from the vector
-    //     supriseCards.erase(supriseCards.begin() + random);
-    //     // Adding it to the end of the vector
-    //     supriseCards.push_back(card);
-    // }
+        // Removing the card from the vector
+        supriseCards.erase(supriseCards.begin());
+        // Adding it to the end of the vector
+        supriseCards.push_back(card);
+    }
 }
 
 // Handling the street rent
