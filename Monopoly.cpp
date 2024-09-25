@@ -4,9 +4,26 @@
 #include <string>
 #include <stdexcept>
 
-// Monopoly::Monopoly()
-// {
-// }
+Monopoly::Monopoly() // inintilize the board and the suprise cards, we won't initilize the players here because of the test,it good to separate the initilization of the players from the constructor
+{
+    // The board initialization will be done in the Board constructor
+    initSupriseCards();
+}
+
+Monopoly::~Monopoly()
+{
+    // Deleting the players, we'll have to use the init function to delete the players
+    // for (size_t i = 0; i < players.size(); i++)
+    // {
+    //     delete players[i];
+    // }
+
+    // Deleting the suprise cards
+    for (size_t i = 0; i < supriseCards.size(); i++)
+    {
+        delete supriseCards[i];
+    }
+}
 
 int Monopoly::diceRoll() const
 {
@@ -239,7 +256,73 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         player.setIsInJail(true);
     }
 
-    // card slots
+    // Card slots
+    // else if (slot->getName() == "Chance" || slot->getName() == "Community Chest")
+    // {
+    //     // Getting a random card
+    //     int random = rand() % supriseCards.size();
+    //     supriseCard *card = supriseCards[random];
+
+    //     cout << "Player " << player.getName() << " picked a card: " << card->getName() << " " << card->getDescription() << endl;
+
+    //     // will use switch case to check the type of the card and according to that do the action
+    //     string cardName = card->getName();
+    //     if (cardName == "Advance to Go")
+    //     {
+    //         AdvancedToGo *advanceToGo = dynamic_cast<AdvancedToGo *>(card);
+    //         advanceToGo->action(player, board);
+    //     }
+    //     else if (cardName == "Advance to Boardwalk")
+    //     {
+    //         AdvancedToBoardWalk *advanceToBoardWalk = dynamic_cast<AdvancedToBoardWalk *>(card);
+    //         advanceToBoardWalk->action(player, board);
+    //     }
+    //     else if (cardName == "Bank Pays")
+    //     {
+    //         BankPays *bankPays = dynamic_cast<BankPays *>(card);
+    //         bankPays->action(player);
+    //     }
+    //     else if (cardName == "Go Back")
+    //     {
+    //         GoBack *goBack = dynamic_cast<GoBack *>(card);
+    //         goBack->action(player, board);
+    //     }
+    //     else if (cardName == "Loan")
+    //     {
+    //         Loan *loan = dynamic_cast<Loan *>(card);
+    //         loan->action(player);
+    //     }
+    //     else if (cardName == "Go To Jail")
+    //     {
+    //         GoToJail *goToJail = dynamic_cast<GoToJail *>(card);
+    //         goToJail->action(player, board);
+    //     }
+    //     else if (cardName == "Pay Player")
+    //     {
+    //         PayPlayer *payPlayer = dynamic_cast<PayPlayer *>(card);
+    //         payPlayer->action(player, players);
+    //     }
+    //     else if (cardName == "Pay Tax")
+    //     {
+    //         PayTax *payTax = dynamic_cast<PayTax *>(card);
+    //         payTax->action(player, board);
+    //     }
+    //     else if (cardName == "Repair Pay")
+    //     {
+    //         RepairPay *repairPay = dynamic_cast<RepairPay *>(card);
+    //         repairPay->action(player);
+    //     }
+    //     else if (cardName == "Train Trip")
+    //     {
+    //         TrainTrip *trainTrip = dynamic_cast<TrainTrip *>(card);
+    //         trainTrip->action(player, board);
+    //     }
+
+    //     // Removing the card from the vector
+    //     supriseCards.erase(supriseCards.begin() + random);
+    //     // Adding it to the end of the vector
+    //     supriseCards.push_back(card);
+    // }
 }
 
 // Handling the street rent
@@ -446,4 +529,102 @@ bool Monopoly::checkSameNumberOfHouses(Player &player, Streets &street) const
         }
     }
     return true;
+}
+
+void Monopoly::initPlayers()
+{
+    int numPlayers;
+    cout << "Enter the number of players (between 2 and 8): ";
+    cin >> numPlayers;
+
+    if (numPlayers < 2 || numPlayers > 8)
+    {
+        cout << "Invalid number of players" << endl;
+        return;
+    }
+
+    for (int i = 0; i < numPlayers; i++)
+    {
+        string name;
+        cout << "Enter the name of player " << i + 1 << ": ";
+        cin >> name;
+        players.push_back(new Player(name));
+    }
+}
+
+void Monopoly::initSupriseCards()
+{
+    // Need to create the cards and add them to the vector
+    supriseCards.push_back(new AdvancedToGo());
+    supriseCards.push_back(new AdvancedToBoardWalk());
+    supriseCards.push_back(new BankPays());
+    supriseCards.push_back(new GoBack());
+    supriseCards.push_back(new Loan());
+    supriseCards.push_back(new GoToJail());
+    supriseCards.push_back(new PayPlayer());
+    supriseCards.push_back(new PayTax());
+    supriseCards.push_back(new RepairPay());
+    supriseCards.push_back(new TrainTrip());
+}
+
+bool Monopoly::didLose(Player &player)
+{
+    if (player.getMoney() < 0)
+    {
+        cout << "Player " << player.getName() << " lost" << endl;
+        // let's remove the player from the game
+        // removing the player from the board
+        board.getBoard()[player.getPosition()]->removePlayer(player);
+        // removing the player from the players vector
+        for (size_t i = 0; i < players.size(); i++)
+        {
+            if (players[i]->getName() == player.getName())
+            {
+                players.erase(players.begin() + i);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Monopoly::isGameFinished() const
+{
+    return players.size() == 1;
+}
+
+void Monopoly::printWinner()
+{
+    if (isGameFinished())
+    {
+        cout << "The winner is: " << players[0]->getName() << endl;
+    }
+    else
+    {
+        return;
+    }
+}
+
+// Getters
+
+// getting the cards
+const vector<supriseCard *> &Monopoly::getSupriseCards() const
+{
+    return supriseCards;
+}
+
+vector<supriseCard *> &Monopoly::getSupriseCards()
+{
+    return supriseCards;
+}
+
+// getting the players
+const vector<Player *> &Monopoly::getPlayers() const
+{
+    return players;
+}
+
+vector<Player *> &Monopoly::getPlayers()
+{
+    return players;
 }

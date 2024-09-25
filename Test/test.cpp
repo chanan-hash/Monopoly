@@ -343,10 +343,10 @@ TEST_CASE("Testing game logic")
     Player player3("Player 3");
 
     // vector of player
-    vector<Player *> players; // because we need to pass the player by reference
-    players.push_back(&player1);
-    players.push_back(&player2);
-    players.push_back(&player3);
+    // vector<Player *> players; // because we need to pass the player by reference
+    // players.push_back(&player1);
+    // players.push_back(&player2);
+    // players.push_back(&player3);
 
     // Setting the players position to 0
     player1.setPosition(0);
@@ -354,6 +354,10 @@ TEST_CASE("Testing game logic")
     player3.setPosition(0);
 
     Monopoly monopoly;
+
+    monopoly.getPlayers().push_back(&player1);
+    monopoly.getPlayers().push_back(&player2);
+    monopoly.getPlayers().push_back(&player3);
 
     SUBCASE("Checking diceRoll")
     {
@@ -1348,7 +1352,7 @@ TEST_CASE("Testing game logic")
 
     SUBCASE("3 Truns in the jail and must go out")
     {
-        // let put player1 in the jail and he'll get double and go out
+        // let put player1 in the jail and make him stay for 3 turns and then he will go out
         board.getBoard()[player1.getPosition()]->removePlayer(player1);
         board.getBoard()[10]->addPlayer(player1);
         player1.setPosition(10);
@@ -1425,18 +1429,57 @@ TEST_CASE("Testing game logic")
     }
 
     SUBCASE("Double roll checkup")
-    {   // For checking this test we need to we neet to put in comment all the test cases above
-        // let put player1 will roll the dice and get double after 3 times he will go to jail
+    { // For checking this test we need to we neet to put in comment all the test cases above
+      // let put player1 will roll the dice and get double after 3 times he will go to jail
 
         // For the simulated input
-        std::istringstream simulatedInput("n\n");
-        std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
+        // std::istringstream simulatedInput("n\n");
+        // std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
 
-        monopoly.movePlayer(player1, board, 0); // we've put the dice roll with srand so will double 3 times
+        // monopoly.movePlayer(player1, board, 0); // we've put the dice roll with srand so will double 3 times
 
-        std::cin.rdbuf(originalCin);
+        // std::cin.rdbuf(originalCin);
 
         // Checking that player1 is not in jail
         // CHECK(player1.getIsInJail() == true);
+    }
+
+    SUBCASE("Cheking if player losses")
+    {
+        // lets assume that player1 has no money
+        player1.removeMoney(1501);
+
+        CHECK(player1.getMoney() == -1);
+
+        CHECK(monopoly.didLose(player1) == true);
+
+        // Checking that player1 is not in the game
+        CHECK(monopoly.getPlayers().size() == 2);
+
+        // non if the players in the vector is player1
+        CHECK(monopoly.getPlayers()[0]->getName() != player1.getName());
+        CHECK(monopoly.getPlayers()[1]->getName() != player1.getName());
+
+        // lets assume that player2 has 1$
+        player2.removeMoney(1499);
+
+        CHECK(monopoly.didLose(player2) == false);
+
+        // Checking if the game is over
+        CHECK(monopoly.isGameFinished() == false);
+
+        // let player2 loes the game
+        player2.removeMoney(4459);
+
+        CHECK(monopoly.didLose(player2) == true);
+
+        // Checking that player2 is not in the game
+        CHECK(monopoly.getPlayers().size() == 1);
+
+        // non if the players in the vector is player2
+        CHECK(monopoly.getPlayers()[0]->getName() != player2.getName());
+
+        // Checking if the game is over
+        CHECK(monopoly.isGameFinished() == true);
     }
 }
