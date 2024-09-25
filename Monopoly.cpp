@@ -638,11 +638,11 @@ void Monopoly::initPlayers()
     int numPlayers;
     cout << "Enter the number of players (between 2 and 8): ";
     cin >> numPlayers;
-
-    if (numPlayers < 2 || numPlayers > 8)
+    while(numPlayers < 2 || numPlayers > 8)
     {
-        cout << "Invalid number of players" << endl;
-        return;
+        cout << "Invalid number of players, enter number between 2 and 8" << endl;
+        cout << "Enter the number of players (between 2 and 8): ";
+        cin >> numPlayers;
     }
 
     for (int i = 0; i < numPlayers; i++)
@@ -743,7 +743,7 @@ vector<Player *> &Monopoly::getPlayers()
 }
 
 // The reason we're using this function here because of the tests, that we won't need to initialize in each test
-void deletePlayers(vector<Player *> &players)
+void Monopoly::deletePlayers()
 {
     for (size_t i = 0; i < players.size(); i++)
     {
