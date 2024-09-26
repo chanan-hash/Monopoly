@@ -10,7 +10,7 @@ CARDS = Cards/supriseCard.o Cards/Loan.o Cards/GoToJail.o Cards/BankPays.o Cards
 SLOTS = BoardsSlots/FreeParking.o BoardsSlots/Go.o BoardsSlots/Streets.o BoardsSlots/Slot.o BoardsSlots/Utility.o BoardsSlots/Station.o
 
 # Find all .cpp files in the source directories
-SRCS = main.cpp Monopoly.cpp Player.cpp Board.cpp MonopolyBoardGUI.cpp
+SRCS = main.cpp Monopoly.cpp Player.cpp Board.cpp #MonopolyBoardGUI.cpp
 
 # Generate a list of object files
 OBJS := $(SRCS:.cpp=.o)

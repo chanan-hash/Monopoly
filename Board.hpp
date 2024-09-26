@@ -10,6 +10,12 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
 
+#include <SFML/Graphics.hpp>
+#include <sstream>
+#include <algorithm>
+#include <cctype>
+#include <locale>
+
 #include <iostream>
 #include <string>
 #include <vector>

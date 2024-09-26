@@ -6,6 +6,7 @@
 #include <cmath>
 #include <sstream>
 #include <SFML/Graphics.hpp>
+// #include "MonopolyBoardGUI.hpp"
 
 #include "Monopoly.hpp"
 #include "Board.hpp"
