@@ -174,7 +174,7 @@ bool Player::operator!=(const Player &other) const
 string Player::toString()
 {
     string res = "";
-    res += name + " $" + to_string(money) + " trains: " + to_string(trains) + " utilities: " + to_string(utilities) + " position: " + to_string(position) + " isInJail: " + to_string(isInJail) + " FreeJailCard: " + to_string(FreeJailCard) + "Assetes: ";
+    res += name + ", $" + to_string(money) + ", trains: " + to_string(trains) + ", utilities: " + to_string(utilities) + ", position: " + to_string(position) + ", isInJail: " + to_string(isInJail) + ", FreeJailCard: " + to_string(FreeJailCard) + ", Assetes: ";
     for (const auto &asset : assets)
     {
         res += " " + asset->getName();

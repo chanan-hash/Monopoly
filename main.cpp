@@ -1,6 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <limits>
+#include <stdexcept>
+#include <cmath>
+#include <sstream>
 
 #include "Monopoly.hpp"
 
@@ -41,80 +45,123 @@ int main()
         for (size_t i = 0; i < monopoly.getPlayers().size(); i++)
         {
             cout << "Player " << monopoly.getPlayers()[i]->getName() << " turn" << endl;
-            cout << "What is your move? Enter the corresponding number:\n"
-                 << "1. Roll dice\n"
-                 << "2. See your details\n"
-                 << "3. Buy a house\n"
-                 << "4. Buy a hotel\n"
-                 << "5. Print the board" << endl;
-            int move;
-            cin >> move;
-            while (move < 1 || move > 5)
+            bool hasRolledDice = false;
+            bool endTurn = false;
+
+            // Helping us to do several moves in this turn
+            while (!endTurn)
             {
-                cout << "Invalid move, enter 1 to roll doce and move, 2 for buying house" << endl;
+                cout << "What is your move? Enter the corresponding number:\n"
+                     << "1. Roll dice\n"
+                     << "2. See your details\n"
+                     << "3. Buy a house\n"
+                     << "4. Buy a hotel\n"
+                     << "5. Print the board\n"
+                     << "6. End turn " << endl;
+                int move;
                 cin >> move;
-            }
-            if (move == 1)
-            {
-                monopoly.movePlayer(*monopoly.getPlayers()[i], monopoly.getBoard(), 0);
-            }
-            else if (move == 2)
-            {
-                cout << "Player: " << monopoly.getPlayers()[i]->getName() << ", " << monopoly.getPlayers()[i]->toString() << endl;
-            }
-            else if (move == 3)
-            {
-                cout << "Enter the name of the street you want to buy a house on" << endl;
-                string streetName;
-                cin >> streetName;
-                // neet to find the name of the street in the player assets, so we need to get the player assets and look
-                // for the street with the same name
-                vector<Streets *> assets = monopoly.getPlayers()[i]->getAssets();
-                for (size_t j = 0; j < assets.size(); j++)
+                while (move < 1 || move > 6)
                 {
-                    if (assets[j]->getName() == streetName)
+                    cout << "Invalid move, enter number between 1 and 6" << endl;
+                    cin >> move;
+                }
+
+                if (move == 1)
+                {
+                    if (!hasRolledDice)
                     {
-                        try
-                        {
-                            monopoly.buyHouse(*monopoly.getPlayers()[i], *assets[j]);
-                        }
-                        catch (const char *msg)
-                        {
-                            cout << msg << endl;
-                        }
+
+                        monopoly.movePlayer(*monopoly.getPlayers()[i], monopoly.getBoard(), 0);
+                        hasRolledDice = true;
+                    }
+                    else
+                    {
+                        cout << "You have already rolled the dice, you can't roll again" << endl;
                     }
                 }
-                cout << "Street not found, check your assetes for name in option 2, and try again" << endl;
-            }
-            else if (move == 4)
-            {
-                cout << "Enter the name of the street you want to buy a hotel on" << endl;
-                string streetName;
-                cin >> streetName;
-                // neet to find the name of the street in the player assets, so we need to get the player assets and look
-                // for the street with the same name
-                vector<Streets *> assets = monopoly.getPlayers()[i]->getAssets();
-                for (size_t j = 0; j < assets.size(); j++)
+                else if (move == 2)
                 {
-                    if (assets[j]->getName() == streetName)
+                    cout << "Player: " << monopoly.getPlayers()[i]->getName() << ", " << monopoly.getPlayers()[i]->toString() << endl;
+                }
+                else if (move == 3)
+                {
+                    cout << "Enter the name of the street you want to buy a house on" << endl;
+                    string streetName;
+                    getline(cin >> ws, streetName);
+
+                    vector<Streets *> assets = monopoly.getPlayers()[i]->getAssets();
+                    bool streetFound = false;
+
+                    for (size_t j = 0; j < assets.size(); j++)
                     {
-                        try
+                        cout << "You have: " << assets[j]->getName() << endl;
+
+                        if (assets[j]->getName() == streetName)
                         {
-                            monopoly.buyHotel(*monopoly.getPlayers()[i], *assets[j]);
-                        }
-                        catch (const char *msg)
-                        {
-                            cout << msg << endl;
+                            streetFound = true;
+                            try
+                            {
+                                monopoly.buyHouse(*monopoly.getPlayers()[i], *assets[j]);
+                            }
+                            catch (exception &e)
+                            {
+                                cout << e.what() << endl;
+                            }
+                            break;
                         }
                     }
+                    if (!streetFound)
+                    {
+                        cout << "Street not found, check your assets for name in option 2, and try again" << endl;
+                    }
                 }
-                cout << "Street not found, check your assetes for name in option 2, and try again" << endl;
-            }
-            else if (move == 5)
-            {
-                // monopoly.getBoard().printBoard();
-                // will be with << operator
-                // cout << monopoly.getBoard() << endl;
+                else if (move == 4)
+                {
+
+                    cout << "Enter the name of the street you want to buy a hotel on" << endl;
+                    string streetName;
+                    getline(cin >> ws, streetName);
+
+                    vector<Streets *> assets = monopoly.getPlayers()[i]->getAssets();
+                    bool streetFound = false;
+                    for (size_t j = 0; j < assets.size(); j++)
+                    {
+                        if (assets[j]->getName() == streetName)
+                        {
+                            streetFound = true;
+                            try
+                            {
+                                monopoly.buyHotel(*monopoly.getPlayers()[i], *assets[j]);
+                            }
+                            catch (exception &e)
+                            {
+                                cout << e.what() << endl;
+                            }
+                            break;
+                        }
+                    }
+                    if (!streetFound)
+                    {
+                        cout << "Street not found, check your assets for name in option 2, and try again" << endl;
+                    }
+                }
+                else if (move == 5)
+                {
+                    // monopoly.getBoard().printBoard();
+                    // will be with << operator
+                    // cout << monopoly.getBoard() << endl;
+                }
+                else if (move == 6)
+                {
+                    if (!hasRolledDice) // if hasn't rolled the dice, we can't end the turn
+                    {
+                        cout << "You have to roll the dice before ending the turn" << endl;
+                    }
+                    else
+                    {
+                        endTurn = true;
+                    }
+                }
             }
         }
     }
