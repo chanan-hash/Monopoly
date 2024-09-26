@@ -3,7 +3,6 @@ CXXFLAGS = -std=c++17 -Wall -g
 
 # Linker flags
 LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
-#GUI = MonopolyBoardGUI.cpp
 
 # Source directories
 #SRC_DIRS = . Cards Slots BoardSlots
@@ -11,7 +10,6 @@ CARDS = Cards/supriseCard.o Cards/Loan.o Cards/GoToJail.o Cards/BankPays.o Cards
 SLOTS = BoardsSlots/FreeParking.o BoardsSlots/Go.o BoardsSlots/Streets.o BoardsSlots/Slot.o BoardsSlots/Utility.o BoardsSlots/Station.o
 
 # Find all .cpp files in the source directories
-#SRCS := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
 SRCS = main.cpp Monopoly.cpp Player.cpp Board.cpp MonopolyBoardGUI.cpp
 
 # Generate a list of object files
@@ -27,9 +25,7 @@ all: main
 test:
 	make -C Test
 
-main: $(OBJS) $(CARDS) $(SLOTS) 
-#	make -C Cards
-#	make -C BoardsSlots
+main: $(OBJS) $(CARDS) $(SLOTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 # Generic rule for compiling .cpp to .o

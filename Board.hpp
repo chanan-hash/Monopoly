@@ -13,7 +13,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <memory> // For unique_ptr
 
 using namespace std;
 
@@ -29,17 +28,18 @@ class Board
 {
 private:
     vector<Slot *> slots; // A vector of slots, it will be initialized with 40 slots, like the monopoly board
-    // vector<unique_ptr<Slot>> slots; // A vector of slots, it will be initialized with 40 slots, like the monopoly board
 
 public:
     Board(); // Constructor
-    // Board() : slots(40) {}
     ~Board(); // Destructor
-    // vector<std::unique_ptr<Slot>> &getBoard();
-    // const vector<std::unique_ptr<Slot>> &getBoard() const;
     vector<Slot *> &getBoard();
     const vector<Slot *> &getBoard() const;
     void printBoard(); // Method to print the board
     friend ostream &operator<<(ostream &os, const Board &board); // printing with gui
 };
+
+void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotShapes, std::vector<sf::Text> &slotTexts, sf::Font &font);
+void draw(sf::RenderWindow &window, const std::vector<sf::RectangleShape> &slotShapes, const std::vector<sf::Text> &slotTexts);
+void runGUI(const Board &board);
+
 #endif // BOARD_HPP

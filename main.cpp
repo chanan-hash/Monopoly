@@ -8,7 +8,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "Monopoly.hpp"
-#include "MonopolyBoardGUI.hpp"
 #include "Board.hpp"
 #include "Player.hpp"
 #include "Cards/supriseCard.hpp"
@@ -150,7 +149,7 @@ int main()
                 {
                     // monopoly.getBoard().printBoard();
                     // will be with << operator
-                    // std::cout << monopoly.getBoard() << endl;
+                    std::cout << monopoly.getBoard() << endl;
                 }
                 else if (move == 6)
                 {
