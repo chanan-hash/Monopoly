@@ -55,9 +55,10 @@ public:
     bool getFreeJailCard() const;
     bool getMissTurn() const;
     void printPlayer();
+    string toString();
     bool operator==(const Player &other) const;
     bool operator!=(const Player &other) const;
-    friend ostream &operator<<(ostream &os, const Player &player);
+    // friend ostream &operator<<(ostream &os, const Player &player);
 
     // setters
     void setPosition(int position);

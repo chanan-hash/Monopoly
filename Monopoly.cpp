@@ -152,7 +152,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         }
         else
         {
-            cout << "Do you want to buy this street? (y/n)" << endl;
+            cout << "This street cost: "<< street->getPrice() << ", Do you want to buy this street? (y/n)" << endl;
             char answer;
             cin >> answer;
             if (answer == 'y')
@@ -173,7 +173,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         }
         else
         {
-            cout << "Do you want to buy this station? (y/n)" << endl;
+            cout << "This Station cost: " << station->getPrice() << ", Do you want to buy this station? (y/n)" << endl;
             char answer;
             cin >> answer;
             if (answer == 'y')
@@ -193,7 +193,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         }
         else
         {
-            cout << "Do you want to buy this utility? (y/n)" << endl;
+            cout << "This Utility cost: " << utility->getPrice() << ", Do you want to buy this utility? (y/n)" << endl;
             char answer;
             cin >> answer;
             if (answer == 'y')

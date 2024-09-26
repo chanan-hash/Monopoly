@@ -41,10 +41,15 @@ int main()
         for (size_t i = 0; i < monopoly.getPlayers().size(); i++)
         {
             cout << "Player " << monopoly.getPlayers()[i]->getName() << " turn" << endl;
-            cout << "What is your move? enter 1 to roll dice and move, 2 for buying house" << endl;
+            cout << "What is your move? Enter the corresponding number:\n"
+                 << "1. Roll dice\n"
+                 << "2. See your details\n"
+                 << "3. Buy a house\n"
+                 << "4. Buy a hotel\n"
+                 << "5. Print the board" << endl;
             int move;
             cin >> move;
-            while (move != 1 && move != 2)
+            while (move < 1 || move > 5)
             {
                 cout << "Invalid move, enter 1 to roll doce and move, 2 for buying house" << endl;
                 cin >> move;
@@ -55,10 +60,62 @@ int main()
             }
             else if (move == 2)
             {
-                // need to check if from the plyer the place he wants to by
-                // monopoly.buyHouse(*monopoly.getPlayers()[i], *dynamic_cast<Streets *>(monopoly.getBoard().getBoard()[monopoly.getPlayers()[i]->getPosition()]));
+                cout << "Player: " << monopoly.getPlayers()[i]->getName() << ", " << monopoly.getPlayers()[i]->toString() << endl;
             }
-            // Adding options for the plyaer like to print his money, his position, his properties
+            else if (move == 3)
+            {
+                cout << "Enter the name of the street you want to buy a house on" << endl;
+                string streetName;
+                cin >> streetName;
+                // neet to find the name of the street in the player assets, so we need to get the player assets and look
+                // for the street with the same name
+                vector<Streets *> assets = monopoly.getPlayers()[i]->getAssets();
+                for (size_t j = 0; j < assets.size(); j++)
+                {
+                    if (assets[j]->getName() == streetName)
+                    {
+                        try
+                        {
+                            monopoly.buyHouse(*monopoly.getPlayers()[i], *assets[j]);
+                        }
+                        catch (const char *msg)
+                        {
+                            cout << msg << endl;
+                        }
+                    }
+                }
+                cout << "Street not found, check your assetes for name in option 2, and try again" << endl;
+            }
+            else if (move == 4)
+            {
+                cout << "Enter the name of the street you want to buy a hotel on" << endl;
+                string streetName;
+                cin >> streetName;
+                // neet to find the name of the street in the player assets, so we need to get the player assets and look
+                // for the street with the same name
+                vector<Streets *> assets = monopoly.getPlayers()[i]->getAssets();
+                for (size_t j = 0; j < assets.size(); j++)
+                {
+                    if (assets[j]->getName() == streetName)
+                    {
+                        try
+                        {
+                            monopoly.buyHotel(*monopoly.getPlayers()[i], *assets[j]);
+                        }
+                        catch (const char *msg)
+                        {
+                            cout << msg << endl;
+                        }
+                    }
+                }
+                cout << "Street not found, check your assetes for name in option 2, and try again" << endl;
+            }
+            else if (move == 5)
+            {
+                // monopoly.getBoard().printBoard();
+                // will be with << operator
+                // cout << monopoly.getBoard() << endl;
+            }
         }
     }
 
