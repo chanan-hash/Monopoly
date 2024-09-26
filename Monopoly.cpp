@@ -152,7 +152,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         }
         else
         {
-            cout << "This street cost: "<< street->getPrice() << ", Do you want to buy this street? (y/n)" << endl;
+            cout << "This street cost: " << street->getPrice() << ", Do you want to buy this street? (y/n)" << endl;
             char answer;
             cin >> answer;
             if (answer == 'y')
@@ -525,6 +525,14 @@ void Monopoly::buyUtility(Player &player, Utility &utility)
 // then to buy another house the player should have the same number of houses on all the streets, or not more than one difference
 void Monopoly::buyHouse(Player &player, Streets &street)
 {
+    // Can't build more than 4 houses
+    if (street.getHouses() == 4)
+    {
+        // cout << "You can't build more than 4 houses on a street" << endl;
+        // return;
+        throw runtime_error("You can't build more than 4 houses on a street"); // in the main we'll catch it
+    }
+
     if (!checkIfHasAllRoad(player, street)) // Here we're checking if the player has all the streets of the same color
     {
         // cout << "You need to have all the streets of the same color to buy a house" << endl;
@@ -638,7 +646,7 @@ void Monopoly::initPlayers()
     int numPlayers;
     cout << "Enter the number of players (between 2 and 8): ";
     cin >> numPlayers;
-    while(numPlayers < 2 || numPlayers > 8)
+    while (numPlayers < 2 || numPlayers > 8)
     {
         cout << "Invalid number of players, enter number between 2 and 8" << endl;
         cout << "Enter the number of players (between 2 and 8): ";

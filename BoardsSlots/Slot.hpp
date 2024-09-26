@@ -31,9 +31,7 @@ class Slot
 private:
     string name; // name of the slot
     string type; // type of the slot as mentioned above
-    // int position;
     vector<Player> players; // who are the players on this slot, will help to move the player to the next slot
-    // vector<std::shared_ptr<Player>> players; // who are the players on this slot, will help to move the player to the next slot
 
 public:
     Slot(const string &name,const  string &type);
@@ -45,19 +43,11 @@ public:
     void addPlayer(Player &player);
     void removePlayer(Player &player);
 
-    // using shared_ptr instead of reference to avoid memory leak
-    // void addPlayer(shared_ptr<Player> player);
-    // void removePlayer(shared_ptr<Player> player);
-
     // Getters
     const string &getName() const;
     const string &getType() const;
     const vector<Player> &getPlayers() const;
     virtual void printSlot() const; // To know the details of the slot, each slot will have different details
-    // friend ostream &operator<<(ostream &os, const Slot &slot);
-
-    // Pure virtual function
-    // virtual void slotAction() = 0; // function for virtual class
 };
 
 #endif // SLOT_HPP

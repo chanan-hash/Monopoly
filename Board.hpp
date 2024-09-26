@@ -40,7 +40,6 @@ public:
     vector<Slot *> &getBoard();
     const vector<Slot *> &getBoard() const;
     void printBoard(); // Method to print the board
+    friend ostream &operator<<(ostream &os, const Board &board); // printing with gui
 };
-
 #endif // BOARD_HPP
-       // friend operator << printing with gui
