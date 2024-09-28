@@ -696,6 +696,9 @@ void Monopoly::initPlayers()
 
         players.push_back(new Player(name));
 
+        // putting the players on the go slot
+        board.getBoard()[0]->addPlayer(*players[i]);
+
     }
 }
 

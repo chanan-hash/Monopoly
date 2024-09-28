@@ -207,8 +207,28 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
         shape.setOutlineColor(sf::Color::Black);
 
         // Set text
-        text.setString(slot->getName());
+        // text.setString(slot->getName());
+        text.setString(slot->toString());
         text.setFillColor(sf::Color::Black);
+
+        // Adjust text size to fit within the slot
+        float maxTextWidth = slotWidth - 10;   // Padding of 5 on each side
+        float maxTextHeight = slotHeight - 10; // Padding of 5 on each side
+        unsigned int characterSize = 10;       // Starting character size
+
+        // Increase character size until the text fits within the slot
+        while (true)
+        {
+            text.setCharacterSize(characterSize);
+            sf::FloatRect textBounds = text.getLocalBounds();
+            if (textBounds.width > maxTextWidth || textBounds.height > maxTextHeight)
+            {
+                text.setCharacterSize(characterSize - 1); // Use the previous size
+                break;
+            }
+            characterSize++;
+        }
+
         text.setPosition(shape.getPosition() + sf::Vector2f(5, 5));
 
         slotShapes.push_back(shape);

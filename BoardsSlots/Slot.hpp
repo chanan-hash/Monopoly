@@ -48,6 +48,8 @@ public:
     const string &getType() const;
     const vector<Player> &getPlayers() const;
     virtual void printSlot() const; // To know the details of the slot, each slot will have different details
+
+    string toString() const;
 };
 
 #endif // SLOT_HPP

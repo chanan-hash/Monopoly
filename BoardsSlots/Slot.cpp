@@ -49,3 +49,15 @@ void Slot::printSlot() const // print the slot details
         cout << players[i].getName() << endl;
     }
 }
+
+string Slot::toString() const // convert the slot to string
+{
+    string res = "";
+    res += name + "\n";
+    res += "Players on: \n";
+    for (size_t i = 0; i < players.size(); i++)
+    {
+        res += players[i].getName() + "\n";
+    }
+    return res;
+}
