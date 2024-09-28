@@ -165,11 +165,13 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
         // Set color based on property color
         Slot *slot = board.getBoard()[i];
         sf::Color color = sf::Color::White;
-        if (Streets *street = dynamic_cast<Streets *>(slot))
+        // if (Streets *street = dynamic_cast<Streets *>(slot))
+        if (slot->getType() == "Property")
         {
+            Streets *street = dynamic_cast<Streets *>(slot);
             std::string propertyColor = street->getColor();
             if (propertyColor == "Brown")
-                color = sf::Color(165, 42, 42);
+                color = sf::Color(102, 51, 0);
             else if (propertyColor == "Light Blue")
                 color = sf::Color(173, 216, 230);
             else if (propertyColor == "Pink")
@@ -185,6 +187,21 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
             else if (propertyColor == "Dark Blue")
                 color = sf::Color::Blue;
         }
+        // else if (Station *station = dynamic_cast<Station *>(slot)) // Station we'll color it gray
+        else if (slot->getType() == "Station")
+        {
+            color = sf::Color(128, 128, 128);
+        }
+        // else if (Utility *utility = dynamic_cast<Utility *>(slot)) // Utility we'll color it purple
+        else if (slot->getType() == "Utility")
+        {
+            color = sf::Color(128, 0, 128);
+        }
+        else if (slot->getName() == "Chance" || slot->getName() == "Community Chest") // Cards will be colored in crem
+        {
+            color = sf::Color(245, 240, 245);
+        }
+
         shape.setFillColor(color);
         shape.setOutlineThickness(1);
         shape.setOutlineColor(sf::Color::Black);
@@ -207,35 +224,6 @@ void draw(sf::RenderWindow &window, const std::vector<sf::RectangleShape> &slotS
         window.draw(slotTexts[i]);
     }
 }
-
-// void runGUI(const Board &board)
-// {
-//     sf::RenderWindow window(sf::VideoMode(800, 800), "Monopoly Board");
-//     sf::Font font;
-//     if (!font.loadFromFile("Arimo-Italic-VariableFont_wght.ttf"))
-//     {
-//         std::cerr << "Error loading font" << std::endl;
-//         return;
-//     }
-
-//     std::vector<sf::RectangleShape> slotShapes;
-//     std::vector<sf::Text> slotTexts;
-//     initializeSlots(board, slotShapes, slotTexts, font);
-
-//     while (window.isOpen())
-//     {
-//         sf::Event event;
-//         while (window.pollEvent(event))
-//         {
-//             if (event.type == sf::Event::Closed)
-//                 window.close();
-//         }
-
-//         window.clear(sf::Color::White);
-//         draw(window, slotShapes, slotTexts);
-//         window.display();
-//     }
-// }
 
 void runGUI(const Board &board)
 {
@@ -322,3 +310,31 @@ void runGUI(const Board &board)
         window.display();
     }
 }
+// void runGUI(const Board &board)
+// {
+//     sf::RenderWindow window(sf::VideoMode(800, 800), "Monopoly Board");
+//     sf::Font font;
+//     if (!font.loadFromFile("Arimo-Italic-VariableFont_wght.ttf"))
+//     {
+//         std::cerr << "Error loading font" << std::endl;
+//         return;
+//     }
+
+//     std::vector<sf::RectangleShape> slotShapes;
+//     std::vector<sf::Text> slotTexts;
+//     initializeSlots(board, slotShapes, slotTexts, font);
+
+//     while (window.isOpen())
+//     {
+//         sf::Event event;
+//         while (window.pollEvent(event))
+//         {
+//             if (event.type == sf::Event::Closed)
+//                 window.close();
+//         }
+
+//         window.clear(sf::Color::White);
+//         draw(window, slotShapes, slotTexts);
+//         window.display();
+//     }
+// }
