@@ -38,7 +38,9 @@ int main()
     // Initializing the players
     monopoly.initPlayers();
 
+    bool exitFlag = false; // Flag to indicate when to exit all loops
     // Starting the game
+
     // it will continue until the game is finished
 
     while (monopoly.isGameFinished() == false)
@@ -58,10 +60,11 @@ int main()
                      << "3. Buy a house\n"
                      << "4. Buy a hotel\n"
                      << "5. Print the board\n"
-                     << "6. End turn " << endl;
+                     << "6. End turn\n"
+                     << "7. For terminating and exit the game" << endl;
                 int move;
                 cin >> move;
-                while (move < 1 || move > 6)
+                while (move < 1 || move > 7)
                 {
                     cout << "Invalid move, enter number between 1 and 6" << endl;
                     cin >> move;
@@ -163,10 +166,22 @@ int main()
                         endTurn = true;
                     }
                 }
+                else if (move == 7)
+                {
+                    exitFlag = true;
+                    break;
+                }
+            }
+            if (exitFlag)
+            {
+                break;
             }
         }
+        if (exitFlag)
+        {
+            break;
+        }
     }
-
     monopoly.deletePlayers();
 
     return 0;

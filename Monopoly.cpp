@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <stdexcept>
+#include <set>
 
 Monopoly::Monopoly() // inintilize the board and the suprise cards, we won't initilize the players here because of the test,it good to separate the initilization of the players from the constructor
 {
@@ -645,19 +646,47 @@ void Monopoly::initPlayers()
 {
     int numPlayers;
     cout << "Enter the number of players (between 2 and 8): ";
-    cin >> numPlayers;
-    while (numPlayers < 2 || numPlayers > 8)
+
+    // Loop until a valid number is entered
+    while (true)
     {
-        cout << "Invalid number of players, enter number between 2 and 8" << endl;
-        cout << "Enter the number of players (between 2 and 8): ";
         cin >> numPlayers;
+
+        // Check if the input is a number and within the valid range
+        if (cin.fail() || numPlayers < 2 || numPlayers > 8)
+        {
+            cin.clear();                                         // Clear the error state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore invalid input
+            cout << "Invalid input. Please enter a number between 2 and 8: ";
+        }
+        else
+        {
+            break; // Valid input, exit the loop
+        }
     }
+
+    set<string> playerNames; // Set to track entered names
 
     for (int i = 0; i < numPlayers; i++)
     {
         string name;
-        cout << "Enter the name of player " << i + 1 << ": ";
-        cin >> name;
+        while (true)
+        {
+            cout << "Enter the name of player " << i + 1 << ": ";
+            cin >> name;
+
+            // Check if the name is already taken
+            if (playerNames.find(name) != playerNames.end())
+            {
+                cout << "This name is already taken, please enter another name" << endl;
+            }
+            else
+            {
+                playerNames.insert(name);
+                break;
+            }
+        }
+
         players.push_back(new Player(name));
     }
 }
@@ -758,3 +787,14 @@ void Monopoly::deletePlayers()
         delete players[i];
     }
 }
+
+// void Monopoly::terminateGame()
+// {
+//     // Deleting the players
+//     deletePlayers();
+//     // Deleting the suprise cards
+//     for (size_t i = 0; i < supriseCards.size(); i++)
+//     {
+//         delete supriseCards[i];
+//     }
+// }
