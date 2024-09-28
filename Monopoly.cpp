@@ -149,6 +149,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         // Checking if the street is owned
         if (street->getOwnerPtr() != nullptr)
         {
+            cout << player.getName() << " landed on " << street->getName() << " which is owned by " << street->getOwner().getName() << endl;
             payStreetRent(player, street->getOwner(), *street);
         }
         else
@@ -170,6 +171,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         // Checking if the station is owned
         if (station->getOwnerPtr() != nullptr)
         {
+            cout << player.getName() << " landed on " << station->getName() << " which is owned by " << station->getOwner().getName() << endl;
             payStationRent(player, station->getOwner(), *station);
         }
         else
@@ -190,6 +192,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
         // Checking if the utility is owned
         if (utility->getOwnerPtr() != nullptr)
         {
+            cout << player.getName() << " landed on " << utility->getName() << " which is owned by " << utility->getOwner().getName() << endl;
             payUtilityRent(player, utility->getOwner(), *utility, dice);
         }
         else
@@ -280,6 +283,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
             // Checking if the street is owned
             if (street->getOwnerPtr() != nullptr)
             {
+                cout << player.getName() << " landed on " << street->getName() << " which is owned by " << street->getOwner().getName() << endl;
                 payStreetRent(player, street->getOwner(), *street);
             }
             else
@@ -313,6 +317,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
                 // Checking if the street is owned
                 if (street->getOwnerPtr() != nullptr)
                 {
+                    cout << player.getName() << " landed on " << street->getName() << " which is owned by " << street->getOwner().getName() << endl;
                     payStreetRent(player, street->getOwner(), *street);
                 }
                 else
@@ -332,6 +337,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
                 // Checking if the station is owned
                 if (station->getOwnerPtr() != nullptr)
                 {
+                    cout << player.getName() << " landed on " << station->getName() << " which is owned by " << station->getOwner().getName() << endl;
                     payStationRent(player, station->getOwner(), *station);
                 }
                 else
@@ -351,6 +357,7 @@ void Monopoly::SlotCheck(Player &player, Board &board, int dice)
                 // Checking if the utility is owned
                 if (utility->getOwnerPtr() != nullptr)
                 {
+                    cout << player.getName() << " landed on " << utility->getName() << " which is owned by " << utility->getOwner().getName() << endl;
                     payUtilityRent(player, utility->getOwner(), *utility, dice);
                 }
                 else
@@ -688,6 +695,7 @@ void Monopoly::initPlayers()
         }
 
         players.push_back(new Player(name));
+
     }
 }
 

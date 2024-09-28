@@ -199,7 +199,7 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
         }
         else if (slot->getName() == "Chance" || slot->getName() == "Community Chest") // Cards will be colored in crem
         {
-            color = sf::Color(245, 240, 245);
+            color = sf::Color(255, 255, 153);
         }
 
         shape.setFillColor(color);

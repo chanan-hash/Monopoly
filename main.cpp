@@ -85,7 +85,7 @@ int main()
                 }
                 else if (move == 2)
                 {
-                    cout << "Player: " << monopoly.getPlayers()[i]->getName() << ", " << monopoly.getPlayers()[i]->toString() << endl;
+                    cout << "Player: " << monopoly.getPlayers()[i]->toString() << endl;
                 }
                 else if (move == 3)
                 {
@@ -168,6 +168,7 @@ int main()
                 }
                 else if (move == 7)
                 {
+                    cout << "Exiting the game" << endl;
                     exitFlag = true;
                     break;
                 }
