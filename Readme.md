@@ -144,7 +144,7 @@ What is your move? Enter the corresponding number:
 ```
 You can't end turn without rolling the dice and move, and you can't of course roll the dice more than once.
 
-```
+```txt
 6
 You have to roll the dice before ending the turn
 
