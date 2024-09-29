@@ -65,6 +65,9 @@ We also have outside of the `Board` class **gui** fucntions, that if we want we 
 For now we can say we've put it in the `Board.hpp` and `Board.cpp` files (outside of the class) for **faster compilation time**
 
 ### Monopoly - game logic
+This class is the **heart** of the project, manges all the game itself- rolling the dice, moving the players, buying streets, stations, utilities..., picking up cards, jail, buying houses, payingrent, checking if the game is finished and who is the winner, etc.  
+The idea here that we have object that runs it all and using the board, slots and players, if we want we can create another gamelogic according to new rules that we want, and using the board slot and what we want.  
+You can see la the details in the class itself.
 
 ## Run the game
 ## Test
