@@ -73,7 +73,7 @@ You can see all the details in the class itself.
 ## Installation
 To run this project at first clone this repository:
 ```bash
-https://github.com/chanan-hash/Monopoly.git
+git clone https://github.com/chanan-hash/Monopoly.git
 ```
 Ensure you have the compiler `g++`  
 If not you can install it by:
