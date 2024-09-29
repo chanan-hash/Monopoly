@@ -58,6 +58,11 @@ The price of them is the same, and the rent depends on how many utilities the pl
 If player lands on this slot, he misses the next turn, and if there is money there he takes it.
 
 ### Board
+The board is assembled from the slots.  
+It is a vector of slots, so we can always add more if we want to increase the board, or add new slots to our game.
+In the regular case we have 40 slots, each slots is placed according to the regular monopoly board.  
+We also have outside of the `Board` class **gui** fucntions, that if we want we can chage it and implement it everyone in it's own way, more details on the gui furthre in this file.  
+For now we can say we've put it in the `Board.hpp` and `Board.cpp` files (outside of the class) for **faster compilation time**
 
 ### Monopoly - game logic
 
