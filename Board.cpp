@@ -134,7 +134,7 @@ std::ostream &operator<<(std::ostream &os, const Board &board)
 // GUI-related functions
 void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotShapes, std::vector<sf::Text> &slotTexts, sf::Font &font)
 {
-    const int BOARD_SIZE = 900;           //
+    const int BOARD_SIZE = 1200;
     const int SLOT_COUNT = 40;            // The number of slots on regular Monopoly board
     float slotWidth = BOARD_SIZE / 11.0f; // For making it the same order as monopoly board
     float slotHeight = BOARD_SIZE / 11.0f;
@@ -203,12 +203,57 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
         }
 
         shape.setFillColor(color);
-        shape.setOutlineThickness(1); // The outline of the slot's thickness
+        shape.setOutlineThickness(2); // The outline of the slot's thickness
         shape.setOutlineColor(sf::Color::Black);
 
         // Set text
-        // text.setString(slot->getName());
-        text.setString(slot->toString());
+        // Get the slot type and owner information
+        std::string slotType = slot->getType();
+        std::string ownerInfo = "Owner: None";
+
+        // Check if the slot is a Street, Station, or Utility
+        if (slotType == "Property")
+        {
+            Streets *street = dynamic_cast<Streets *>(slot);
+            if (street)
+            {
+                Player *owner = street->getOwnerPtr();
+                if (owner != nullptr)
+                {
+                    ownerInfo = "Owner: " + owner->getName();
+                }
+            }
+        }
+        else if (slotType == "Station")
+        {
+            Station *station = dynamic_cast<Station *>(slot);
+            if (station)
+            {
+                Player *owner = station->getOwnerPtr();
+                if (owner != nullptr)
+                {
+                    ownerInfo = "Owner: " + owner->getName();
+                }
+            }
+        }
+        else if (slotType == "Utility")
+        {
+            Utility *utility = dynamic_cast<Utility *>(slot);
+            if (utility)
+            {
+                Player *owner = utility->getOwnerPtr();
+                if (owner != nullptr)
+                {
+                    ownerInfo = "Owner: " + owner->getName();
+                }
+            }
+        }
+        else if (slot->getName() == "Free Parking" || slot->getName() == "GO" || slot->getName() == "Just Visiting / In Jail" || slot->getName() == "Go To Jail" || slot->getName() == "Chance" || slot->getName() == "Community Chest" || slot->getName() == "Luxury Tax" || slot->getName() == "Income Tax")
+        {
+            ownerInfo = "";
+        }
+
+        text.setString(slot->toString() + "\n" + ownerInfo);
         text.setFillColor(sf::Color::Black);
 
         // Adjust text size to fit within the slot
@@ -265,8 +310,8 @@ void runGUI(const Board &board)
     sf::View view(sf::FloatRect(0, 0, 1000, 1000));
     window.setView(view);
 
-    sf::Clock clock;               // For controlling panning speed
-    const float panSpeed = 100.0f; // Pixels per second
+    sf::Clock clock;         // For controlling panning speed
+    float panSpeed = 300.0f; // Increase the pan speed
 
     while (window.isOpen())
     {
