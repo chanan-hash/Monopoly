@@ -66,7 +66,7 @@ int main()
                 cin >> move;
                 while (move < 1 || move > 7)
                 {
-                    cout << "Invalid move, enter number between 1 and 6" << endl;
+                    cout << "Invalid move, enter number between 1 and 7" << endl;
                     cin >> move;
                 }
 

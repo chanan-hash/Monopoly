@@ -134,9 +134,9 @@ std::ostream &operator<<(std::ostream &os, const Board &board)
 // GUI-related functions
 void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotShapes, std::vector<sf::Text> &slotTexts, sf::Font &font)
 {
-    const int BOARD_SIZE = 700;
-    const int SLOT_COUNT = 40;
-    float slotWidth = BOARD_SIZE / 11.0f;
+    const int BOARD_SIZE = 900;           //
+    const int SLOT_COUNT = 40;            // The number of slots on regular Monopoly board
+    float slotWidth = BOARD_SIZE / 11.0f; // For making it the same order as monopoly board
     float slotHeight = BOARD_SIZE / 11.0f;
 
     for (int i = 0; i < SLOT_COUNT; ++i)
@@ -203,7 +203,7 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
         }
 
         shape.setFillColor(color);
-        shape.setOutlineThickness(1);
+        shape.setOutlineThickness(1); // The outline of the slot's thickness
         shape.setOutlineColor(sf::Color::Black);
 
         // Set text
@@ -214,22 +214,25 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
         // Adjust text size to fit within the slot
         float maxTextWidth = slotWidth - 10;   // Padding of 5 on each side
         float maxTextHeight = slotHeight - 10; // Padding of 5 on each side
-        unsigned int characterSize = 10;       // Starting character size
+        unsigned int characterSize = 12;       // Starting character size
 
         // Increase character size until the text fits within the slot
-        while (true)
+        while (characterSize > 6)
         {
             text.setCharacterSize(characterSize);
             sf::FloatRect textBounds = text.getLocalBounds();
-            if (textBounds.width > maxTextWidth || textBounds.height > maxTextHeight)
+            if (textBounds.width <= maxTextWidth && textBounds.height <= maxTextHeight)
             {
-                text.setCharacterSize(characterSize - 1); // Use the previous size
                 break;
             }
-            characterSize++;
+            characterSize--;
         }
 
-        text.setPosition(shape.getPosition() + sf::Vector2f(5, 5));
+        // text.setPosition(shape.getPosition() + sf::Vector2f(5, 5));
+
+        sf::FloatRect textBounds = text.getLocalBounds();
+        text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
+        text.setPosition(shape.getPosition().x + slotWidth / 2.0f, shape.getPosition().y + slotHeight / 2.0f);
 
         slotShapes.push_back(shape);
         slotTexts.push_back(text);
@@ -247,7 +250,7 @@ void draw(sf::RenderWindow &window, const std::vector<sf::RectangleShape> &slotS
 
 void runGUI(const Board &board)
 {
-    sf::RenderWindow window(sf::VideoMode(800, 800), "Monopoly Board");
+    sf::RenderWindow window(sf::VideoMode(1000, 1000), "Monopoly Board"); // Increased window size
     sf::Font font;
     if (!font.loadFromFile("Arimo-Italic-VariableFont_wght.ttf"))
     {
@@ -259,19 +262,18 @@ void runGUI(const Board &board)
     std::vector<sf::Text> slotTexts;
     initializeSlots(board, slotShapes, slotTexts, font);
 
-    // Scrollbar properties
-    sf::RectangleShape scrollbar(sf::Vector2f(20, 100));
-    scrollbar.setPosition(780, 0);
-    scrollbar.setFillColor(sf::Color(200, 200, 200));
-    scrollbar.setOutlineThickness(1);
-    scrollbar.setOutlineColor(sf::Color::Black);
+    sf::View view(sf::FloatRect(0, 0, 1000, 1000));
+    window.setView(view);
 
-    sf::View view = window.getDefaultView();
-    bool isDragging = false;
-    float lastMouseY = 0;
+    sf::Clock clock;               // For controlling panning speed
+    const float panSpeed = 100.0f; // Pixels per second
 
     while (window.isOpen())
     {
+
+        sf::Time elapsed = clock.restart();
+        float dt = elapsed.asSeconds();
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -280,81 +282,44 @@ void runGUI(const Board &board)
             else if (event.type == sf::Event::MouseWheelScrolled)
             {
                 if (event.mouseWheelScroll.delta > 0)
-                {
-                    view.move(0, -20); // Scroll up
-                }
+                    view.zoom(0.95f);
                 else
-                {
-                    view.move(0, 20); // Scroll down
-                }
-                window.setView(view);
+                    view.zoom(1.05f);
             }
             else if (event.type == sf::Event::MouseButtonPressed)
             {
-                if (event.mouseButton.button == sf::Mouse::Left)
+                if (event.mouseButton.button == sf::Mouse::Middle)
                 {
-                    if (scrollbar.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
-                    {
-                        isDragging = true;
-                        lastMouseY = event.mouseButton.y;
-                    }
-                }
-            }
-            else if (event.type == sf::Event::MouseButtonReleased)
-            {
-                if (event.mouseButton.button == sf::Mouse::Left)
-                {
-                    isDragging = false;
-                }
-            }
-            else if (event.type == sf::Event::MouseMoved)
-            {
-                if (isDragging)
-                {
-                    float deltaY = event.mouseMove.y - lastMouseY;
-                    scrollbar.move(0, deltaY);
-                    lastMouseY = event.mouseMove.y;
-
-                    // Adjust view based on scrollbar position
-                    float viewMoveY = deltaY * (700.0f / window.getSize().y); // Adjust this factor as needed
-                    view.move(0, viewMoveY);
-                    window.setView(view);
+                    // Reset zoom and position
+                    view = sf::View(sf::FloatRect(0, 0, 1000, 1000));
                 }
             }
         }
 
+        // moving quickly with arrow keys
+        // // Pan the view with arrow keys
+        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        //     view.move(-5.0f, 0.0f);
+        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        //     view.move(5.0f, 0.0f);
+        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        //     view.move(0.0f, -5.0f);
+        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        //     view.move(0.0f, 5.0f);
+
+        // Pan the view with arrow keys (slower movement)
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            view.move(-panSpeed * dt, 0.0f);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            view.move(panSpeed * dt, 0.0f);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            view.move(0.0f, -panSpeed * dt);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            view.move(0.0f, panSpeed * dt);
+
         window.clear(sf::Color::White);
         window.setView(view);
         draw(window, slotShapes, slotTexts);
-        window.draw(scrollbar);
         window.display();
     }
 }
-// void runGUI(const Board &board)
-// {
-//     sf::RenderWindow window(sf::VideoMode(800, 800), "Monopoly Board");
-//     sf::Font font;
-//     if (!font.loadFromFile("Arimo-Italic-VariableFont_wght.ttf"))
-//     {
-//         std::cerr << "Error loading font" << std::endl;
-//         return;
-//     }
-
-//     std::vector<sf::RectangleShape> slotShapes;
-//     std::vector<sf::Text> slotTexts;
-//     initializeSlots(board, slotShapes, slotTexts, font);
-
-//     while (window.isOpen())
-//     {
-//         sf::Event event;
-//         while (window.pollEvent(event))
-//         {
-//             if (event.type == sf::Event::Closed)
-//                 window.close();
-//         }
-
-//         window.clear(sf::Color::White);
-//         draw(window, slotShapes, slotTexts);
-//         window.display();
-//     }
-// }

@@ -28,6 +28,9 @@ test:
 main: $(OBJS) $(CARDS) $(SLOTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
+valgrind: main
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./main < valgrind_input.txt
+
 # Generic rule for compiling .cpp to .o
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
