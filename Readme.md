@@ -3,7 +3,7 @@
 This project is a simple version of the famous game Monopoly
 
 the rulse you can find in this repository:
-[https://github.com/BenjaminSaldman/CPP_final_project_summer/tree/main](URL)
+[Monopoly final project rules](https://github.com/BenjaminSaldman/CPP_final_project_summer/tree/main)
 
 ## Classes
 ### Player
