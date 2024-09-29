@@ -1491,6 +1491,19 @@ TEST_CASE("Testing game logic")
         monopoly.printWinner();
     }
 
+    SUBCASE("Winning with more than 4000")
+    {
+        // lets assume that player1 has 4001$
+        player1.addMoney(4001);
+
+        CHECK(monopoly.didLose(player1) == false);
+
+        // Checking if the game is over
+        CHECK(monopoly.isGameFinished() == true);
+
+        monopoly.printWinner();
+    }
+
     SUBCASE("Checking cards slot")
     {
         // let put player1 on the cards slot the first card is advance to "GO"

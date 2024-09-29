@@ -85,7 +85,7 @@ public:
 
     // Game finish fucntion
     bool didLose(Player &player); // if the player has no money he loses and is taken out of the game
-    bool isGameFinished() const;
+    bool isGameFinished() const; // if there is only one player left in the game or on of the plyers has 4000$ or more
     void printWinner();
 
     void deletePlayers(); // delete the players, not in the consturcotr becuase of the testing it easer

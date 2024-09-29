@@ -9,7 +9,7 @@
 #include <set>
 
 Monopoly::Monopoly() // inintilize the board and the suprise cards, we won't initilize the players here because of the test,it good to separate the initilization of the players from the constructor
-{   
+{
     // initPlayers(); // we're not going to initilize the players here because of the test
     // The board initialization will be done in the Board constructor
     initSupriseCards();
@@ -698,7 +698,6 @@ void Monopoly::initPlayers()
 
         // putting the players on the go slot
         board.getBoard()[0]->addPlayer(*players[i]);
-
     }
 }
 
@@ -739,9 +738,22 @@ bool Monopoly::didLose(Player &player)
     return false;
 }
 
+// The game finished if there is only one player left or if a player has more than 4000$
 bool Monopoly::isGameFinished() const
 {
-    return players.size() == 1;
+    bool finished = false;
+    if (players.size() == 1)
+    {
+        finished = true;
+    }
+    for (auto player : players)
+    {
+        if (player->getMoney() >= 4000)
+        {
+            finished = true;
+        }
+    }
+    return finished;
 }
 
 void Monopoly::printWinner()
