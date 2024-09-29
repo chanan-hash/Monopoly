@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /**
  * This will be an abstract father class for all the board slots.
  * 1. Streets
@@ -18,9 +21,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <memory> // for shared_ptr may be used in the future
 #include "../Player.hpp"
-
 
 using namespace std;
 

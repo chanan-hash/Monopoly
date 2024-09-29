@@ -29,7 +29,23 @@ Here is the list of the cards we have in the game:
 10. Your building loan matures – Collect $150
 11. Get out of Jail Free – This card may be kept until needed
 
+Each card work in it's own way according to what it's doing
+
 ### Slots
+The slots assmeble the board:
+We have the father class `Slots`
+The rest of the slot or Slots of themselves, ot inherits from this class and work in there own special way.  
+Every slot has its:
+* name
+* type
+* The players that on the slot
+
+Here is the list of the Slots:
+
+1. Slot - GO, Pay Taxes, Jail, In/Visit the jail, are all regular slots. They don't have any special thing on themselves, they causing for all kind of actions but not on themselves
+
+2. Street
+
 ### Board
 
 ### Monopoly - game logic
