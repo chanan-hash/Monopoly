@@ -1,4 +1,4 @@
-// Authors: Chanan-Helman
+// Author: Chanan-Helman
 // mail: chanan.Helman@msmail.ariel.ac.il
 
 #include "Player.hpp"

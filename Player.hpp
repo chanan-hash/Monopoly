@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /**
  * This class represnts a simple player in the game
  * Each player has a name, money, card, and assets (streets, train stations, and utilities)
@@ -59,7 +62,6 @@ public:
     string toString();
     bool operator==(const Player &other) const;
     bool operator!=(const Player &other) const;
-    // friend ostream &operator<<(ostream &os, const Player &player);
 
     // setters
     void setPosition(int position);
