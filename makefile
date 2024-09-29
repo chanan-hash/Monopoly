@@ -20,16 +20,17 @@ TSRC = test.cpp
 TOBJ = $(TSRC:.cpp=.o)
 
 # Main target
-all: main
+all: monopoly
 
 test:
 	make -C Test
 
-main: $(OBJS) $(CARDS) $(SLOTS)
+monopoly: $(OBJS) $(CARDS) $(SLOTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+	./monopoly
 
-valgrind: main
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./main < valgrind_input.txt
+valgrind: monopoly
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./monopoly < valgrind_input.txt
 
 # Generic rule for compiling .cpp to .o
 %.o: %.cpp
@@ -37,9 +38,9 @@ valgrind: main
 
 # Clean up
 clean:
-	rm -f $(OBJS) $(TOBJ) main test
+	rm -f $(OBJS) $(TOBJ) monopoly test
 	make -C Cards clean
 	make -C BoardsSlots clean
 	make -C Test clean
 
-.PHONY: all clean test
+.PHONY: all clean test monopoly valgrind
