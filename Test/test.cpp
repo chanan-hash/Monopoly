@@ -1,10 +1,13 @@
+// Authors: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include <sstream>
 #include <string>
+#include <SFML/Graphics.hpp>
 
 #include "../Monopoly.hpp"
-
 #include "../Board.hpp"
 #include "../Player.hpp"
 #include "../Cards/supriseCard.hpp"

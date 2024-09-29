@@ -1,8 +1,10 @@
+// Authors: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /*
  * Here we're creating the board for the game.
  * It will be initialized with 40 slots, like the monopoly board.
  */
-// #include "MonopolyBoardGUI.hpp"
 
 #include "Board.hpp"
 #include "BoardsSlots/Slot.hpp"

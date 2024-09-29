@@ -1,3 +1,6 @@
+// Authors: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #include "Player.hpp"
 #include "BoardsSlots/Slot.hpp"
 #include "BoardsSlots/Streets.hpp"
@@ -6,7 +9,7 @@
 
 using namespace std;
 
-// Player::Player(string name) : name(name), money(1500) {} // Default money is 1500
+// Player::Player() : money(1500), trains(0), utilities(0), position(0) {}
 Player::Player(string name) : name(name), money(1500), trains(0), utilities(0), position(0) {}
 
 void Player::addMoney(int amount)

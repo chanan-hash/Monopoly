@@ -8,14 +8,15 @@ PLAYR = ../Player.o
 BOARD = ../Board.o
 MONOP = ../Monopoly.o
 
+# Linker flags
+LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+
 # Generate a list of object files
 
 all: test
 
 test: test.o $(CARDS) $(SLOTS) $(PLAYR) $(BOARD) $(MONOP)
-#	make -C ../Cards
-#	make -C ../BoardsSlots
-	$(CXX) $(CXXFLAGS) $^ -o $@
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 	./test
 
 test.o: test.cpp

@@ -1,3 +1,6 @@
+// Authors: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #include "Monopoly.hpp"
 #include <cmath>
 #include <sstream>
@@ -6,18 +9,15 @@
 #include <set>
 
 Monopoly::Monopoly() // inintilize the board and the suprise cards, we won't initilize the players here because of the test,it good to separate the initilization of the players from the constructor
-{
+{   
+    // initPlayers(); // we're not going to initilize the players here because of the test
     // The board initialization will be done in the Board constructor
     initSupriseCards();
 }
 
 Monopoly::~Monopoly()
 {
-    // Deleting the players, we'll have to use the init function to delete the players
-    // for (size_t i = 0; i < players.size(); i++)
-    // {
-    //     delete players[i];
-    // }
+    // deletePlayers(); // we're not going to delete the players here because of the test
 
     // Deleting the suprise cards
     for (size_t i = 0; i < supriseCards.size(); i++)
@@ -798,14 +798,3 @@ void Monopoly::deletePlayers()
         delete players[i];
     }
 }
-
-// void Monopoly::terminateGame()
-// {
-//     // Deleting the players
-//     deletePlayers();
-//     // Deleting the suprise cards
-//     for (size_t i = 0; i < supriseCards.size(); i++)
-//     {
-//         delete supriseCards[i];
-//     }
-// }

@@ -90,7 +90,6 @@ public:
 
     void deletePlayers(); // delete the players, not in the consturcotr becuase of the testing it easer
 
-    void terminateGame(); // terminate the game
 };
 
 #endif // MONOPOLY_HPP

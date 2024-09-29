@@ -33,6 +33,7 @@ private:
     bool missTurn = false;     // A flag to indicate if the player has to miss a turn or not
 
 public:
+    // Player();
     Player(string name);
     void addMoney(int amount); // we can add a negative amount to remove money
     void removeMoney(int amount);

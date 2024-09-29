@@ -1,3 +1,6 @@
+// Authors: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -6,7 +9,6 @@
 #include <cmath>
 #include <sstream>
 #include <SFML/Graphics.hpp>
-// #include "MonopolyBoardGUI.hpp"
 
 #include "Monopoly.hpp"
 #include "Board.hpp"
@@ -31,9 +33,10 @@ using namespace std;
 
 int main()
 {
+
+    cout << "Welcome to Monopoly" << endl;
     // Creating the game
     Monopoly monopoly;
-    cout << "Welcome to Monopoly" << endl;
 
     // Initializing the players
     monopoly.initPlayers();
@@ -41,8 +44,7 @@ int main()
     bool exitFlag = false; // Flag to indicate when to exit all loops
     // Starting the game
 
-    // it will continue until the game is finished
-
+    // it will continue until the game is finished or the user wants to exit
     while (monopoly.isGameFinished() == false)
     {
         for (size_t i = 0; i < monopoly.getPlayers().size(); i++)
@@ -66,7 +68,7 @@ int main()
                 cin >> move;
                 while (move < 1 || move > 7)
                 {
-                    cout << "Invalid move, enter number between 1 and 7" << endl;
+                    cout << "Invalid move, enter number between 1 and 6" << endl;
                     cin >> move;
                 }
 
@@ -183,6 +185,7 @@ int main()
             break;
         }
     }
+
     monopoly.deletePlayers();
 
     return 0;
