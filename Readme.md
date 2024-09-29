@@ -108,12 +108,12 @@ It will compile everything and also run the game.
 In the begining You'll be asked to enter number (between 2-8) of players, if the input isn't right, you'll be asked again till the input is correct:
 
 1. **correct input:**
-```
+```txt
 Welcome to Monopoly
 Enter the number of players (between 2 and 8): 2
 ```
 2. **Incorect input:**
-```
+```txt
 Welcome to Monopoly
 Enter the number of players (between 2 and 8): 1
 Invalid input. Please enter a number between 2 and 8: -4
@@ -122,7 +122,7 @@ Invalid input. Please enter a number between 2 and 8: 3556
 ```
 After this you will need to put the names of the players you can't use the same name twice, as before if you'll put name that is taken you'll be asked to put another name.  
 example:
-```
+```txt
 Enter the name of player 1: Alice
 Enter the name of player 2: Bob
 Enter the name of player 3: Bob
@@ -131,7 +131,7 @@ Enter the name of player 3: Charlie
 ```
 And now the game starts.  
 In each turn the player hasseveral options what to do:
-```
+```txt
 Player Alice turn
 What is your move? Enter the corresponding number:
 1. Roll dice
@@ -144,7 +144,7 @@ What is your move? Enter the corresponding number:
 ```
 You can't end turn without rolling the dice and move, and you can't of course roll the dice more than once.
 
-```
+```txt
 6
 You have to roll the dice before ending the turn
 
