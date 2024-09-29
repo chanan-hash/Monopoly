@@ -42,9 +42,20 @@ Every slot has its:
 
 Here is the list of the Slots:
 
-1. Slot - GO, Pay Taxes, Jail, In/Visit the jail, are all regular slots. They don't have any special thing on themselves, they causing for all kind of actions but not on themselves
+1. ***Slot*** - Pay Taxes, Jail, In/Visit the jail, are all regular slots. They don't have any special thing on themselves, they causing for all kind of actions but not on themselves
 
-2. Street
+2. ***Street*** - The street type, is most of the board.
+Each street, has it name, color, price, rent, rent with house and hotel, cost to build a house or hotel, and its owner
+
+3. ***Station*** - We have 4 Train Stations in the game, one on each side of the board. The price to buy one is the same, and the rent is depends according to how many station the player own.
+
+4. ***Utility*** - We have 2 utilities: electic company, and water company.  
+The price of them is the same, and the rent depends on how many utilities the playwer has, and the result of the dice roll.
+
+5. ***GO*** - The statrt of the board, if player passes it, he gets 200$, and if he lands on it he get 400$
+
+6. ***Free Parking*** - Any time a player needs to pay the bank the money goes there.  
+If player lands on this slot, he misses the next turn, and if there is money there he takes it.
 
 ### Board
 
