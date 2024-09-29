@@ -212,6 +212,7 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
         // Get the slot type and owner information
         std::string slotType = slot->getType();
         std::string ownerInfo = "Owner: None";
+        std::string price = "Price: None";
 
         // Check if the slot is a Street, Station, or Utility
         if (slotType == "Property")
@@ -224,6 +225,7 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
                 {
                     ownerInfo = "Owner: " + owner->getName();
                 }
+                price = "Price: " + std::to_string(street->getPrice()) + "$";
             }
         }
         else if (slotType == "Station")
@@ -236,6 +238,7 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
                 {
                     ownerInfo = "Owner: " + owner->getName();
                 }
+                price = "Price: " + std::to_string(station->getPrice()) + "$";
             }
         }
         else if (slotType == "Utility")
@@ -248,14 +251,16 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
                 {
                     ownerInfo = "Owner: " + owner->getName();
                 }
+                price = "Price: " + std::to_string(utility->getPrice()) + "$";
             }
         }
         else if (slot->getName() == "Free Parking" || slot->getName() == "GO" || slot->getName() == "Just Visiting / In Jail" || slot->getName() == "Go To Jail" || slot->getName() == "Chance" || slot->getName() == "Community Chest" || slot->getName() == "Luxury Tax" || slot->getName() == "Income Tax")
         {
             ownerInfo = "";
+            price = "";
         }
 
-        text.setString(slot->toString() + "\n" + ownerInfo);
+        text.setString(slot->toString() + "\n" + ownerInfo + "\n" + price);
         text.setFillColor(sf::Color::Black);
 
         // Adjust text size to fit within the slot

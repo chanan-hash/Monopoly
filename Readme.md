@@ -103,7 +103,13 @@ After you've installed everying thing to run this game enter this command
 ```bash
 make monopoly
 ```
-It will compile everything and also run the game.
+or just `make`
+It will compile everything.
+The run 
+```bash
+./monopoly
+```
+and it'll run the game.
 
 In the begining You'll be asked to enter number (between 2-8) of players, if the input isn't right, you'll be asked again till the input is correct:
 
@@ -158,8 +164,31 @@ You have already rolled the dice, you can't roll again
 ```
 Now for the rest try it by oyurself and enjoy :)
 
+## GUI
+As you see abvoe you have in option `5` in the player's turn to print the board, it will open a window that will show the board, you can scroll by the mouse to make it bigger or smaller, and use the keypad to move around it and see the whole board.
+we can see on each slot, how standing there, and if there an owner of the asset also to see who owns it.
+We're using the `SFML` library for building the gui
+
+here is an example of how it looks:
+![Board exapmle](BoardPrint.png)
 ## Test
 
 ## Valgrind
-
-## GUI
+For memorycheck you can run the command
+```bash
+make valgrind
+```
+and it will compile run the valgrind check
+here is the output:
+```txt
+==56982== 
+==56982== HEAP SUMMARY:
+==56982==     in use at exit: 0 bytes in 0 blocks
+==56982==   total heap usage: 185 allocs, 185 frees, 90,982 bytes allocated
+==56982== 
+==56982== All heap blocks were freed -- no leaks are possible
+==56982== 
+==56982== For lists of detected and suppressed errors, rerun with: -s
+==56982== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+```
+### Now go and play! have fun :)
