@@ -66,6 +66,7 @@ For now we can say we've put it in the `Board.hpp` and `Board.cpp` files (outsid
 
 ### Monopoly - game logic
 This class is the **heart** of the project, manges all the game itself- rolling the dice, moving the players, buying streets, stations, utilities..., picking up cards, jail, buying houses, payingrent, checking if the game is finished and who is the winner, etc.  
+The rationale on working on it, is to imagine the game and the moves, and according to that start building everything.   
 The idea here that we have object that runs it all and using the board, slots and players, if we want we can create another gamelogic according to new rules that we want, and using the board slot and what we want.  
 You can see all the details in the class itself.
 
@@ -171,16 +172,41 @@ We're using the `SFML` library for building the gui
 
 here is an example of how it looks:
 ![Board exapmle](BoardPrint.png)
+
 ## Test
+Inside the **Test** folder we have the `test.cpp` file that uses `doctest.h` for all the test checkups
+before the `main.cpp` was created we ran and checked each card and function in test format.
+We have there 2 main *TEST_CASE*
+1. Cards checkups, and each card in *SUBCASE*
+2. The game logic, each function or situation that was written, was checked fisrt in the test cases before we lunched it to the main.  
+For running the test file here's the command:
+```bash
+make test
+```
+Then it'll complie everything and run the tests.
 
 ## Valgrind
-For memorycheck you can run the command
+For memorycheck for the test and the game, you can run the command
 ```bash
 make valgrind
 ```
 and it will compile run the valgrind check
 here is the output:
 ```txt
+==60021== HEAP SUMMARY:
+==60021==     in use at exit: 0 bytes in 0 blocks
+==60021==   total heap usage: 5,004 allocs, 5,004 frees, 513,083 bytes allocated
+==60021== 
+==60021== All heap blocks were freed -- no leaks are possible
+==60021== 
+==60021== For lists of detected and suppressed errors, rerun with: -s
+==60021== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./monopoly < valgrind_input.txt
+==60067== Memcheck, a memory error detector
+==60067== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==60067== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+
+
 ==56982== 
 ==56982== HEAP SUMMARY:
 ==56982==     in use at exit: 0 bytes in 0 blocks

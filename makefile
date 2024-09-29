@@ -28,7 +28,8 @@ test:
 monopoly: $(OBJS) $(CARDS) $(SLOTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
-valgrind: monopoly
+valgrind: monopoly test
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes Test/./test
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./monopoly < valgrind_input.txt
 
 # Generic rule for compiling .cpp to .o
