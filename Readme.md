@@ -70,48 +70,44 @@ The rationale on working on it, is to imagine the game and the moves, and accord
 The idea here that we have object that runs it all and using the board, slots and players, if we want we can create another gamelogic according to new rules that we want, and using the board slot and what we want.  
 You can see all the details in the class itself.
 
-## Installation
-To run this project at first clone this repository:
+## Prerequisites:
+* Linux OS 
+      (Tested on Ubuntu, might work on others)
+* `⁠g++` compiler
+```bash 
+      sudo apt-get update
+      sudo apt-get install build essential
+```
+* `⁠valgrind`
+```bash
+      ⁠sudo apt install valgrind)
+```
+* ⁠`For GUI: SFML`
+```bash
+      sudo apt-get install libsfml-dev
+```
+
+## Installation:
+First clone this repository
 ```bash
 git clone https://github.com/chanan-hash/Monopoly.git
 ```
-Ensure you have the compiler `g++`  
-If not you can install it by:
-
-Then you should ensure that you have g++ compiler. if not you can installl it with all `c` and `c++` needed
+### Compiling:
 ```bash
-sudo apt-get update
-sudo apt-get install build essential
-``` 
-Allso check that you have `valgrind` installed
-
-```bash
-sudo apt install valgrind
+make monopoly
 ```
-**For gui to show the tree we've used `SFML`.**  
-You must have it to make the project run.  You can instaal it by this command:
-
+### Running the game:
 ```bash
-sudo apt-get install libsfml-dev
+./monopoly
 ```
+And then the game will start.
+
 ***IMPORTANT!***  
 The gui causing a memory leak, somethig that is known, and not part of the code.  
 To see that the code doesn't have a memory leak you can run `valgrind`on the test `valgrind ./test`  
 or in the main don't press in the main-menu `5` to open the gui in `main.cpp` (Explaintion in the next head-line)
 
-## Runing the game
-After you've installed everying thing to run this game enter this command
-```bash
-make monopoly
-```
-or just `make`
-It will compile everything.
-The run 
-```bash
-./monopoly
-```
-and it'll run the game.
-
+### The Game course: 
 In the begining You'll be asked to enter number (between 2-8) of players, if the input isn't right, you'll be asked again till the input is correct:
 
 1. **correct input:**
