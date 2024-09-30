@@ -167,6 +167,7 @@ we can see on each slot, how standing there, and if there an owner of the asset 
 We're using the `SFML` library for building the gui
 
 here is an example of how it looks:
+
 ![Board exapmle](BoardPrint.png)
 
 ## Test
