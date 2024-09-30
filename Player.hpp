@@ -41,11 +41,8 @@ public:
     void addMoney(int amount); // we can add a negative amount to remove money
     void removeMoney(int amount);
     void addAsset(Streets &asset); // Adding the asset to the player
-    void removeAsset(Streets &asset);
     void addTrain(Station &train); // Adding the train to the player, and increment the number of trains for payment calculation
-    void removeTrain(Station &train);
     void addUtility(Utility &utility); // Adding the utility to the player, and increment the number of utilities for payment calculation
-    void removeUtility(Utility &utility);
 
     // getters
     const string &getName() const;

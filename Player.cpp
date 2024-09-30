@@ -26,13 +26,6 @@ void Player::removeMoney(int amount)
     }
 }
 
-// void Player::removeCard(supriseCard card) {
-//     auto it = std::find(this->card.begin(), this->card.end(), card);
-//     if (it != this->card.end()) {
-//         this->card.erase(it);
-//     }
-// }
-
 void Player::addAsset(Streets &asset)
 {
     // setting the owner of the asset to the player
@@ -40,26 +33,11 @@ void Player::addAsset(Streets &asset)
     assets.push_back(&asset);
 }
 
-// void Player::removeAsset(Streets& asset) {
-//     auto it = find(assets.begin(), assets.end(), asset);
-//     if (it != assets.end()) {
-//         assets.erase(it);
-//     }
-// }
-
 void Player::addTrain(Station &train)
 {
     train.setOwner(*this);
     trains++;
 }
-
-// void Player::removeTrain(Station& train) {
-//     auto it = find(assets.begin(), assets.end(), train);
-//     if (it != assets.end()) {
-//         assets.erase(it);
-//         trains--;
-//     }
-// }
 
 void Player::addUtility(Utility &utility)
 {
@@ -67,13 +45,6 @@ void Player::addUtility(Utility &utility)
     utilities++;
 }
 
-// void Player::removeUtility(Utility& utility) {
-//     auto it = std::find(assets.begin(), assets.end(), utility);
-//     if (it != assets.end()) {
-//         assets.erase(it);
-//         utilities--;
-//     }
-// }
 
 const string &Player::getName() const
 {
