@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #include "AdvancedToBoardWalk.hpp"
 
 AdvancedToBoardWalk::AdvancedToBoardWalk() : supriseCard("Advanced To Boardwalk", "Take a walk on the Boardwalk, Advance token to Boardwalk") {}

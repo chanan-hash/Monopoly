@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /**
  * Take a trip to Reading Railroad – If you pass Go collect $200
  */

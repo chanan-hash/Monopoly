@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /**
  * PayTax.hpp
  * Pay poor tax of $15

@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /**
  * Repair Pay Card
  * Make general repairs on all your property – For each house pay $25 – For each hotel $100

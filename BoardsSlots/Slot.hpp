@@ -37,7 +37,6 @@ private:
 public:
     Slot(const string &name,const  string &type);
     Slot(const string& name);
-    Slot(const Slot& other) = default; // Copy constructor
     virtual ~Slot() = default;
 
     // For movment of the player

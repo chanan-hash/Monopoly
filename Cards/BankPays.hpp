@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /**
  * @file BankPays.hpp
  * @brief This file contains the declaration of the BankPays class
@@ -15,7 +18,6 @@ class BankPays : public supriseCard
 {
 public:
     BankPays();
-    ~BankPays() = default;
     void action(Player &player);
 };
 

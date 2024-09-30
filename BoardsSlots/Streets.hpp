@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /**
  * This class represnt a street in the game.
  * Each street will have a name, color, price, rent, house price, hotel price, and the owner, how may houses and if a hotel is built.

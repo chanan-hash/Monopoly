@@ -1,3 +1,7 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
+
 #include "Go.hpp"
 #include "../Player.hpp"
 

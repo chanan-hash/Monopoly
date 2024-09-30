@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /*
  * This class represents a simple game board
  * The board is made up of 40 squares.

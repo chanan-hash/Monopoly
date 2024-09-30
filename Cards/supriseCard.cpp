@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #include "supriseCard.hpp"
 
 using namespace std;
@@ -25,8 +28,8 @@ void supriseCard::printCard()
 }
 
 // Will be for the gui maybe
-ostream &operator<<(ostream &os, const supriseCard &card)
-{
-    os << card.getName();
-    return os;
-}
+// ostream &operator<<(ostream &os, const supriseCard &card)
+// {
+//     os << card.getName();
+//     return os;
+// }

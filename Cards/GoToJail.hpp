@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /**
  * Go to jail card class definition
  * Go directly to Jail – do not pass Go, do not collect $200

@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #include "Station.hpp"
 #include "../Player.hpp"
 

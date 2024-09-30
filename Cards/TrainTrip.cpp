@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #include "TrainTrip.hpp"
 
 TrainTrip::TrainTrip() : supriseCard("Train Trip", "Take a trip to Reading Railroad – If you pass Go collect $200") {}

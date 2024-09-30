@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #include "BankPays.hpp"
 
 BankPays::BankPays() : supriseCard("BankPays", "Bank pays you dividend of $50") {}

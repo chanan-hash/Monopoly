@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #include "PayPlayer.hpp"
 
 PayPlayer::PayPlayer() : supriseCard("Pay Player", "You have been elected Chairman of the Board, Pay each player $50") {}

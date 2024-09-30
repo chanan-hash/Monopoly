@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /**
  * This card is a class that will handle the free jail card.
  */
@@ -12,7 +15,6 @@ class FreeJail : public supriseCard
 {
 public:
     FreeJail();
-    ~FreeJail() = default;
     void action(Player &player);
 };
 

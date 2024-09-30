@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #include "GoToJail.hpp"
 #include "../BoardsSlots/Slot.hpp" // Include the header file for the Slot class
 

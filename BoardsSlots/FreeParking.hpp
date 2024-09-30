@@ -1,3 +1,7 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
+
 /**
  * This free parking class will be used to store the money that the player will pay for the taxes,
  * and also for the player to wait for a turn, but this check up will be in the turn

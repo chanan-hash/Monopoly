@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /**
  * This class represents the utility slot we have electricity and water
  * The payemtn is according to how many utilities you have, and what is the dice result

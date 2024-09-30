@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #include "GoBack.hpp"
 
 GoBack::GoBack() : supriseCard("GoBack", "Go back 3 steps") {}

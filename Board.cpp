@@ -213,6 +213,8 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
         std::string slotType = slot->getType();
         std::string ownerInfo = "Owner: None";
         std::string price = "Price: None";
+        std::string houses = "";
+        std::string hotel = ""; 
 
         // Check if the slot is a Street, Station, or Utility
         if (slotType == "Property")
@@ -226,6 +228,9 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
                     ownerInfo = "Owner: " + owner->getName();
                 }
                 price = "Price: " + std::to_string(street->getPrice()) + "$";
+            
+                houses = "Houses: " + std::to_string(street->getHouses());
+                hotel = "Hotel: " + std::to_string(street->getHotel());
             }
         }
         else if (slotType == "Station")
@@ -260,7 +265,7 @@ void initializeSlots(const Board &board, std::vector<sf::RectangleShape> &slotSh
             price = "";
         }
 
-        text.setString(slot->toString() + "\n" + ownerInfo + "\n" + price);
+        text.setString(slot->toString() + "\n" + ownerInfo + "\n" + price + "\n" + houses + "\n" + hotel);
         text.setFillColor(sf::Color::Black);
 
         // Adjust text size to fit within the slot

@@ -1,4 +1,4 @@
-# Monoply Game
+# Monopoly Game
 
 This project is a simple version of the famous game Monopoly
 

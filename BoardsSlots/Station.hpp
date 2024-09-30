@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 /**
  * This class is representing the train stations in the game
  * The player will pay the rent to the owner of the station according to the number of stations that the owner has

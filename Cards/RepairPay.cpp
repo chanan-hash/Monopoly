@@ -1,3 +1,6 @@
+// Author: Chanan-Helman
+// mail: chanan.Helman@msmail.ariel.ac.il
+
 #include "RepairPay.hpp"
 #include "../BoardsSlots/Slot.hpp"
 #include "../Player.hpp"
