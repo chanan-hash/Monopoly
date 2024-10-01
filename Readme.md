@@ -75,16 +75,16 @@ You can see all the details in the class itself.
       (Tested on Ubuntu, might work on others)
 * `⁠g++` compiler
 ```bash 
-      sudo apt-get update
-      sudo apt-get install build essential
+sudo apt-get update
+sudo apt-get install build essential
 ```
 * `⁠valgrind`
 ```bash
-      ⁠sudo apt install valgrind)
+⁠sudo apt install valgrind)
 ```
 * ⁠`For GUI: SFML`
 ```bash
-      sudo apt-get install libsfml-dev
+sudo apt-get install libsfml-dev
 ```
 
 ## Installation:
